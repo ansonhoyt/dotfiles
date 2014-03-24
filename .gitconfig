@@ -1,0 +1,13 @@
+[user]
+  name = Anson Hoyt
+  email = ahoyt@tiu11.org
+[color]
+  ui = true
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[credential]
+  helper = osxkeychain
