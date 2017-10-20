@@ -2,12 +2,23 @@
   name = Anson Hoyt
   email = ahoyt@tiu11.org
 [color]
-  ui = true
+  ui = auto
+[core]
+  excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  cmd = /Applications/DeltaWalker.app/Contents/MacOS/git-diff \"$LOCAL\" \"$REMOTE\"
   path =
 [mergetool "sourcetree"]
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
 [credential]
   helper = osxkeychain
+[push]
+  default = simple
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+[commit]
+  template = /Users/ahoyt/.stCommitMsg
