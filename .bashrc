@@ -1,4 +1,5 @@
-source ~/.bash/completions
+source ~/.bash/aliases.sh
+source ~/.bash/completions.sh
 
 # TODO: consider https://github.com/Bash-it/bash-it
 
