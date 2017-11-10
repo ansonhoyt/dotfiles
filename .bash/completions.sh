@@ -14,6 +14,25 @@ else
   echo "Missing bash completions for Homebrew"
 fi
 
+if [ -f `brew --prefix`/etc/bash_completion.d/bundler ]; then
+  . `brew --prefix`/etc/bash_completion.d/bundler
+else
+  echo "Missing bash completions for bundler"
+fi
+
+if [ -f `brew --prefix`/etc/bash_completion.d/docker ]; then
+  . `brew --prefix`/etc/bash_completion.d/docker
+else
+  echo "Missing bash completions for docker"
+fi
+
+# lags a second
+if [ -f `brew --prefix`/etc/bash_completion.d/gem ]; then
+  . `brew --prefix`/etc/bash_completion.d/gem
+else
+  echo "Missing bash completions for gem"
+fi
+
 if [ -f `brew --prefix`/etc/bash_completion.d/gibo-completion.bash ]; then
   . `brew --prefix`/etc/bash_completion.d/gibo-completion.bash
 else
@@ -40,8 +59,28 @@ else
   echo "Missing bash completions for npm"
 fi
 
+# lags a couple seconds
+if [ -f `brew --prefix`/etc/bash_completion.d/rails ]; then
+  . `brew --prefix`/etc/bash_completion.d/rails
+else
+  echo "Missing bash completions for rails"
+fi
+
+# lags a couple seconds
+if [ -f `brew --prefix`/etc/bash_completion.d/rake ]; then
+  . `brew --prefix`/etc/bash_completion.d/rake
+else
+  echo "Missing bash completions for rake"
+fi
+
 if [ -f `brew --prefix`/etc/bash_completion.d/rg.bash-completion ]; then
   . `brew --prefix`/etc/bash_completion.d/rg.bash-completion
 else
   echo "Missing bash completions for ripgrep"
+fi
+
+if [ -f `brew --prefix`/etc/bash_completion.d/ruby ]; then
+  . `brew --prefix`/etc/bash_completion.d/ruby
+else
+  echo "Missing bash completions for ruby"
 fi

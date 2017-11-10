@@ -31,6 +31,15 @@ brew 'tree'
 brew 'wget'
 brew 'yarn'
 
+brew 'gibo' # https://github.com/simonwhitaker/gibo, https://github.com/github/gitignore
+brew 'bundler-completion'
+brew 'docker-completion'
+brew 'gem-completion'
+brew 'rails-completion'
+brew 'rake-completion'
+brew 'ruby-completion'
+
+
 # Mac App Store
 # ids from `mas list`
 mas 'Caffeine', id: 411246225
@@ -43,3 +52,5 @@ mas 'Xcode', id: 497799835
 # cask 'firefox'
 # cask 'google-chrome'
 # cask 'iterm2'
+# cask 'sdformatter'
+# cask 'virtualbox'
