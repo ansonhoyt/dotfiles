@@ -73,8 +73,8 @@ else
   echo "Missing bash completions for rake"
 fi
 
-if [ -f `brew --prefix`/etc/bash_completion.d/rg.bash-completion ]; then
-  . `brew --prefix`/etc/bash_completion.d/rg.bash-completion
+if [ -f `brew --prefix`/etc/bash_completion.d/rg.bash ]; then
+  . `brew --prefix`/etc/bash_completion.d/rg.bash
 else
   echo "Missing bash completions for ripgrep"
 fi
@@ -83,4 +83,10 @@ if [ -f `brew --prefix`/etc/bash_completion.d/ruby ]; then
   . `brew --prefix`/etc/bash_completion.d/ruby
 else
   echo "Missing bash completions for ruby"
+fi
+
+if [ -f `brew --prefix`/etc/bash_completion.d/yarn ]; then
+  . `brew --prefix`/etc/bash_completion.d/yarn
+else
+  echo "Missing bash completions for yarn"
 fi
