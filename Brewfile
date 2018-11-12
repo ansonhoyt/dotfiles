@@ -18,14 +18,24 @@ tap 'caskroom/versions' # https://github.com/caskroom/homebrew-versions
 
 # Homebrew
 brew 'curl'
+brew 'ffmpeg'
 brew 'git'
+brew 'git-lfs'
 brew 'gpg'
+brew 'graphviz'
+# brew 'highlight'
 brew 'htop'
+brew 'imagemagick'
 brew 'lnav'
-brew 'openssl'
 brew 'mas'
+# brew 'mitmproxy'
+# brew 'mysql'
+# brew 'nginx'
 brew 'node'
+brew 'openssl'
+brew 'postgresql'
 brew 'ripgrep'
+brew 'sqlite'
 brew 'ssh-copy-id'
 brew 'tree'
 brew 'wget'
@@ -43,14 +53,30 @@ brew 'ruby-completion'
 # Mac App Store
 # ids from `mas list`
 mas 'Caffeine', id: 411246225
+mas 'Kindle', id: 405399194
 mas 'LastPass', id: 926036361
 mas 'Mactracker', id: 430255202
+mas 'Pixelmator', id: 407963104
 mas 'Xcode', id: 497799835
 
 # Cask
-# cask 'atom'
+cask 'atom'
+# cask 'dbeaver-community'
+# cask 'dotnet-sdk'
+# cask 'etcher'
 # cask 'firefox'
+# cask 'gimp'
 # cask 'google-chrome'
-# cask 'iterm2'
+# cask 'inkscape'
+cask 'iterm2'
+# cask 'java'
+# cask 'keycastr'
+# cask 'mysqlworkbench'
+# cask 'pgadmin4'
 # cask 'sdformatter'
+# cask 'sketchup'
+# cask 'sonic-pi'
+# cask 'transmission'
 # cask 'virtualbox'
+cask 'vlc'
+# cask 'vnc-viewer'
