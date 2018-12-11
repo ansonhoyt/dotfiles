@@ -3,7 +3,7 @@
 alias grep='grep --color=auto'
 
 # Launch VLC
-alias vlc="open /Applications/vlc/VLC.app"
+alias vlc="open /Applications/VLC.app"
 
 # Lock screen
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'

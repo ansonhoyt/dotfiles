@@ -1,9 +1,5 @@
-source ~/.bash/aliases.sh
-source ~/.bash/completions.sh
-source ~/.bash/env.sh
-
-# TODO: find more ideas at https://dotfiles.github.io/
-# TODO: consider https://github.com/Bash-it/bash-it
+# Load all Bash configuration files from ~/.bash/*.sh
+for bash_config in ~/.bash/*.sh; do source $bash_config; done
 
 #-------------------------------
 # Bitbucket setup

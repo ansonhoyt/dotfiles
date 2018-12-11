@@ -4,7 +4,6 @@
 #     brew tap homebrew/bundle
 #     brew bundle
 
-
 # Taps (https://docs.brew.sh/brew-tap.html)
 tap 'caskroom/cask' # https://caskroom.github.io/
 tap 'caskroom/versions' # https://github.com/caskroom/homebrew-versions
@@ -48,7 +47,6 @@ brew 'gem-completion'
 brew 'rails-completion'
 brew 'rake-completion'
 brew 'ruby-completion'
-
 
 # Mac App Store
 # ids from `mas list`

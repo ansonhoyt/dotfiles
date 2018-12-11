@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# List all currently used Rails versions
+#
+# Simply displays the current Gemfile spec for the 'rails' gem.
+
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=~/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+grep -RE --color=auto --include Gemfile --exclude-dir 'shared' --exclude-dir 'releases' "^gem 'rails'" $FOLDER

@@ -53,6 +53,12 @@ else
   echo "Missing bash completions for git-prompt"
 fi
 
+if [ -f `brew --prefix`/etc/bash_completion.d/mas ]; then
+  . `brew --prefix`/etc/bash_completion.d/mas
+else
+  echo "Missing bash completions for mas"
+fi
+
 if [ -f `brew --prefix`/etc/bash_completion.d/npm ]; then
   . `brew --prefix`/etc/bash_completion.d/npm
 else
@@ -83,6 +89,12 @@ if [ -f `brew --prefix`/etc/bash_completion.d/ruby ]; then
   . `brew --prefix`/etc/bash_completion.d/ruby
 else
   echo "Missing bash completions for ruby"
+fi
+
+if [ -f `brew --prefix`/etc/bash_completion.d/tmux ]; then
+  . `brew --prefix`/etc/bash_completion.d/tmux
+else
+  echo "Missing bash completions for tmux"
 fi
 
 if [ -f `brew --prefix`/etc/bash_completion.d/yarn ]; then
