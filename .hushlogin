@@ -1,0 +1,2 @@
+# Suppresses the "Last login" message for new Bash sessions.
+# Only applies when loading the containing folder, but $HOME is our default folder, so that's fine.
