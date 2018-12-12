@@ -21,9 +21,10 @@ Preview, then apply the configs
     stow --no --verbose=2 .
     stow --verbose .
 
-...you may wish to skip conflicts with existing files to preserve local edits. See `man stow`.
+...ignore existing files to preserve local edits or restow to clear stale symlinks. See `man stow`.
 
     stow --no --verbose=2 --ignore=".gitconfig" .
+    stow --no --verbose=2 --restow .
 
 Run the Brewfile to install some tools
 

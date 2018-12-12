@@ -1,104 +1,46 @@
 # Activate Bash Completions
 #
+# Loads the named completions from `brew --prefix`/etc/bash_completion.d
+#
+# == Note
+#
 # Homebrew seems to be installing them in `/usr/local/etc/bash_completion.d/`
 # so we'll roll with that, despite many posts and packages with different instructions.
 #
 # Lots of conflicting instructions for setting these up:
 # https://debian-administration.org/article/316/An_introduction_to_bash_completion_part_1
 # https://github.com/scop/bash-completion (via `brew info bash-completion`)
-#
 
-if [ -f `brew --prefix`/etc/bash_completion.d/brew ]; then
-  . `brew --prefix`/etc/bash_completion.d/brew
-else
-  echo "Missing bash completions for Homebrew"
-fi
+# Update array from: ls -1 `brew --prefix`/etc/bash_completion.d
+declare -a completions=(brew
+                        # brew-services
+                        bundler
+                        docker
+                        gem
+                        # gibo-completion.bash
+                        git-completion.bash
+                        git-prompt.sh
+                        mas
+                        npm
+                        rails
+                        rake
+                        rg.bash
+                        ruby
+                        tmux
+                        yarn)
+start=$(gdate +%s%3N)
 
-if [ -f `brew --prefix`/etc/bash_completion.d/bundler ]; then
-  . `brew --prefix`/etc/bash_completion.d/bundler
-else
-  echo "Missing bash completions for bundler"
-fi
+echo -n "(Bash completions:"
+for pkg in "${completions[@]}"
+do
+  if [ -f `brew --prefix`/etc/bash_completion.d/$pkg ]; then
+    echo -n " $pkg"
+    . `brew --prefix`/etc/bash_completion.d/$pkg
+  else
+    echo "Missing bash completions for $pkg"
+  fi
+done
 
-if [ -f `brew --prefix`/etc/bash_completion.d/docker ]; then
-  . `brew --prefix`/etc/bash_completion.d/docker
-else
-  echo "Missing bash completions for docker"
-fi
+end=$(gdate +%s%3N)
 
-# lags a second
-if [ -f `brew --prefix`/etc/bash_completion.d/gem ]; then
-  . `brew --prefix`/etc/bash_completion.d/gem
-else
-  echo "Missing bash completions for gem"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/gibo-completion.bash ]; then
-  . `brew --prefix`/etc/bash_completion.d/gibo-completion.bash
-else
-  echo "Missing bash completions for gibo"
-fi
-
-# https://github.com/git/git/tree/master/contrib/completion
-# https://github.com/bobthecow/git-flow-completion/issues/46
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
-else
-  echo "Missing bash completions for git"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/git-prompt.sh ]; then
-  . `brew --prefix`/etc/bash_completion.d/git-prompt.sh
-else
-  echo "Missing bash completions for git-prompt"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/mas ]; then
-  . `brew --prefix`/etc/bash_completion.d/mas
-else
-  echo "Missing bash completions for mas"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/npm ]; then
-  . `brew --prefix`/etc/bash_completion.d/npm
-else
-  echo "Missing bash completions for npm"
-fi
-
-# lags a couple seconds
-if [ -f `brew --prefix`/etc/bash_completion.d/rails ]; then
-  . `brew --prefix`/etc/bash_completion.d/rails
-else
-  echo "Missing bash completions for rails"
-fi
-
-# lags a couple seconds
-if [ -f `brew --prefix`/etc/bash_completion.d/rake ]; then
-  . `brew --prefix`/etc/bash_completion.d/rake
-else
-  echo "Missing bash completions for rake"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/rg.bash ]; then
-  . `brew --prefix`/etc/bash_completion.d/rg.bash
-else
-  echo "Missing bash completions for ripgrep"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/ruby ]; then
-  . `brew --prefix`/etc/bash_completion.d/ruby
-else
-  echo "Missing bash completions for ruby"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/tmux ]; then
-  . `brew --prefix`/etc/bash_completion.d/tmux
-else
-  echo "Missing bash completions for tmux"
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/yarn ]; then
-  . `brew --prefix`/etc/bash_completion.d/yarn
-else
-  echo "Missing bash completions for yarn"
-fi
+echo ") in $[$end - $start]ms"
