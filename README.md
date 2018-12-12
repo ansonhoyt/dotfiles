@@ -33,5 +33,5 @@ Run the Brewfile to install some tools
 
 # TODO
 
-* DRY up completions.sh
 * Consider https://github.com/Bash-it/bash-it
+* Consider replacing terminal codes in prompt with variables as in https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
