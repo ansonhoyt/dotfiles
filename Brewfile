@@ -16,15 +16,18 @@ tap 'caskroom/versions' # https://github.com/caskroom/homebrew-versions
 # untap 'homebrew/versions' # deprecated per https://github.com/Homebrew/homebrew-versions
 
 # Homebrew
+brew 'autojump'
 brew 'curl'
 brew 'ffmpeg'
 brew 'git'
 brew 'git-lfs'
 brew 'gpg'
 brew 'graphviz'
+brew 'gron'
 # brew 'highlight'
 brew 'htop'
 brew 'imagemagick'
+brew 'jq'
 brew 'lnav'
 brew 'mas'
 # brew 'mitmproxy'
