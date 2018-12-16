@@ -11,9 +11,9 @@ Pull in the dotfiles
     cd ~
     git clone git@bitbucket.org:ansonhoyt/dotfiles.git
 
-Install [GNU Stow](https://www.gnu.org/software/stow/)
+Install [GNU Stow](https://www.gnu.org/software/stow/) and bash-completion
 
-    brew install stow
+    brew install stow bash-completion
 
 Preview, then apply the configs
 
