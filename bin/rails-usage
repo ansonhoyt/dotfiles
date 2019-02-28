@@ -4,10 +4,11 @@
 #
 # Simply displays the current Gemfile spec for the 'rails' gem.
 
+# Look in the right code folder on my mac or the server.
 if [ "$(uname)" == "Darwin" ]; then
   FOLDER=~/code
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  FOLDER=~/export/home
+  FOLDER=/export/home
 else
   echo Unexpected OS: $(uname -s)
   exit 1

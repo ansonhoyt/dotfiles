@@ -29,7 +29,10 @@ fi
 
 #-------------------------------
 
-# User bin
+# Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
+# User bin (for my scripts)
 export PATH=~/bin:$PATH
 
 # Load RVM into a shell session *as a function*

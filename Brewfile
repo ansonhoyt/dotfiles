@@ -16,8 +16,10 @@ tap 'caskroom/versions' # https://github.com/caskroom/homebrew-versions
 # untap 'homebrew/versions' # deprecated per https://github.com/Homebrew/homebrew-versions
 
 # Homebrew
-brew 'autojump'
+brew 'autojump'     # `j` command for fast filesystem navigation
+brew 'chromedriver' # for headless Selenium testing
 brew 'curl'
+# brew 'dnsmasq' # DNS server. Reads /usr/local/etc/dnsmasq.conf
 brew 'ffmpeg'
 brew 'git'
 brew 'git-lfs'
@@ -77,6 +79,7 @@ cask 'iterm2'
 # cask 'sdformatter'
 # cask 'sketchup'
 # cask 'sonic-pi'
+# cask 'sourcetree'
 # cask 'transmission'
 # cask 'virtualbox'
 cask 'vlc'
