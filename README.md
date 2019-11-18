@@ -33,8 +33,12 @@ Run the Brewfile to install some tools
 
 # tmux
 
-    tmux new -n <session-name> # create a new session with a name
-    tmux a -t <session-name>   # open the named session
+See https://tmuxcheatsheet.com/
+
+    tmux new -n <session-name>  # create a new session with a name
+    Ctrl + b d                  # detach from the current session
+    tmux ls                     # list all sessions
+    tmux a -t <session-name>    # attach the named session
 
 # TODO
 
