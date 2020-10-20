@@ -5,6 +5,7 @@
   ui = auto
 [core]
   excludesfile = ~/.gitignore_global
+  attributesfile = ~/.gitattributes
 [difftool "sourcetree"]
   cmd = /Applications/DeltaWalker.app/Contents/MacOS/git-diff \"$LOCAL\" \"$REMOTE\"
   path =
