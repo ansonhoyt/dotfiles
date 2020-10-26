@@ -6,8 +6,9 @@
 [core]
   excludesfile = ~/.gitignore_global
   attributesfile = ~/.gitattributes
+# SourceTree https://www.deltawalker.com/integrate/other-apps
 [difftool "sourcetree"]
-  cmd = /Applications/DeltaWalker.app/Contents/MacOS/git-diff \"$LOCAL\" \"$REMOTE\"
+  cmd = /Applications/DeltaWalker.app/Contents/MacOS/DeltaWalker \"$REMOTE\" \"$LOCAL\" -mi -pwd=\"`pwd`\"
   path =
 [mergetool "sourcetree"]
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
