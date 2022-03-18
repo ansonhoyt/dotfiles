@@ -1,6 +1,9 @@
 # Default editor (git, etc.)
 export EDITOR=vim
 
+# Bundle editor, used for `bundle open <gem_name>`
+export BUNDLER_EDITOR=atom
+
 # Ansible uses cowsay too much for my taste.
 export ANSIBLE_NOCOWS=1
 
