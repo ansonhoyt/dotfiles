@@ -19,3 +19,6 @@ fi
 
 # Always use color output for `ls`
 alias ls="ls ${colorflag}"
+
+# List RSpec tests
+alias rlist="rspec --format documentation --color --dry-run"
