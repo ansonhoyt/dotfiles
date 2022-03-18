@@ -16,20 +16,21 @@ tap 'caskroom/versions' # https://github.com/caskroom/homebrew-versions
 # untap 'homebrew/versions' # deprecated per https://github.com/Homebrew/homebrew-versions
 
 # Homebrew
-brew 'autojump'     # `j` command for fast filesystem navigation
+# (from `brew leaves`)
+
+brew 'autojump' # `j` command for fast filesystem navigation
 brew 'chromedriver' # for headless Selenium testing
 brew 'curl'
 # brew 'dnsmasq' # DNS server. Reads /usr/local/etc/dnsmasq.conf
-brew 'ffmpeg'
 brew 'git'
 brew 'git-lfs'
 brew 'gpg'
 brew 'graphviz'
-brew 'gron'
+brew 'gnupg'
+brew 'gron' # Make JSON greppable
 # brew 'highlight'
 brew 'htop'
-brew 'imagemagick'
-brew 'jq'
+brew 'jq' # JSON processor
 brew 'lnav'
 brew 'mas'
 # brew 'mitmproxy'
@@ -41,46 +42,89 @@ brew 'postgresql'
 brew 'ripgrep'
 brew 'sqlite'
 brew 'ssh-copy-id'
+brew 'stow' # Organize software neatly under a single directory tree
+brew 'tmux' # Terminal multiplexer
 brew 'tree'
 brew 'wget'
 brew 'yarn'
 
 brew 'gibo' # https://github.com/simonwhitaker/gibo, https://github.com/github/gitignore
+
+## Media
+brew 'faac' # AAC audio encoder
+brew 'ffmpeg'
+brew 'ghostscript'
+brew 'imagemagick'
+brew 'pandoc' # Swiss-army knife of markup format conversion
+brew 'sox' # SOund eXchange: universal sound sample translator
+
+## Shell
+brew 'bash-completion'
 brew 'bundler-completion'
 brew 'docker-completion'
 brew 'gem-completion'
 brew 'rails-completion'
 brew 'rake-completion'
 brew 'ruby-completion'
+brew 'vagrant-completion'
 
 # Mac App Store
-# ids from `mas list`
-mas 'Caffeine', id: 411246225
-mas 'Kindle', id: 405399194
+# (ids from `mas list`)
+
+mas 'Amphetamine', id: 937984704
+mas 'Bitwarden', id: 1352778147
 mas 'LastPass', id: 926036361
 mas 'Mactracker', id: 430255202
-mas 'Pixelmator', id: 407963104
+mas 'Speedtest', id: 1153157709
 mas 'Xcode', id: 497799835
 
+mas 'iMovie', id: 408981434
+mas 'Keynote', id: 409183694
+mas 'Kindle', id: 405399194
+mas 'GarageBand', id: 682658836
+mas 'Microsoft OneNote', id: 784801555
+mas 'Microsoft Remote Desktop', id: 1295203466
+mas 'Numbers', id: 409203825
+mas 'Pages', id: 409201541
+mas 'Pixelmator', id: 407963104
+mas 'Pixelmator Pro', id: 1289583905
+mas 'Playgrounds', id: 1496833156
+mas 'Transporter', id: 1450874784
+mas 'TweetDeck', id: 485812721
+
 # Cask
+
+cask 'android-studio'
 cask 'atom'
-# cask 'dbeaver-community'
-# cask 'dotnet-sdk'
-# cask 'etcher'
+cask 'blender'
+cask 'dbeaver-community'
+cask 'dotnet-sdk'
 # cask 'firefox'
 # cask 'gimp'
 # cask 'google-chrome'
-# cask 'inkscape'
-cask 'iterm2'
 # cask 'java'
-# cask 'keycastr'
-# cask 'mysqlworkbench'
-# cask 'pgadmin4'
-# cask 'sdformatter'
+cask 'handbrake'
+cask 'inkscape'
+cask 'iterm2'
+cask 'keycastr'
+cask 'microsoft-auto-update'
+cask 'microsoft-edge'
+cask 'mysqlworkbench'
+cask 'obs'
+cask 'pgadmin4'
+cask 'pingplotter'
+cask 'rectangle'
 # cask 'sketchup'
-# cask 'sonic-pi'
-# cask 'sourcetree'
+cask 'sonic-pi'
+cask 'sourcetree'
+cask 'superduper'
 # cask 'transmission'
-# cask 'virtualbox'
+cask 'virtualbox-extension-pack'
+cask 'virtualbox'
 cask 'vlc'
-# cask 'vnc-viewer'
+
+## raspberry pi
+cask 'balenaetcher'
+cask 'raspberry-pi-imager'
+# cask 'sdformatter'
+cask 'vnc-viewer'
