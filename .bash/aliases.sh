@@ -5,8 +5,8 @@ alias grep='grep --color=auto'
 # Launch VLC
 alias vlc="open /Applications/VLC.app"
 
-# Lock screen
-alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+# Lock screen (macOS)
+test `uname` == 'Darwin' && alias lock='pmset displaysleepnow'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
