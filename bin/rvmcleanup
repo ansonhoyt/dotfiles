@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Cleanup all unused project gemsets. Displays RVM disk usage (in MiB) before and after.
+#
+# Keeps any gemset versions referenced by a project in ~/code
+# Keeps any gemsets not referenced by a project
+#
+# You may also want to run `rvm cleanup all`
+
+require 'rvm'
+require 'pathname'
+
+BASE_PATH = '~/code'
+
+# Inspired by Capistrano's :ask method:
+# - https://capistranorb.com/documentation/getting-started/user-input/
+# - https://github.com/capistrano/capistrano/blob/master/lib/capistrano/configuration/question.rb#L19
+# - https://dzone.com/articles/ask-method-rake-tasks
+def ask(question)
+  puts question
+  gets.chomp
+end
+
+# NOTE: this can take several seconds
+def print_disk_usage
+  puts "\nDisk Usage (MiB):"
+  puts `sudo du -ms #{RVM.path}`, nil
+end
+
+project_paths = `find #{BASE_PATH} -type f  -name .ruby-gemset -maxdepth 3`.split.map { |p| Pathname.new(p).parent }
+
+# i.e. rvm gemset list_all
+app_gemsets = RVM.list_gemsets.select { |gemset| gemset.include? '@' }.reject { |gemset| gemset.end_with? '@global' }
+
+gemsets_in_use = project_paths.map { |p| RVM.tools_path_identifier(p) }.uniq
+active_gemset_names = gemsets_in_use.map { |gs| gs.partition('@').last(2).join }.uniq.reject(&:empty?)
+active_app_gemsets = app_gemsets.select { |gs| gs.end_with?(*active_gemset_names) }
+old_gemsets = active_app_gemsets - gemsets_in_use
+
+puts "\nKeeping gemsets currently used in #{BASE_PATH}:"
+gemsets_in_use.each { |gemset| puts "• #{gemset}" }
+
+if old_gemsets.any?
+  puts "\n#{old_gemsets.length} unused gemsets can be deleted:"
+  old_gemsets.each { |gemset| puts "• #{gemset}" }
+
+  exit unless ask("\nContinue? [y/N]").casecmp? 'y'
+
+  print_disk_usage
+
+  puts "\nDeleting gemsets..."
+  old_gemsets.each do |gemset|
+    RVM.gemset_delete gemset
+    puts "❌ #{gemset}"
+  end
+
+  print_disk_usage
+else
+  puts '✅ No old gemsets to cleanup!'
+end
