@@ -30,7 +30,18 @@ fi
 #-------------------------------
 
 # Homebrew
-export PATH="/usr/local/sbin:$PATH"
+if [[ $(uname -p) == "arm" ]]; then
+  # Apple Silicon
+  export HOMEBREW_PREFIX="/opt/homebrew";
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+  export HOMEBREW_REPOSITORY="/opt/homebrew";
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+else
+  # Intel x86
+  export PATH="/usr/local/sbin:$PATH"
+fi
 
 # User bin (for my scripts)
 export PATH=~/bin:$PATH
