@@ -38,6 +38,7 @@ if [[ $(uname -p) == "arm" ]]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
   export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
   export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+  alias ibrew=/usr/local/bin/brew # brew for Intel x86
 else
   # Intel x86
   export PATH="/usr/local/sbin:$PATH"
