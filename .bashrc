@@ -1,5 +1,3 @@
-# Load all Bash configuration files from ~/.bash/*.sh
-for bash_config in ~/.bash/*.sh; do source $bash_config; done
 
 #-------------------------------
 # Bitbucket setup
@@ -30,19 +28,16 @@ fi
 #-------------------------------
 
 # Homebrew
-if [[ $(uname -p) == "arm" ]]; then
-  # Apple Silicon
-  export HOMEBREW_PREFIX="/opt/homebrew";
-  export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-  export HOMEBREW_REPOSITORY="/opt/homebrew";
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
-  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
-  alias ibrew=/usr/local/bin/brew # brew for Intel x86
-else
-  # Intel x86
-  export PATH="/usr/local/sbin:$PATH"
+if [[ $(uname -p) == "arm" ]]; then # Apple Silicon
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  alias ibrew="arch -x86_64 /usr/local/bin/brew" # brew for Intel x86
+else # Intel x86
+  eval "$(/usr/local/bin/brew shellenv)"
 fi
+
+# Load all Bash configuration files from ~/.bash/*.sh
+# NOTE: *after* Homebrew since brews are used in several
+for bash_config in ~/.bash/*.sh; do source $bash_config; done
 
 # User bin (for my scripts)
 export PATH=~/bin:$PATH
