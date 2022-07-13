@@ -16,40 +16,42 @@
 # (from `brew leaves`)
 
 brew 'autojump' # `j` command for fast filesystem navigation
-brew 'chromedriver' # for headless Selenium testing
 brew 'cowsay'
-# brew 'dnsmasq' # DNS server. Reads /usr/local/etc/dnsmasq.conf
+brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
+brew 'fortune' # Infamous electronic fortune-cookie generator
 brew 'git'
 brew 'git-lfs'
-brew 'gpg'
 brew 'graphviz'
-brew 'gnupg'
-brew 'gron' # Make JSON greppable
-# brew 'highlight'
-brew 'jq' # JSON processor
-brew 'mas'
-# brew 'mitmproxy'
-# brew 'nginx'
+brew 'gnupg' # GNU Pretty Good Privacy (PGP)
+brew 'highlight'
+brew 'mas' # Mac App Store command-line interface
+brew 'mitmproxy'
+brew 'nginx'
 brew 'nethack'
 brew 'openssl'
+brew 'p7zip' # 7-Zip (high compression file archiver)
 brew 'ripgrep'
 brew 'ripgrep-all' # ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
 brew 'rogue'
-# brew 'rsyslog'
+brew 'rsyslog'
 brew 'ssh-copy-id'
 brew 'stow' # Organize software neatly under a single directory tree
 brew 'tmux' # Terminal multiplexer
 brew 'tree'
 brew 'wget'
-brew 'yarn'
 
-brew 'gibo' # https://github.com/simonwhitaker/gibo, https://github.com/github/gitignore
+brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
 
 ## Performance
+brew 'dog' # Command-line DNS client
+brew 'gdb'
 brew 'htop'
+# brew 'jmeter' # Load testing and performance measurement application
 brew 'lnav'
+# brew 'nmap' # Port scanning utility for large networks
+# brew 'oha' # HTTP load generator
 cask 'pingplotter'
-brew 'iperf'
+brew 'iperf' # Tool to measure maximum TCP and UDP bandwidth
 brew 'iperf3'
 
 tap 'teamookla/speedtest'
@@ -57,50 +59,81 @@ brew 'teamookla/speedtest/speedtest'
 mas 'Speedtest', id: 1153157709
 
 ## Editors
-cask 'android-studio'
-cask 'atom'
+# cask 'atom'
 brew 'macvim'
+cask 'visual-studio-code'
 
 ## Frameworks
 cask 'dotnet-sdk'
-# cask 'java'
-brew 'node' # TODO: drop since we use nvm?
+# cask 'java' # OpenJDK
+# brew 'node' # TODO: drop since we use nvm?
+brew 'python'
 
-# tap "adoptopenjdk/openjdk" # TODO: officially deprecated.
-# cask "adoptopenjdk12"
+# brew 'yarn' # NOTE: installed via nvm => node => npm
+brew 'gron' # Make JSON greppable
+brew 'jq' # JSON processor
+cask 'quicklook-json'
+
+## React Native
+cask 'android-studio'
+cask 'react-native-debugger'
+brew 'firebase-cli'
+
+## Rails Active Storage dependencies
+brew 'vips' # for image analysis and transformations
+brew 'ffmpeg' # for video previews and ffprobe for video/audio analysis
+brew 'mupdf' # PDF previews
+brew 'poppler' # PDF previews
 
 ## Databases
 cask 'dbeaver-community'
+cask 'db-browser-for-sqlite'
 # tap 'microsoft/mssql-release'
 # brew 'microsoft/mssql-release/mssql-tools'
+# brew 'freetds' # Libraries to talk to mssql
 # brew 'mysql'
 # cask 'mysqlworkbench'
 cask 'pgadmin4'
 brew 'postgresql'
-# brew 'postgresql@9.4'
 brew 'redis'
 brew 'sqlite'
 
 ## Media
 cask 'blender' # 3D creation suite
 brew 'faac' # AAC audio encoder
-brew 'ffmpeg'
+mas 'GarageBand', id: 682658836
 brew 'ghostscript'
-# cask 'gimp'
+cask 'gimp'
 cask 'handbrake'
 brew 'imagemagick'
+mas 'iMovie', id: 408981434
 cask 'inkscape'
 cask 'jellyfin' # media system
-brew 'makemkv' # video transcoder
-brew 'metaz' # mp4 meta-data editor
+brew 'mad' # MPEG audio decoder
+cask 'makemkv' # MakeMKV video transcoder
+cask 'metaz' # Mp4 meta-data editor
 cask 'obs' # live streaming and screen recording
 brew 'pandoc' # Swiss-army knife of markup format conversion
+# brew 'optipng' # PNG file optimizer
+# brew 'pngcrush' # Optimizer for PNG files
+# brew 'pngquant' # PNG image optimizing utility
+# brew 'jonof/kenutils/pngout' # Ken Silverman's PNG optimisation utility
+# brew 'optipng' # PNG file optimizer
+# brew 'opencore-amr' # Audio codecs extracted from Android open source project
 mas 'Pixelmator', id: 407963104
 mas 'Pixelmator Pro', id: 1289583905
 brew 'sox' # SOund eXchange: universal sound sample translator
 cask 'vlc' # media player
+brew 'youtube-dl' # Download YouTube videos from the command-line
+# NOTE: Audacity should *not* be installed with Homebrew
+
+## GIS
+# brew 'proj' # Cartographic Projections Library
+# brew 'qgis'
 
 ## Shell
+cask 'iterm2'
+brew 'fish'
 brew 'bash-completion'
 brew 'bundler-completion'
 brew 'docker-completion'
@@ -116,19 +149,21 @@ cask 'raspberry-pi-imager'
 # cask 'sdformatter'
 cask 'vnc-viewer'
 
+## Password Managers
+cask 'authy' # Authy Desktop
+mas 'Bitwarden', id: 1352778147
+brew 'bitwarden-cli'
+mas 'LastPass', id: 926036361
+
 # Mac App Store
 # (ids from `mas list`)
 
 mas 'Amphetamine', id: 937984704
-mas 'Bitwarden', id: 1352778147
-mas 'LastPass', id: 926036361
 mas 'Mactracker', id: 430255202
 mas 'Xcode', id: 497799835
 
-mas 'iMovie', id: 408981434
 mas 'Keynote', id: 409183694
 mas 'Kindle', id: 405399194
-mas 'GarageBand', id: 682658836
 mas 'Microsoft OneNote', id: 784801555
 mas 'Microsoft Remote Desktop', id: 1295203466
 mas 'Numbers', id: 409203825
@@ -139,17 +174,27 @@ mas 'TweetDeck', id: 485812721
 
 # Cask
 
+cask 'calibre' # E-books management software
+# cask 'chromedriver' # for headless Selenium testing # TODO: drop for webdrivers gem??? or is this de-dupish?
 # cask 'firefox'
+cask 'github' # GitHub Desktop
 # cask 'google-chrome'
-cask 'iterm2'
 cask 'keycastr'
+cask 'libreoffice'
 cask 'microsoft-auto-update'
 cask 'microsoft-edge'
 cask 'rectangle'
+cask 'scratch'
 # cask 'sketchup'
 cask 'sonic-pi'
 cask 'sourcetree'
 cask 'superduper'
-# cask 'transmission'
-cask 'virtualbox-extension-pack' unless `uname -p` == 'arm'
-cask 'virtualbox' unless `uname -p` == 'arm'
+# cask 'transmission-cli'
+cask 'utm'
+cask 'vagrant'
+
+if Gem::Platform.local =~ 'x86_64-darwin'
+  # NOTE: Unsupported on 'arm64-darwin'
+  cask 'virtualbox-extension-pack'
+  cask 'virtualbox'
+end
