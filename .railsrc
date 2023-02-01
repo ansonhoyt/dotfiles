@@ -1,0 +1,4 @@
+--database postgresql
+--javascript esbuild
+--css bootstrap
+--no-scaffold-stylesheet
