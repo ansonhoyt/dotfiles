@@ -43,6 +43,7 @@ brew 'wget'
 brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
 
 ## Performance
+brew 'bench' # benchmarking, a more-powerful `time` command
 brew 'dog' # Command-line DNS client
 brew 'gdb'
 brew 'htop'
@@ -142,6 +143,7 @@ brew 'rails-completion'
 brew 'rake-completion'
 brew 'ruby-completion'
 brew 'vagrant-completion'
+brew 'yarn-completion'
 
 ## Raspberry Pi
 cask 'balenaetcher'
