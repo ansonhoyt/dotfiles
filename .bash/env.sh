@@ -1,6 +1,10 @@
 # Default editor (git, etc.)
 export EDITOR=vim
 
+# Rails better_errors editor
+# https://github.com/BetterErrors/better_errors/wiki/Link-to-your-editor
+export BETTER_ERRORS_EDITOR='code --wait'
+
 # Bundle editor, used for `bundle open <gem_name>`
 export BUNDLER_EDITOR=code
 
