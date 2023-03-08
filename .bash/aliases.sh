@@ -22,3 +22,6 @@ alias ls="ls ${colorflag}"
 
 # List RSpec tests
 alias rlist="rspec --format documentation --color --dry-run"
+
+# Alternative since Ruby 3.1+ syntax_tree also provides stree
+alias sourcetree="$HOMEBREW_PREFIX/bin/stree"
