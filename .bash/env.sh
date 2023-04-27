@@ -16,3 +16,8 @@ export PATH="$HOMEBREW_PREFIX/opt/gdal2/bin:$PATH"
 
 # gdal2-python, per  `brew info osgeo/osgeo4mac/gdal2-python`
 # export PATH="$HOMEBREW_PREFIX/opt/gdal2-python/bin:$PATH"
+
+# Display command time when viewing history
+#   "<number> Apr 27 3:45 PM <command>"
+# See `history help; man strftime;`
+export HISTTIMEFORMAT="%b %d %H:%M %p  "
