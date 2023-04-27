@@ -21,3 +21,5 @@ export PATH="$HOMEBREW_PREFIX/opt/gdal2/bin:$PATH"
 #   "<number> Apr 27 3:45 PM <command>"
 # See `history help; man strftime;`
 export HISTTIMEFORMAT="%b %d %H:%M %p  "
+export HISTSIZE=1000
+export HISTFILESIZE=5000
