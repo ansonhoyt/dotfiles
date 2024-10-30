@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 
-# See https://github.com/geerlingguy/dotfiles/blob/master/.osx
+# MacOS configuration
+#
+# @see https://github.com/geerlingguy/dotfiles/blob/master/.osx
+#
+# @author Anson Hoyt
+
+test `uname` == 'Darwin' && echo 'Configuring macOS...' || echo 'Not macOS...exiting!'; exit;
+
+###############################################################################
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+###############################################################################
+
+# Disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -31,3 +44,10 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 # 106: Inactive Processes
 # 107: Windowed Processes
 defaults write com.apple.ActivityMonitor ShowCategory -int 100
+
+###############################################################################
+# App Store                                                                   #
+###############################################################################
+
+# Disable in-app rating requests from apps downloaded from the App Store.
+defaults write com.apple.appstore InAppReviewEnabled -int 0
