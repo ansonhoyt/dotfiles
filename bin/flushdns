@@ -4,8 +4,11 @@
 if Gem::Platform.local.os == "darwin"
   version = Gem::Version.new(Gem::Platform.local.version)
 
-  if version >= Gem::Version.new(21) # macOS 12
+  if version >= Gem::Version.new(19) # macOS 10.15+
     `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
+    puts "🚽"
+  elsif version >= Gem::Version.new(15) # macOS 10.11+
+    `sudo killall -HUP mDNSResponder`
     puts "🚽"
   else
     abort "😢 Sorry"
