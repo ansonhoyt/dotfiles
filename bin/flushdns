@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+# Flush DNS on macOS
+if Gem::Platform.local.os == "darwin"
+  version = Gem::Version.new(Gem::Platform.local.version)
+
+  if version >= Gem::Version.new(21) # macOS 12
+    `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
+    puts "🚽"
+  else
+    abort "😢 Sorry"
+  end
+else
+  abort "😛 macOS only"
+end

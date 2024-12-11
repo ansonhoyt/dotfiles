@@ -23,7 +23,7 @@ Preview, then apply the configs
 
 ...ignore existing files to preserve local edits or restow to clear stale symlinks. See `man stow`.
 
-    stow --no --verbose=2 --ignore=".gitconfig" .
+    stow --no --verbose=2 --ignore=".gitconfig|.DS_Store|.ruby-lsp" .
     stow --no --verbose=2 --restow .
 
 Run the Brewfile to install some tools
