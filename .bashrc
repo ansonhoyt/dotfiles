@@ -59,3 +59,6 @@ export PATH="$HOME/.yarn/bin:$PATH"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Always install Ruby with documentation
+export rvm_docs_flag=1
