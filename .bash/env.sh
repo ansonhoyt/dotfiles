@@ -1,5 +1,9 @@
 # Default editor (git, etc.)
-export EDITOR=vim
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
 
 # Rails better_errors editor
 # https://github.com/BetterErrors/better_errors/wiki/Link-to-your-editor
