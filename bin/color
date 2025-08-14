@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+# Print all 256 colors available in the terminal
+256.times.each_slice(36) do |slice| # wrap every 36 colors for a nice pattern
+  puts slice.map { |i| "\x1b[38;5;#{i}m#{i.to_s.rjust(3)} " }.join
+end
