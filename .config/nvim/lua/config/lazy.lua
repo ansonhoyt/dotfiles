@@ -23,9 +23,16 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  -- Configure Options
 
--- Make sure a Nerd Font is installed: https://www.nerdfonts.com/
+  rocks = {
+    enabled = false -- disable luarocks support (avoids healthcheck error)
+  },
+  checker = { enabled = true }, -- automatically check for plugin updates
+})
+
+-- NOTE: Make sure a Nerd Font is installed: https://www.nerdfonts.com/
 -- brew search nerd-font
 -- brew install font-hack-nerd-font font-jetbrains-mono-nerd-font
 --

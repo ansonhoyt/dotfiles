@@ -10,7 +10,6 @@ return {
         "lua_ls", -- Lua
         "ts_ls", -- TypeScript/JavaScript
         "pyright", -- Python
-        "ruby_lsp" -- Ruby
       }
     },
     dependencies = {
