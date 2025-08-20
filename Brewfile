@@ -60,8 +60,10 @@ brew 'teamookla/speedtest/speedtest'
 mas 'Speedtest', id: 1153157709
 
 ## Editors
-# cask 'atom'
 brew 'macvim'
+brew 'neovim' # Modern Vim fork
+brew 'font-hack-nerd-font'
+brew 'font-jetbrains-mono-nerd-font'
 cask 'visual-studio-code'
 
 ## Frameworks
