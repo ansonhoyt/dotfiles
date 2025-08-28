@@ -14,4 +14,4 @@ else
   exit 1
 fi
 
-grep -RE --color=auto --include Gemfile --exclude-dir 'shared' --exclude-dir 'releases' "^gem 'bootstrap(-sass)?'" $FOLDER
+grep -RE --color=auto --include Gemfile.lock --exclude-dir 'shared' --exclude-dir 'releases' "^\s*bootstrap(-sass)? \(\d" $FOLDER
