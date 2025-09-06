@@ -24,6 +24,7 @@ brew 'git-lfs'
 brew 'graphviz'
 brew 'gnupg' # GNU Pretty Good Privacy (PGP)
 brew 'highlight'
+brew 'lazygit' # Git TUI
 brew 'mas' # Mac App Store command-line interface
 brew 'mitmproxy'
 brew 'nginx'
