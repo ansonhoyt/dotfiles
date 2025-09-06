@@ -196,9 +196,9 @@ cask 'superduper'
 # cask 'transmission-cli'
 cask 'utm'
 cask 'vagrant'
+cask 'virtualbox'
 
 if Gem::Platform.local =~ 'x86_64-darwin'
   # NOTE: Unsupported on 'arm64-darwin'
   cask 'virtualbox-extension-pack'
-  cask 'virtualbox'
 end
