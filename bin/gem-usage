@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# List currently used gem version across all projects.
+#
+# Displays the currently installed version per Gemfile.lock for the named gem.
+# Usage: gem-usage <gem_name>
+
+# Check if gem name argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <gem-name>"
+    echo "Example: $0 rails"
+    exit 1
+fi
+
+NAME=$1
+
+# Look in the right code folder on my mac or the server.
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+grep -RE --color=auto --include Gemfile.lock --exclude-dir 'shared' --exclude-dir 'releases' --exclude-dir '.ruby-lsp' "^\s*${NAME} \(\d.*\)$" ${FOLDER}

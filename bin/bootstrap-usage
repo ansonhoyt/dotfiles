@@ -1,17 +1,4 @@
 #!/usr/bin/env bash
 
 # List all currently used Bootstrap versions
-#
-# Simply displays the current Gemfile spec for the 'bootstrap' or 'bootstrap-sass' gem.
-
-# Look in the right code folder on my mac or the server.
-if [ "$(uname)" == "Darwin" ]; then
-  FOLDER=~/code
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  FOLDER=/export/home
-else
-  echo Unexpected OS: $(uname -s)
-  exit 1
-fi
-
-grep -RE --color=auto --include Gemfile.lock --exclude-dir 'shared' --exclude-dir 'releases' "^\s*bootstrap(-sass)? \(\d" $FOLDER
+gem-usage 'bootstrap(-sass)?'

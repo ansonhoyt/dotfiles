@@ -1,17 +1,4 @@
 #!/usr/bin/env bash
 
 # List all currently used Rails versions
-#
-# Simply displays the current Gemfile spec for the 'rails' gem.
-
-# Look in the right code folder on my mac or the server.
-if [ "$(uname)" == "Darwin" ]; then
-  FOLDER=~/code
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  FOLDER=/export/home
-else
-  echo Unexpected OS: $(uname -s)
-  exit 1
-fi
-
-grep -RE --color=auto --include Gemfile.lock --exclude-dir 'shared' --exclude-dir 'releases' --exclude-dir '.ruby-lsp' "^\s*rails \(\d.*\)$" ${FOLDER}
+gem-usage rails
