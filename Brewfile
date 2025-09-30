@@ -36,6 +36,7 @@ brew 'ripgrep-all' # ripgrep, but also search in PDFs, E-Books, Office documents
 brew 'rogue'
 brew 'rsyslog'
 brew 'ssh-copy-id'
+brew 'starship' # cross-shell prompt
 brew 'stow' # Organize software neatly under a single directory tree
 brew 'tmux' # Terminal multiplexer
 brew 'tree'
