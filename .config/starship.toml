@@ -1,0 +1,27 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Update order from $time
+format = """
+$all\
+[](fg:thingy bg:blue)\
+$docker_context\
+[](fg:blue bg:purple)\
+$time\
+[ ](fg:purple)\
+$cmd_duration\
+$line_break$jobs$character\
+"""
+
+palette = 'first_try'
+
+[palettes.first_try]
+mantle = "#181825"
+thingy = "#282C33" # rgb(40,44,51) by measurement
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:purple"
+format = '[[  $time](fg:mantle bg:purple)]($style)'
+

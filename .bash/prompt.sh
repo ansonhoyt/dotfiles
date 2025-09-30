@@ -23,4 +23,6 @@ GIT_PS1_SHOWCOLORHINTS=yes
 
 #-----------------
 
-export PS1='\[\033[0;32m\]\w$(__git_ps1 " (%s)") \$ \[\033[0m\['
+# export PS1='\[\033[0;32m\]\w$(__git_ps1 " (%s)") \$ \[\033[0m\['
+
+eval "$(starship init bash)"
