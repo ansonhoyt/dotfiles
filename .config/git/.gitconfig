@@ -1,3 +1,12 @@
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+[pull]
+  rebase = true
+[init]
+  defaultBranch = master
 [user]
   name = Anson Hoyt
   email = ahoyt@tiu11.org
