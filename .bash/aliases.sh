@@ -28,3 +28,7 @@ alias sourcetree="$HOMEBREW_PREFIX/bin/stree"
 
 # https://twitter.com/bsilva96/status/1802771491534033302
 alias rspec-diff='bundle exec rspec $(git diff --name-only --diff-filter=d | grep "_spec.rb")'
+
+# File system
+alias ff='fzf --preview "bat --style=numbers --color=always {}"'
+alias nf='nvim $(fzf -m --preview="bat --color=always {}")'
