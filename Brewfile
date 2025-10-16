@@ -27,6 +27,7 @@ brew 'highlight'
 brew 'lazydocker' # Docker TUI
 brew 'lazygit' # Git TUI
 brew 'mas' # Mac App Store command-line interface
+brew 'mise'
 brew 'mitmproxy'
 brew 'nginx'
 brew 'nethack'
