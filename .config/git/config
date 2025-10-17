@@ -13,8 +13,9 @@
 [color]
   ui = auto
 [core]
-  excludesfile = ~/.gitignore_global
-  attributesfile = ~/.gitattributes
+  excludesfile = ~/.config/git/ignore
+  attributesfile = ~/.config/git/attributes
+
 # SourceTree https://www.deltawalker.com/integrate/other-apps
 [difftool "sourcetree"]
   cmd = /Applications/DeltaWalker.app/Contents/MacOS/DeltaWalker \"$REMOTE\" \"$LOCAL\" -mi -pwd=\"`pwd`\"
