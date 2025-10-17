@@ -32,3 +32,19 @@ alias rspec-diff='bundle exec rspec $(git diff --name-only --diff-filter=d | gre
 # File system
 alias ff='fzf --preview "bat --style=numbers --color=always {}"'
 alias nf='nvim $(fzf -m --preview="bat --color=always {}")'
+
+# Directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Tools
+alias d='docker'
+alias r='rails'
+n() { if [ "$#" -eq 0 ]; then nvim .; else nvim "$@"; fi; }
+
+# Git
+alias g='git'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
