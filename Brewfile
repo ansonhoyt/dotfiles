@@ -18,6 +18,7 @@
 brew 'autojump' # `j` command for fast filesystem navigation
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
+brew 'eza' # Modern ls replacement
 brew 'fortune' # Infamous electronic fortune-cookie generator
 brew 'fzf' # CLI fuzzy finder
 brew 'git'
