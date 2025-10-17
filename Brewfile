@@ -45,6 +45,7 @@ brew 'stow' # Organize software neatly under a single directory tree
 brew 'tmux' # Terminal multiplexer
 brew 'tree'
 brew 'wget'
+brew 'zoxide' # A smarter cd command
 
 brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
 
