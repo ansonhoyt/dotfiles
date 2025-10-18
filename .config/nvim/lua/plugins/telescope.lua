@@ -1,3 +1,6 @@
+-- Telescope: navigate and search files
+--
+-- Consider lazy loading: https://typecraft.dev/tutorial/telescope-and-dotfiles
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -13,6 +16,23 @@ return {
     "nvim-telescope/telescope-ui-select.nvim",
     config = function()
       require("telescope").setup {
+        pickers = {
+          find_files = {
+            find_command = {
+              "rg", "--files",
+              "--hidden", "--glob=!.git/", "--glob=!tmp/"
+            }
+          },
+          live_grep = {
+            vimgrep_arguments = {
+              "rg",
+              "--color=never",
+              "--smart-case",
+              "--no-heading", "--with-filename", "--line-number", "--column",
+              "--hidden", "--glob=!.git/", "--glob=!tmp/",
+            }
+          }
+        },
         extensions = {
           ["ui-select"] = {
             require("telescope.themes").get_dropdown { }
@@ -23,3 +43,4 @@ return {
     end
   }
 }
+
