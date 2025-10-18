@@ -29,7 +29,7 @@ require("lazy").setup("plugins", {
   rocks = {
     enabled = false -- disable luarocks support (avoids healthcheck error)
   },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = { enabled = true, notify = false }, -- automatically check for plugin updates
 })
 
 -- NOTE: Make sure a Nerd Font is installed: https://www.nerdfonts.com/
