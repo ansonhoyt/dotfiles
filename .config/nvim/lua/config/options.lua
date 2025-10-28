@@ -24,6 +24,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", lead = "." }
 vim.opt.termguicolors = true  -- True color support (for catppuccin theme)
 vim.opt.cursorline = true     -- Highlight current line
 vim.opt.signcolumn = "yes"    -- Always show sign column (prevents text shifting)
+vim.opt.updatetime = 250      -- Faster LSP/plugin updates (default 4000ms)
 
 -- Files
 vim.opt.undofile = true       -- Persistent undo history
