@@ -72,10 +72,14 @@ Key bash modules in `.bash/`:
 - Install with: `brew bundle` (or `brew bundle --global`)
 
 **Neovim:**
-- Uses lazy.nvim plugin manager (`.config/nvim/lua/config/lazy.lua`)
-- Plugins organized in `.config/nvim/lua/plugins/`
-- LSP configured via lsp-config.lua and ruby-lsp enabled in init.lua
+- Uses lazy.nvim plugin manager (not the full LazyVim distribution)
+- Entry point: `init.lua` - minimal, just loads config.lazy
+- Plugin manager setup: `lua/config/lazy.lua` - bootstrap, mapleader, loads options, then lazy.setup()
+- Vim options: `lua/config/options.lua` - manually required by lazy.lua before plugins load
+- Plugins: `lua/plugins/*.lua` - individual plugin specs
+- LSP: ruby-lsp enabled in init.lua
 - Leader key: Space
+- Mouse enabled with system clipboard integration
 
 **Version Managers:**
 - **mise** - Replaces asdf/rbenv for Ruby and other runtimes
