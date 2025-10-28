@@ -16,6 +16,7 @@
 # (from `brew leaves`)
 
 brew 'autojump' # `j` command for fast filesystem navigation
+cask 'claude-code'
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
 brew 'eza' # Modern ls replacement
