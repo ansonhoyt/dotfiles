@@ -1,0 +1,6 @@
+# Ghostty Config
+# https://ghostty.org/docs/config/reference
+
+# Set sudo wrapper to preserve terminfo.
+# Enable SSH environment variable compatibility.
+shell-integration-features = sudo,ssh-env
