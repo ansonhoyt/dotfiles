@@ -17,14 +17,15 @@ Install [GNU Stow](https://www.gnu.org/software/stow/) and bash-completion
 
 Preview, then apply the configs
 
-    cd ~/dotfiles
-    stow --no --verbose=2 .
-    stow --verbose .
+```sh
+cd ~/dotfiles
+stow --no --verbose=2 . # preview
+stow --verbose .        # apply
 
-...ignore existing files to preserve local edits or restow to clear stale symlinks. See `man stow`. Our `.stow-local-ignore` handles our usual needs.
+stow --no --verbose=2 --restow . # e.g. clear stale symlinks
+```
 
-    stow --no --verbose=2 --ignore=".gitconfig|.DS_Store" .
-    stow --no --verbose=2 --restow .
+See `man stow`. For ignored files see `.stow-local-ignore`.
 
 Run the Brewfile to install some tools
 

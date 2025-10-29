@@ -154,6 +154,7 @@ brew leaves             # List installed packages (no dependencies)
 - **Readline**: `.inputrc` configures case-insensitive completion, history search with arrow keys
 - **Git**: Config in `.config/git/config` with aliases (co, br, ci, st) and pull.rebase=true
 - **User Scripts**: Place custom scripts in `bin/` - automatically added to PATH
+- **Claude Code**: Settings in `.claude/settings.json` with auto-updates disabled (managed by Homebrew). Runtime data (projects, history, etc.) lives in `~/.claude/` but is not version controlled.
 
 ## Stow Ignore Patterns
 

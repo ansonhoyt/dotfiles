@@ -1,8 +1,13 @@
-# Comments and blank lines are allowed
+# Stow ignore
+#
+# For one-off ignores not included here use:
+#   stow --no --verbose=2 --ignore=".gitconfig|.DS_Store" .
 
-.+\.md
+^/[^/]+\.md  # Ignore top-level *.md files (but not subdirectories)
 
-# Defaults from GNU Stow
+.+.local\.json  # Ignore *.local.json files (personal, machine-specific)
+
+# Defaults from GNU Stow:
 # https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html
 
 RCS
