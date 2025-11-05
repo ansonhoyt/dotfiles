@@ -15,8 +15,9 @@
 # Homebrew
 # (from `brew leaves`)
 
-brew 'autojump' # `j` command for fast filesystem navigation
+cask 'chatgpt'
 cask 'claude-code'
+cask 'claude'
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
 brew 'eza' # Modern ls replacement
@@ -31,9 +32,10 @@ brew 'lazydocker' # Docker TUI
 brew 'lazygit' # Git TUI
 brew 'mas' # Mac App Store command-line interface
 brew 'mise'
-brew 'mitmproxy'
+cask 'mitmproxy'
 brew 'nginx'
 brew 'nethack'
+cask 'obsidian'
 brew 'openssl'
 brew 'p7zip' # 7-Zip (high compression file archiver)
 brew 'ripgrep'
@@ -52,7 +54,6 @@ brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github
 
 ## Performance
 brew 'bench' # benchmarking, a more-powerful `time` command
-brew 'dog' # Command-line DNS client
 brew 'gdb'
 brew 'htop'
 # brew 'jmeter' # Load testing and performance measurement application
@@ -70,8 +71,8 @@ mas 'Speedtest', id: 1153157709
 ## Editors
 brew 'macvim'
 brew 'neovim' # Modern Vim fork
-brew 'font-hack-nerd-font'
-brew 'font-jetbrains-mono-nerd-font'
+cask 'font-hack-nerd-font'
+cask 'font-jetbrains-mono-nerd-font'
 cask 'visual-studio-code'
 
 ## Frameworks
@@ -115,7 +116,7 @@ brew 'faac' # AAC audio encoder
 mas 'GarageBand', id: 682658836
 brew 'ghostscript'
 cask 'gimp'
-cask 'handbrake'
+cask 'handbrake-app'
 brew 'imagemagick'
 mas 'iMovie', id: 408981434
 cask 'inkscape'
@@ -145,6 +146,7 @@ brew 'youtube-dl' # Download YouTube videos from the command-line
 ## Shell
 cask 'iterm2'
 brew 'fish'
+cask 'ghostty'
 brew 'bash-completion'
 brew 'bundler-completion'
 brew 'docker-completion'
@@ -152,7 +154,6 @@ brew 'gem-completion'
 brew 'rails-completion'
 brew 'rake-completion'
 brew 'ruby-completion'
-brew 'vagrant-completion'
 brew 'yarn-completion'
 
 ## Raspberry Pi
@@ -162,34 +163,39 @@ cask 'raspberry-pi-imager'
 cask 'vnc-viewer'
 
 ## Password Managers
-cask 'authy' # Authy Desktop
 mas 'Bitwarden', id: 1352778147
 brew 'bitwarden-cli'
-mas 'LastPass', id: 926036361
+cask '1password'
+cask '1password-cli'
 
 # Mac App Store
 # (ids from `mas list`)
 
 mas 'Amphetamine', id: 937984704
+mas 'Apple Configurator', id: 1037126344
+mas 'Developer', id: 640199958
 mas 'Mactracker', id: 430255202
+mas 'Perplexity', id: 6714467650
+mas 'Slack', id: 803453959
+mas 'Transporter', id: 1450874784
 mas 'Xcode', id: 497799835
 
 mas 'Keynote', id: 409183694
-mas 'Kindle', id: 405399194
 mas 'Microsoft OneNote', id: 784801555
 mas 'Microsoft Remote Desktop', id: 1295203466
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'Playgrounds', id: 1496833156
 mas 'Transporter', id: 1450874784
-mas 'TweetDeck', id: 485812721
 
 # Cask
 
 cask 'calibre' # E-books management software
 # cask 'chromedriver' # for headless Selenium testing # TODO: drop for webdrivers gem??? or is this de-dupish?
 # cask 'firefox'
+brew 'gh' # GitHub CLI
 cask 'github' # GitHub Desktop
+cask 'git-credential-manager'
 # cask 'google-chrome'
 cask 'keycastr'
 cask 'libreoffice'
