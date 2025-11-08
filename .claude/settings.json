@@ -1,10 +1,10 @@
 {
-  "alwaysThinkingEnabled": false,
   "env": {
     "DISABLE_AUTOUPDATER": "1"
   },
   "statusLine": {
     "type": "command",
     "command": "npx ccstatusline@latest"
-  }
+  },
+  "alwaysThinkingEnabled": false
 }
