@@ -1,3 +1,4 @@
+# Loaded for interactive non-login shells
 
 #-------------------------------
 # Bitbucket setup
@@ -39,8 +40,8 @@ fi
 # NOTE: *after* Homebrew since brews are used in several
 for bash_config in ~/.bash/*.sh; do source $bash_config; done
 
-# User bin (for my scripts)
-export PATH=~/bin:$PATH
+# User bins (for my scripts and pipx tools)
+export PATH=~/bin:$HOME/.local/bin:$PATH
 
 # NVM
 # - https://github.com/nvm-sh/nvm#git-install
@@ -62,3 +63,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # Always install Ruby with documentation
 export rvm_docs_flag=1
+
+# https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init bash --cmd cd)"
+
