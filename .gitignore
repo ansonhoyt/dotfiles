@@ -1,0 +1,12 @@
+# Claude Code runtime data (config in .claude/settings.json is tracked)
+.claude/debug/
+.claude/file-history/
+.claude/history.jsonl
+.claude/projects/
+.claude/shell-snapshots/
+.claude/statsig/
+.claude/todos/
+
+# Git Credential Manager logs
+gcm-diagnose.log
+
