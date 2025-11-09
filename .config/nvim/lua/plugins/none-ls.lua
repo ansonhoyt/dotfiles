@@ -8,13 +8,12 @@ return {
   },
   config = function()
     local null_ls = require("null-ls")
+
     null_ls.setup({
       sources = {
-        -- NOTE: manually install in :Mason (stylua, prettier, eslint_d)
-        -- and `npm install -g eslint_d`
+        -- Auto-installed via mason-tool-installer (see lsp-config.lua and :Mason)
         null_ls.builtins.formatting.stylua, -- Lua
         null_ls.builtins.formatting.prettier, -- JS
-        null_ls.builtins.diagnostics.eslint_d, -- JS
         null_ls.builtins.formatting.black, -- Python
         null_ls.builtins.formatting.isort, -- Python
       },

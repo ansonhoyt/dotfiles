@@ -9,6 +9,7 @@ return {
       ensure_installed = {
         "lua_ls", -- Lua
         "ts_ls", -- TypeScript/JavaScript
+        "eslint", -- JavaScript/TypeScript linting
         "pyright", -- Python
       }
     },
@@ -16,6 +17,18 @@ return {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
     }
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua", -- Lua formatter
+        "prettier", -- JS/TS formatter
+        "black", -- Python formatter
+        "isort", -- Python import sorter
+      }
+    },
+    dependencies = { "mason-org/mason.nvim" }
   },
   {
     "neovim/nvim-lspconfig",
@@ -36,7 +49,12 @@ return {
         root_dir = vim.fs.root(0, { "Gemfile", ".git" })
       }
 
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp' })
+      vim.lsp.config.eslint = {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        root_dir = vim.fs.root(0, { ".eslintrc", ".eslintrc.js", ".eslintrc.json", "package.json" })
+      }
+
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint' })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
