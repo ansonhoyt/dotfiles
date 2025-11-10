@@ -35,6 +35,7 @@ alias ....='cd ../../..'
 # Tools
 alias d='docker'
 alias r='rails'
+alias rnt='rails new --template https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb'
 n() { if [ "$#" -eq 0 ]; then nvim .; else nvim "$@"; fi; }
 
 # Git
