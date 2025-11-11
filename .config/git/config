@@ -24,7 +24,8 @@
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
 [credential]
-  helper = osxkeychain
+  helper =  # Clear any system-level helpers
+  helper = /usr/local/share/gcm-core/git-credential-manager
 [push]
   default = simple
 [filter "lfs"]
