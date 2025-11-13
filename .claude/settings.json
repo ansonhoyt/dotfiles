@@ -6,5 +6,5 @@
     "type": "command",
     "command": "npx ccstatusline@latest"
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true
 }
