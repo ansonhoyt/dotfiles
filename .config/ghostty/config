@@ -4,3 +4,4 @@
 # Set sudo wrapper to preserve terminfo.
 # Enable SSH environment variable compatibility.
 shell-integration-features = sudo,ssh-env
+keybind = shift+enter=text:\x1b\r
