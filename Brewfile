@@ -84,6 +84,7 @@ brew 'python'
 # brew 'yarn' # NOTE: installed via nvm => node => npm
 brew 'gron' # Make JSON greppable
 brew 'jq' # JSON processor
+brew 'jaq' # Rust-based jq clone (faster, drop-in replacement)
 cask 'quicklook-json'
 
 ## React Native

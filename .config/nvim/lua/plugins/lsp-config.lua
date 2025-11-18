@@ -11,6 +11,7 @@ return {
         "ts_ls", -- TypeScript/JavaScript
         "eslint", -- JavaScript/TypeScript linting
         "pyright", -- Python
+        "jsonls", -- JSON
       }
     },
     dependencies = {
@@ -54,7 +55,15 @@ return {
         root_dir = vim.fs.root(0, { ".eslintrc", ".eslintrc.js", ".eslintrc.json", "package.json" })
       }
 
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint' })
+      vim.lsp.config.jsonls = {
+        settings = {
+          json = {
+            validate = { enable = true }
+          }
+        }
+      }
+
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls' })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
