@@ -64,6 +64,13 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # Always install Ruby with documentation
 export rvm_docs_flag=1
 
+# Workaround for macOS fork() crashes in Ruby & Python (multiprocessing, app servers)
+#   objc[97005]: +[NSValue initialize] may have been in progress in another thread when fork() was called.
+# Ruby: https://blog.phusion.nl/2017/10/13/why-ruby-app-servers-break-on-macos-high-sierra-and-what-can-be-done-about-it/
+# Python <3.8: https://github.com/python/cpython/issues/77906
+#   (defaults to spawn since 3.8)
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 # https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init bash --cmd cd)"
 
