@@ -44,7 +44,8 @@
       "Bash(bundle exec rails db:*)",
       "Bash(rake db:*)",
       "Bash(bin/rake db:*)",
-      "Bash(bundle exec rake db:*)"
+      "Bash(bundle exec rake db:*)",
+      "WebSearch"
     ]
   },
   "hooks": {
