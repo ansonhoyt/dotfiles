@@ -61,15 +61,15 @@ Key bash modules in `.bash/`:
 ├── bin/                # User scripts (in PATH via .bashrc)
 ├── .inputrc           # Readline configuration
 ├── .osx               # macOS defaults script
-├── Brewfile           # Homebrew packages/casks/apps
+├── .Brewfile          # Homebrew packages/casks/apps
 └── dotfiles in root   # Stowed directly to home (~)
 ```
 
 ### Tool Setup
 
 **Package Management:**
-- `Brewfile` - Comprehensive list of Homebrew packages, casks, and Mac App Store apps
-- Install with: `brew bundle` (or `brew bundle --global`)
+- `.Brewfile` - Comprehensive list of Homebrew packages, casks, and Mac App Store apps (stowed to `~/.Brewfile`)
+- Install with: `brew bundle --global` (works from any directory)
 
 **Neovim:**
 - Uses lazy.nvim plugin manager (not the full LazyVim distribution)
@@ -97,7 +97,7 @@ Key bash modules in `.bash/`:
 ### Setup/Installation
 ```bash
 # Install Homebrew packages
-brew bundle
+brew bundle --global
 
 # Configure macOS defaults
 ./.osx
@@ -141,9 +141,9 @@ n [files]              # Open nvim (current dir if no args)
 
 ### Homebrew
 ```bash
-bug                     # brew upgrade --greedy (alias)
-brew bundle dump        # Generate Brewfile from installed packages
-brew leaves             # List installed packages (no dependencies)
+bug                           # brew upgrade --greedy (alias)
+brew bundle dump --global     # Generate Brewfile from installed packages
+brew leaves                   # List installed packages (no dependencies)
 ```
 
 ## Important Notes

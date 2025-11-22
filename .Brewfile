@@ -50,8 +50,8 @@ brew 'zoxide' # A smarter cd command
 brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
 
 ## AI / LLM
-brew 'codex'
-brew 'conductor'
+cask 'codex'
+cask 'conductor'
 cask 'chatgpt'
 cask 'claude'
 cask 'claude-code'
@@ -62,7 +62,7 @@ brew 'gdb'
 brew 'htop'
 # brew 'jmeter' # Load testing and performance measurement application
 brew 'lnav'
-# brew 'nmap' # Port scanning utility for large networks
+brew 'nmap' # Port scanning utility for large networks
 # brew 'oha' # HTTP load generator
 cask 'pingplotter'
 brew 'iperf' # Tool to measure maximum TCP and UDP bandwidth
@@ -82,7 +82,6 @@ cask 'visual-studio-code'
 ## Frameworks
 cask 'dotnet-sdk'
 # cask 'java' # OpenJDK
-# brew 'node' # TODO: drop since we use nvm?
 brew 'python'
 
 # brew 'yarn' # NOTE: installed via nvm => node => npm
@@ -93,7 +92,6 @@ cask 'quicklook-json'
 
 ## React Native
 cask 'android-studio'
-cask 'react-native-debugger'
 brew 'firebase-cli'
 
 ## Rails Active Storage dependencies
@@ -112,7 +110,7 @@ cask 'db-browser-for-sqlite'
 # cask 'mysqlworkbench'
 cask 'pgadmin4'
 brew 'postgresql'
-brew 'redis'
+#brew 'redis'
 brew 'sqlite'
 
 ## Media
@@ -137,11 +135,9 @@ brew 'pandoc' # Swiss-army knife of markup format conversion
 # brew 'jonof/kenutils/pngout' # Ken Silverman's PNG optimisation utility
 # brew 'optipng' # PNG file optimizer
 # brew 'opencore-amr' # Audio codecs extracted from Android open source project
-mas 'Pixelmator', id: 407963104
 mas 'Pixelmator Pro', id: 1289583905
 brew 'sox' # SOund eXchange: universal sound sample translator
 cask 'vlc' # media player
-brew 'youtube-dl' # Download YouTube videos from the command-line
 # NOTE: Audacity should *not* be installed with Homebrew
 
 ## GIS
@@ -149,7 +145,7 @@ brew 'youtube-dl' # Download YouTube videos from the command-line
 # brew 'qgis'
 
 ## Shell
-cask 'iterm2'
+#cask 'iterm2'
 brew 'fish'
 cask 'ghostty'
 brew 'bash-completion'
@@ -162,9 +158,7 @@ brew 'ruby-completion'
 brew 'yarn-completion'
 
 ## Raspberry Pi
-cask 'balenaetcher'
 cask 'raspberry-pi-imager'
-# cask 'sdformatter'
 cask 'vnc-viewer'
 
 ## Password Managers
