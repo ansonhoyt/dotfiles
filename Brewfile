@@ -15,9 +15,6 @@
 # Homebrew
 # (from `brew leaves`)
 
-cask 'chatgpt'
-cask 'claude-code'
-cask 'claude'
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
 brew 'eza' # Modern ls replacement
@@ -51,6 +48,13 @@ brew 'wget'
 brew 'zoxide' # A smarter cd command
 
 brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
+
+## AI / LLM
+brew 'codex'
+brew 'conductor'
+cask 'chatgpt'
+cask 'claude'
+cask 'claude-code'
 
 ## Performance
 brew 'bench' # benchmarking, a more-powerful `time` command
