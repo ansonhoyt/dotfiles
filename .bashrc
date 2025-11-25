@@ -43,13 +43,6 @@ for bash_config in ~/.bash/*.sh; do source $bash_config; done
 # User bins (for my scripts and pipx tools)
 export PATH=~/bin:$HOME/.local/bin:$PATH
 
-# NVM
-# - https://github.com/nvm-sh/nvm#git-install
-# - https://github.com/nvm-sh/nvm#manual-upgrade
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Yarn global bin
 # - https://classic.yarnpkg.com/en/docs/cli/global/
 # export PATH="$(yarn global bin):$PATH"
