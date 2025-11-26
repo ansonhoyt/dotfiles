@@ -1,0 +1,16 @@
+{
+  // Disable line-length for code examples and long URLs
+  "MD013": false,
+  // No empty links like [text]() or [text](#)
+  "MD042": true,
+  // Fragment links must point to valid headings
+  "MD051": true,
+  // Reference links must use defined labels
+  "MD052": true,
+  // Link definitions must be used
+  "MD053": true,
+  // Fenced code blocks should specify a language
+  "MD040": true,
+  // Keep other defaults
+  "default": true
+}

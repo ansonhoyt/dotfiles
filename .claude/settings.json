@@ -36,7 +36,8 @@
       "Bash(bundle exec rake:*)",
       "Bash(tree:*)",
       "Bash(ls:*)",
-      "Bash(jaq:*)"
+      "Bash(jaq:*)",
+      "Bash(npx markdownlint-cli2:*)"
     ],
     "ask": [
       "Bash(rails db:*)",
@@ -66,6 +67,10 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/rubocop_file.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/markdownlint_file.sh"
           }
         ]
       }
