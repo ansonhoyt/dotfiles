@@ -1,40 +1,47 @@
 # Anson's dotfiles
 
-Informed by https://dotfiles.github.io/
+Informed by <https://dotfiles.github.io/>
 
 Having a Git repo in your home folder doesn't work very well, so we clone this into `~/dotfiles` and symlink into home with [GNU Stow](https://www.gnu.org/software/stow/).
 
 # Setup
 
-Pull in the dotfiles
-
-    cd ~
-    git clone git@bitbucket.org:ansonhoyt/dotfiles.git
-
-Install [GNU Stow](https://www.gnu.org/software/stow/) and bash-completion
-
-    brew install stow bash-completion
-
-Preview, then apply the configs
+Clone and bootstrap:
 
 ```sh
+git clone git@bitbucket.org:ansonhoyt/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow --no --verbose=2 . # preview
-stow --verbose .        # apply
-
-stow --no --verbose=2 --restow . # e.g. clear stale symlinks
+./bootstrap.sh
 ```
+
+Bootstrap handles:
+
+- Homebrew installation (if needed)
+- GNU Stow installation (if needed)
+- Directory creation (`~/.ssh/sockets`)
+- Stow (symlinking dotfiles to home)
+
+Optional next steps:
+
+```sh
+brew bundle --global # Install Homebrew packages
+./.osx               # Configure macOS defaults
+```
+
+## [Stow](https://www.gnu.org/software/stow/)
 
 See `man stow`. For ignored files see `.stow-local-ignore`.
 
-Run the Brewfile to install some tools
+Useful commands:
 
-    brew tap homebrew/bundle
-    brew bundle
+```sh
+stow --no --verbose=2 .          # Preview changes
+stow --verbose --restow .        # Reapply (clears stale symlinks)
+```
 
 # tmux
 
-See https://tmuxcheatsheet.com/
+See <https://tmuxcheatsheet.com/>
 
     tmux new -n <session-name>  # create a new session with a name
     Ctrl + b d                  # detach from the current session

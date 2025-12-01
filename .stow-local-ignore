@@ -30,5 +30,6 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+^/bootstrap\.sh
 
 \.DS_Store   # MacOS Finder metadata
