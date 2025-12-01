@@ -14,8 +14,8 @@ return {
         -- Auto-installed via mason-tool-installer (see lsp-config.lua and :Mason)
         null_ls.builtins.formatting.stylua, -- Lua
         null_ls.builtins.formatting.prettier, -- JS
-        null_ls.builtins.formatting.black, -- Python
-        null_ls.builtins.formatting.isort, -- Python
+        null_ls.builtins.formatting.ruff, -- Python formatting + import sorting (replaces black + isort)
+        null_ls.builtins.diagnostics.ruff, -- Python linting
       },
     })
 
