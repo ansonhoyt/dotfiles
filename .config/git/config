@@ -1,37 +1,68 @@
+# See https://git-scm.com/docs/git-config
+
 [alias]
   co = checkout
   br = branch
   ci = commit
   st = status
-[pull]
-  rebase = true
 [init]
   defaultBranch = master
+[pull]
+  rebase = true           # Rebase (instead of merge) on pull
+[push]
+  autoSetupRemote = true  # Automatically set upstream branch on push
+[rebase]
+  autoStash = true        # Automatically stash -> rebase -> stash pop
+[diff]
+  algorithm = histogram   # Clearer diffs on moved/edited lines
+  colorMoved = plain      # Highlight moved blocks in diffs
+  mnemonicPrefix = true   # More intuitive refs in diff output
+[commit]
+  verbose = true          # Include diff comment in commit message template
+[column]
+  ui = auto               # Output in columns when possible
+[branch]
+  sort = -committerdate   # Sort branches by most recent commit first
+[tag]
+  sort = -version:refname  # Sort version numbers as you would expect
+[rerere]
+  enabled = true          # Record and reuse conflict resolutions
+
 [user]
   name = Anson Hoyt
-  email = ahoyt@tiu11.org
-[color]
-  ui = auto
+  email = anson.hoyt@gmail.com
+
+# Work identity for ~/Work projects
+[includeIf "gitdir:~/Work/"]
+  path = ~/.config/git/config-work
+
 [core]
   excludesfile = ~/.config/git/ignore
   attributesfile = ~/.config/git/attributes
+[credential]
+  helper =  # Clear any system-level helpers
+  helper = /usr/local/share/gcm-core/git-credential-manager
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+
+# Delta: https://github.com/dandavison/delta
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  line-numbers = true
+[merge]
+  conflictStyle = zdiff3
 
 # SourceTree https://www.deltawalker.com/integrate/other-apps
 [difftool "sourcetree"]
   cmd = /Applications/DeltaWalker.app/Contents/MacOS/DeltaWalker \"$REMOTE\" \"$LOCAL\" -mi -pwd=\"`pwd`\"
   path =
 [mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
-[credential]
-  helper =  # Clear any system-level helpers
-  helper = /usr/local/share/gcm-core/git-credential-manager
-[push]
-  default = simple
-[filter "lfs"]
-  required = true
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-[commit]
-  template = /Users/ahoyt/.stCommitMsg

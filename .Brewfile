@@ -21,6 +21,7 @@ brew 'eza' # Modern ls replacement
 brew 'fortune' # Infamous electronic fortune-cookie generator
 brew 'fzf' # CLI fuzzy finder
 brew 'git'
+brew 'git-delta'
 brew 'git-lfs'
 brew 'graphviz'
 brew 'gnupg' # GNU Pretty Good Privacy (PGP)
