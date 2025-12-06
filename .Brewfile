@@ -56,6 +56,7 @@ cask 'conductor'
 cask 'chatgpt'
 cask 'claude'
 cask 'claude-code'
+cask 'macwhisper'
 
 ## Performance
 brew 'bench' # benchmarking, a more-powerful `time` command
@@ -211,6 +212,7 @@ cask 'superduper'
 cask 'utm'
 cask 'vagrant'
 cask 'virtualbox'
+cask 'zoom'
 
 if Gem::Platform.local =~ 'x86_64-darwin'
   # NOTE: Unsupported on 'arm64-darwin'
