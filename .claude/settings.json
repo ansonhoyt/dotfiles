@@ -5,8 +5,8 @@
   },
   "permissions": {
     "allow": [
-      "Bash(rspec)",
-      "Bash(bundle exec rspec)",
+      "Bash(rspec:*)",
+      "Bash(bundle exec rspec:*)",
       "Bash(ruby -Itest:*)",
       "Bash(bundle exec ruby -Itest:*)",
       "Bash(brakeman:*)",
