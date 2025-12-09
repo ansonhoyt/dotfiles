@@ -56,6 +56,8 @@ cask 'conductor'
 cask 'chatgpt'
 cask 'claude'
 cask 'claude-code'
+brew 'copilot-cli'
+brew 'gemini-cli'
 cask 'macwhisper'
 
 ## Performance
