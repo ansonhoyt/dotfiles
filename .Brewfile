@@ -17,9 +17,7 @@
 
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
-brew 'eza' # Modern ls replacement
 brew 'fortune' # Infamous electronic fortune-cookie generator
-brew 'fzf' # CLI fuzzy finder
 brew 'git'
 brew 'git-delta'
 brew 'git-lfs'
@@ -33,7 +31,6 @@ brew 'mise'
 cask 'mitmproxy'
 brew 'nginx'
 brew 'nethack'
-cask 'obsidian'
 brew 'openssl'
 brew 'p7zip' # 7-Zip (high compression file archiver)
 brew 'ripgrep'
@@ -41,14 +38,30 @@ brew 'ripgrep-all' # ripgrep, but also search in PDFs, E-Books, Office documents
 brew 'rogue'
 brew 'rsyslog'
 brew 'ssh-copy-id'
-brew 'starship' # cross-shell prompt
 brew 'stow' # Organize software neatly under a single directory tree
-brew 'tmux' # Terminal multiplexer
 brew 'tree'
 brew 'wget'
-brew 'zoxide' # A smarter cd command
 
 brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
+
+## Shell
+brew 'eza' # Modern ls replacement
+brew 'fish'
+brew 'fzf' # CLI fuzzy finder
+cask 'ghostty'
+#cask 'iterm2'
+brew 'starship' # cross-shell prompt
+brew 'tmux' # Terminal multiplexer
+brew 'zoxide' # A smarter cd command
+### shell completions:
+brew 'bash-completion'
+brew 'bundler-completion'
+brew 'docker-completion'
+brew 'gem-completion'
+brew 'rails-completion'
+brew 'rake-completion'
+brew 'ruby-completion'
+brew 'yarn-completion'
 
 ## AI / LLM
 cask 'codex'
@@ -81,6 +94,7 @@ brew 'macvim'
 brew 'neovim' # Modern Vim fork
 cask 'font-hack-nerd-font'
 cask 'font-jetbrains-mono-nerd-font'
+cask 'obsidian'
 cask 'visual-studio-code'
 
 ## Frameworks
@@ -147,19 +161,6 @@ cask 'vlc' # media player
 ## GIS
 # brew 'proj' # Cartographic Projections Library
 # brew 'qgis'
-
-## Shell
-#cask 'iterm2'
-brew 'fish'
-cask 'ghostty'
-brew 'bash-completion'
-brew 'bundler-completion'
-brew 'docker-completion'
-brew 'gem-completion'
-brew 'rails-completion'
-brew 'rake-completion'
-brew 'ruby-completion'
-brew 'yarn-completion'
 
 ## Raspberry Pi
 cask 'raspberry-pi-imager'
