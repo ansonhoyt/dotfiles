@@ -11,6 +11,8 @@
   "MD053": true,
   // Fenced code blocks should specify a language
   "MD040": true,
+  // Unordered list marker style: allow either as long as consistent
+  "MD004": { "style": "consistent" },
   // Keep other defaults
   "default": true
 }
