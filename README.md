@@ -9,7 +9,7 @@ Having a Git repo in your home folder doesn't work very well, so we clone this i
 Clone and bootstrap:
 
 ```sh
-git clone git@bitbucket.org:ansonhoyt/dotfiles.git ~/dotfiles
+git clone git@github.com:ansonhoyt/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap.sh
 ```
