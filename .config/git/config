@@ -19,6 +19,7 @@
   mnemonicPrefix = true   # More intuitive refs in diff output
 [commit]
   verbose = true          # Include diff comment in commit message template
+  gpgsign = true
 [column]
   ui = auto               # Output in columns when possible
 [branch]
@@ -31,6 +32,13 @@
 [user]
   name = Anson Hoyt
   email = anson.hoyt@gmail.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICXMcxso4yQUaaTtFoBaxx1pIGwqfh/isZ5EHlePfFkF
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 # Work identity for ~/Work projects
 [includeIf "gitdir:~/Work/"]
