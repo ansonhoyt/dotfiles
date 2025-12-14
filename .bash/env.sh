@@ -1,3 +1,6 @@
+# XDG Base Directory
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Default editor (git, etc.)
 if command -v nvim >/dev/null 2>&1; then
   export EDITOR=nvim
