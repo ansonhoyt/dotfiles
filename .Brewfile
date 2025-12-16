@@ -17,6 +17,7 @@
 
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
+brew 'fastfetch' # Fast system info display
 brew 'fortune' # Infamous electronic fortune-cookie generator
 brew 'git'
 brew 'git-delta'
