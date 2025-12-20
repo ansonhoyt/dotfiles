@@ -1,0 +1,60 @@
+# Gemini CLI Allow Policies
+# Mirrors Claude Code permissions from .claude/settings.json
+# Uses aggressive regex consolidation for maintainability
+
+# 1. Ruby/Rails commands
+# * accept: standalone, binstubs or bundle exec
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"(bundle exec |bin/)?(brakeman|bundler-audit|rspec|rubocop|rake|rails|ruby -Itest)'
+decision = "allow"
+priority = 150
+
+# 2. Bundle read-only commands
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"bundle (config|show|outdated|platform|help|check|doctor|version)'
+decision = "allow"
+priority = 150
+
+# 3. Gem read-only commands
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"gem (help|list|env|open|outdated|specification|stale|which)'
+decision = "allow"
+priority = 150
+
+# 4. Yarn read-only commands
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"yarn (list|why|info|versions|config list)'
+decision = "allow"
+priority = 150
+
+# 5. Homebrew read-only commands
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"brew (list|info|leaves|doctor|config|search)'
+decision = "allow"
+priority = 150
+
+# 6. Git read-only commands
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
+decision = "allow"
+priority = 150
+
+# 7. Utility commands
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["date", "jaq", "ls", "tree", "wc", "which"]
+decision = "allow"
+priority = 150
+
+# 8. Web fetch for Ruby/Rails documentation
+[[rule]]
+toolName = "web_fetch"
+argsPattern = "(docs\\.claude\\.com|api\\.rubyonrails\\.org|docs\\.ruby-lang\\.org|hotwired\\.dev|masilotti\\.com|betterspecs\\.org|rubydoc\\.info|thoughtbot\\.com|rubygems\\.org)"
+decision = "allow"
+priority = 150

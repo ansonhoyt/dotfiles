@@ -1,0 +1,9 @@
+# Gemini CLI Ask Policies
+# Commands that require explicit user confirmation for safety
+
+# 1. Database commands - ask first
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"(bundle exec |bin/)?(rails|rake) db:'
+decision = "ask_user"
+priority = 200
