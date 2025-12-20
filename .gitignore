@@ -1,9 +1,13 @@
-# Claude Code runtime data (config in .claude/settings.json is tracked)
+# Claude Code runtime data
 .claude/debug/
 .claude/file-history/
 .claude/history.jsonl
+.claude/plans/
+.claude/plugins/
 .claude/projects/
+.claude/session-env/
 .claude/shell-snapshots/
+.claude/stats-cache.json
 .claude/statsig/
 .claude/todos/
 
