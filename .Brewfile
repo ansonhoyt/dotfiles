@@ -133,6 +133,7 @@ brew 'postgresql'
 brew 'sqlite'
 
 ## Media
+cask 'audacity' # audio editing/recording
 cask 'blender' # 3D creation suite
 brew 'faac' # AAC audio encoder
 mas 'GarageBand', id: 682658836
@@ -157,7 +158,6 @@ brew 'pandoc' # Swiss-army knife of markup format conversion
 mas 'Pixelmator Pro', id: 1289583905
 brew 'sox' # SOund eXchange: universal sound sample translator
 cask 'vlc' # media player
-# NOTE: Audacity should *not* be installed with Homebrew
 
 ## GIS
 # brew 'proj' # Cartographic Projections Library
