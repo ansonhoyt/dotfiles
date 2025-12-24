@@ -50,7 +50,6 @@ See <https://tmuxcheatsheet.com/>
 
 # TODO
 
-* Add nvim-cmp for LSP autocompletion (`hrsh7th/nvim-cmp`, `hrsh7th/cmp-nvim-lsp`, `L3MON4D3/LuaSnip`)
 * Consider https://github.com/Bash-it/bash-it
 * Consider replacing terminal codes in prompt with variables as in https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 * Check out https://news.ycombinator.com/item?id=18896422

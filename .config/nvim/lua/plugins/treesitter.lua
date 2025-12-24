@@ -5,7 +5,7 @@ return {
     local config = require("nvim-treesitter.configs")
     config.setup({
       -- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages
-      ensure_installed = {"lua", "javascript", "python"},
+      ensure_installed = {"lua", "javascript", "python", "ruby"},
       auto_install = true, -- install missing parsers on open
       highlight = { enable = true },
       indent = { enable = true }

@@ -75,6 +75,11 @@ return {
         }
       }
 
+      -- Advertise cmp capabilities to all LSP servers
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
+      })
+
       vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'pyright' })
 
       -- Configure diagnostic display
