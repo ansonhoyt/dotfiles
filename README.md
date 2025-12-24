@@ -50,7 +50,6 @@ See <https://tmuxcheatsheet.com/>
 
 # TODO
 
-* Consider https://github.com/Bash-it/bash-it
-* Consider replacing terminal codes in prompt with variables as in https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
-* Check out https://news.ycombinator.com/item?id=18896422
-* Consider [Dotfile madness](https://0x46.net/thoughts/2019/02/01/dotfile-madness/) discussed on [HN](https://news.ycombinator.com/item?id=19063727)
+- Consider <https://github.com/Bash-it/bash-it>
+- Check out <https://news.ycombinator.com/item?id=18896422>
+- Consider [Dotfile madness](https://0x46.net/thoughts/2019/02/01/dotfile-madness/) discussed on [HN](https://news.ycombinator.com/item?id=19063727)
