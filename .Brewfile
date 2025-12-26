@@ -179,6 +179,7 @@ cask '1password-cli'
 mas 'Amphetamine', id: 937984704
 mas 'Apple Configurator', id: 1037126344
 mas 'Developer', id: 640199958
+mas 'Kindle', id: 302584613
 mas 'Mactracker', id: 430255202
 mas 'Perplexity', id: 6714467650
 mas 'Slack', id: 803453959
