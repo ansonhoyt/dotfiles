@@ -44,7 +44,7 @@ allow=(
   # Git read-only
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
   # Utilities
-  '(date|jaq|ls|tree|wc|which)( |$)'
+  '(date|file|jaq|jq|ls|pwd|stat|tree|uname|wc|which)( |$)'
   # Linting
   'npx markdownlint-cli2'
 )

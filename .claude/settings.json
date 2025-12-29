@@ -5,19 +5,6 @@
   },
   "permissions": {
     "allow": [
-      "Bash(rspec:*)",
-      "Bash(bundle exec rspec:*)",
-      "Bash(ruby -Itest:*)",
-      "Bash(bundle exec ruby -Itest:*)",
-      "Bash(brakeman:*)",
-      "Bash(bundler-audit:*)",
-      "Bash(rubocop:*)",
-      "Bash(bundle exec rubocop:*)",
-      "Bash(bundle install:*)",
-      "Bash(bundle update:*)",
-      "Bash(rails :*)",
-      "Bash(bin/rails :*)",
-      "Bash(bundle exec rails :*)",
       "WebFetch(domain:docs.claude.com)",
       "WebFetch(domain:api.rubyonrails.org)",
       "WebFetch(domain:docs.ruby-lang.org)",
@@ -26,30 +13,21 @@
       "WebFetch(domain:betterspecs.org)",
       "WebFetch(domain:rubydoc.info)",
       "WebFetch(domain:thoughtbot.com)",
-      "WebFetch(domain:rubygems.org)",
-      "Bash(git blame:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git status:*)",
-      "Bash(rake:*)",
-      "Bash(bin/rake:*)",
-      "Bash(bundle exec rake:*)",
-      "Bash(tree:*)",
-      "Bash(ls:*)",
-      "Bash(jaq:*)",
-      "Bash(npx markdownlint-cli2:*)"
-    ],
-    "ask": [
-      "Bash(rails db:*)",
-      "Bash(bin/rails db:*)",
-      "Bash(bundle exec rails db:*)",
-      "Bash(rake db:*)",
-      "Bash(bin/rake db:*)",
-      "Bash(bundle exec rake db:*)"
+      "WebFetch(domain:rubygems.org)"
     ]
   },
+  "model": "Opus",
   "hooks": {
     "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/allow_commands.sh"
+          }
+        ]
+      },
       {
         "matcher": "WebFetch",
         "hooks": [
