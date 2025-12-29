@@ -25,7 +25,6 @@ brew 'git-lfs'
 brew 'graphviz'
 brew 'gnupg' # GNU Pretty Good Privacy (PGP)
 brew 'highlight'
-brew 'lazydocker' # Docker TUI
 brew 'lazygit' # Git TUI
 brew 'mas' # Mac App Store command-line interface
 brew 'mise'
@@ -57,7 +56,6 @@ brew 'zoxide' # A smarter cd command
 ### shell completions:
 brew 'bash-completion'
 brew 'bundler-completion'
-brew 'docker-completion'
 brew 'gem-completion'
 brew 'rails-completion'
 brew 'rake-completion'
@@ -131,6 +129,18 @@ cask 'pgadmin4'
 brew 'postgresql'
 #brew 'redis'
 brew 'sqlite'
+
+## Containers and VMs
+cask 'docker-desktop' # includes docker, docker-compose CLI
+brew 'docker-completion'
+brew 'lazydocker' # Docker TUI
+cask 'utm'
+cask 'vagrant'
+cask 'virtualbox'
+if Gem::Platform.local =~ 'x86_64-darwin'
+  # NOTE: Unsupported on 'arm64-darwin'
+  cask 'virtualbox-extension-pack'
+end
 
 ## Media
 cask 'audacity' # audio editing/recording
@@ -214,12 +224,4 @@ cask 'sonic-pi'
 cask 'sourcetree'
 cask 'superduper'
 # cask 'transmission-cli'
-cask 'utm'
-cask 'vagrant'
-cask 'virtualbox'
 cask 'zoom'
-
-if Gem::Platform.local =~ 'x86_64-darwin'
-  # NOTE: Unsupported on 'arm64-darwin'
-  cask 'virtualbox-extension-pack'
-end
