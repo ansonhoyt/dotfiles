@@ -54,7 +54,7 @@ brew 'starship' # cross-shell prompt
 brew 'tmux' # Terminal multiplexer
 brew 'zoxide' # A smarter cd command
 ### shell completions:
-brew 'bash-completion'
+brew 'bash-completion@2'
 brew 'bundler-completion'
 brew 'gem-completion'
 brew 'rails-completion'

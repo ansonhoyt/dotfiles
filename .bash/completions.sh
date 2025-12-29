@@ -1,11 +1,9 @@
 # Use Bash Completions
 #
-# Completions are found in `brew --prefix`/etc/bash_completion.d
-#
-# See https://docs.brew.sh/Shell-Completion
+# See `brew info bash-completion@2` and https://docs.brew.sh/Shell-Completion
 
-if type brew &>/dev/null; then
-  source "$HOMEBREW_PREFIX/etc/bash_completion"
+if [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
+  source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 else
-  echo "run: brew install git bash-completion"
+  echo "run: brew install bash-completion@2"
 fi
