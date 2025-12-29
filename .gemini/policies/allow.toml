@@ -1,5 +1,5 @@
 # Gemini CLI Allow Policies
-# Mirrors Claude Code permissions from .claude/settings.json
+# Mirrors Claude Code permissions from .claude/hooks/allow_commands.sh
 # Uses aggressive regex consolidation for maintainability
 
 # 1. Ruby/Rails commands
@@ -48,7 +48,7 @@ priority = 150
 # 7. Utility commands
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["date", "jaq", "ls", "tree", "wc", "which"]
+commandPrefix = ["date", "file", "jaq", "jq", "ls", "pwd", "stat", "tree", "uname", "wc", "which"]
 decision = "allow"
 priority = 150
 

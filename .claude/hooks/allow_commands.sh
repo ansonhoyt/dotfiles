@@ -33,8 +33,8 @@ ask=(
 allow=(
   # Ruby/Rails: standalone, binstubs, or bundle exec
   '(bundle exec |bin/)?(brakeman|bundler-audit|rspec|rubocop|rake|rails|ruby -Itest)'
-  # Bundle commands
-  'bundle (install|update|config|show|outdated|platform|help|check|doctor|version)'
+  # Bundle read-only
+  'bundle (config|show|outdated|platform|help|check|doctor|version)'
   # Gem read-only
   'gem (help|list|env|open|outdated|specification|stale|which)'
   # Yarn read-only
@@ -45,8 +45,6 @@ allow=(
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
   # Utilities
   '(date|file|jaq|jq|ls|pwd|stat|tree|uname|wc|which)( |$)'
-  # Linting
-  'npx markdownlint-cli2'
 )
 
 # ============================================================
