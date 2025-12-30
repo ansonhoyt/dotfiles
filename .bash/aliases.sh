@@ -17,7 +17,7 @@ alias sourcetree="$HOMEBREW_PREFIX/bin/stree"
 # https://twitter.com/bsilva96/status/1802771491534033302
 alias rspec-diff='bundle exec rspec $(git diff --name-only --diff-filter=d | grep "_spec.rb")'
 
-alias bug='brew upgrade --greedy'
+bug() { brew upgrade --greedy "$@" && refresh-completions; }
 
 # File system
 alias ls='eza -lh --group-directories-first --icons=auto'

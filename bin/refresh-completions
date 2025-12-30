@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Regenerate dynamic bash completions
+
+# Writes to lazy-load dir (loaded on first <cmd><tab>, not at shell startup)
+LAZY_COMP_DIR="$HOMEBREW_PREFIX/share/bash-completion/completions"
+
+# tool -> generator command
+declare -A generators=(
+  # op completion --help
+  [op]="op completion bash"
+)
+
+for cmd in "${!generators[@]}"; do
+  bin=$(command -v "$cmd" 2>/dev/null) || continue
+  dest="$LAZY_COMP_DIR/$cmd"
+
+  # Skip if completion exists and is newer than binary
+  [[ -f "$dest" && ! "$bin" -nt "$dest" ]] && continue
+
+  echo "🔄 Refreshing $cmd completion..."
+  ${generators[$cmd]} > "$dest" 2>/dev/null
+done
