@@ -43,8 +43,12 @@ allow=(
   'brew (list|info|leaves|doctor|config|search)'
   # Git read-only
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
-  # Utilities
-  '(date|file|jaq|jq|ls|pwd|stat|tree|uname|wc|which)( |$)'
+  # Utilities (read-only)
+  '(date|diff|echo|file|grep|head|jaq|jq|ls|pwd|rg|stat|tail|test|tree|type|uname|wc|which)( |$)'
+  # Shell introspection (read-only forms only)
+  'complete -p$'
+  'command -v$'
+  'env$'
 )
 
 # ============================================================

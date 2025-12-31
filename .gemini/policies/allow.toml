@@ -45,14 +45,21 @@ argsPattern = '"command":"git (blame|check-ignore|config get|diff|grep|log|ls-fi
 decision = "allow"
 priority = 150
 
-# 7. Utility commands
+# 7. Utility commands (read-only)
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["date", "file", "jaq", "jq", "ls", "pwd", "stat", "tree", "uname", "wc", "which"]
+commandPrefix = ["date", "diff", "echo", "file", "grep", "head", "jaq", "jq", "ls", "pwd", "rg", "stat", "tail", "test", "tree", "type", "uname", "wc", "which"]
 decision = "allow"
 priority = 150
 
-# 8. Web fetch for Ruby/Rails documentation
+# 8. Shell introspection (exact commands only)
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"(complete -p|command -v|env)"}'
+decision = "allow"
+priority = 150
+
+# 9. Web fetch for Ruby/Rails documentation
 [[rule]]
 toolName = "web_fetch"
 argsPattern = "(docs\\.claude\\.com|api\\.rubyonrails\\.org|docs\\.ruby-lang\\.org|hotwired\\.dev|masilotti\\.com|betterspecs\\.org|rubydoc\\.info|thoughtbot\\.com|rubygems\\.org)"
