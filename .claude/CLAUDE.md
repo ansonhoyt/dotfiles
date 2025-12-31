@@ -8,4 +8,8 @@
 
 - Maintain `AGENTS.md` for codebase documentation shared across AI coding tools (Claude Code, GitHub Copilot, etc.)
 - When running `/init`, create `CLAUDE.md` that references `@AGENTS.md` rather than duplicating content
-- Follow best practice from https://docs.claude.com/en/docs/claude-code/claude-code-on-the-web#best-practices
+- Follow best practice from <https://docs.claude.com/en/docs/claude-code/claude-code-on-the-web#best-practices>
+
+## GitHub
+
+- Use `gh` CLI for issues, PRs, checks, releases (authenticated via keyring)
