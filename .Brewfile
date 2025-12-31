@@ -15,6 +15,7 @@
 # Homebrew
 # (from `brew leaves`)
 
+brew 'ast-grep'
 brew 'cowsay'
 brew 'dnsmasq' # DNS server. Reads $HOMEBREW_PREFIX/etc/dnsmasq.conf
 brew 'fastfetch' # Fast system info display

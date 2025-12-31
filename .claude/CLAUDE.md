@@ -12,4 +12,8 @@
 
 ## GitHub
 
-- Use `gh` CLI for issues, PRs, checks, releases (authenticated via keyring)
+- Use `gh` CLI for GitHub operations
+
+## Code Search
+
+- `ast-grep` is available. Use it when searching/refactoring code.
