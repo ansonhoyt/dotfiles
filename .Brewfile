@@ -48,6 +48,7 @@ brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github
 ## Shell
 brew 'eza' # Modern ls replacement
 brew 'fish'
+brew 'fd'  # Simple, fast alternative to find
 brew 'fzf' # CLI fuzzy finder
 cask 'ghostty'
 #cask 'iterm2'

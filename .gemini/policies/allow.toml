@@ -48,18 +48,25 @@ priority = 150
 # 7. Utility commands (read-only)
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["date", "diff", "echo", "file", "grep", "head", "jaq", "jq", "ls", "pwd", "rg", "stat", "tail", "test", "tree", "type", "uname", "wc", "which"]
+commandPrefix = ["basename", "cat", "column", "cut", "date", "df", "diff", "dirname", "du", "echo", "file", "grep", "head", "jaq", "jq", "ls", "nl", "printenv", "pwd", "readlink", "realpath", "rg", "stat", "tail", "test", "tr", "tree", "type", "uname", "wc", "which"]
 decision = "allow"
 priority = 150
 
-# 8. Shell introspection (exact commands only)
+# 8. Commands with dangerous flags (ask policies block unsafe forms)
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"(find|fd|sort|git branch)( |$)'
+decision = "allow"
+priority = 150
+
+# 9. Shell introspection (exact commands only)
 [[rule]]
 toolName = "run_shell_command"
 argsPattern = '"command":"(complete -p|command -v|env)"}'
 decision = "allow"
 priority = 150
 
-# 9. Web fetch for Ruby/Rails documentation
+# 10. Web fetch for Ruby/Rails documentation
 [[rule]]
 toolName = "web_fetch"
 argsPattern = "(docs\\.claude\\.com|api\\.rubyonrails\\.org|docs\\.ruby-lang\\.org|hotwired\\.dev|masilotti\\.com|betterspecs\\.org|rubydoc\\.info|thoughtbot\\.com|rubygems\\.org)"

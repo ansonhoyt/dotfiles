@@ -28,6 +28,11 @@ set -euo pipefail
 ask=(
   # Database commands need confirmation
   '(bundle exec |bin/)?(rails|rake) db:'
+  # Commands with dangerous flags (safe forms in allow below)
+  'find .*-(delete|exec|execdir|fprint|fprintf|fls|ok|okdir)'
+  'fd .*( -x| --exec| -X| --exec-batch)'
+  'sort .*(-o |--output)'
+  'git branch .*(-(d|D|m|M)|--delete|--move|--force)'
 )
 
 allow=(
@@ -45,6 +50,10 @@ allow=(
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
   # Utilities (read-only)
   '(date|diff|echo|file|grep|head|jaq|jq|ls|pwd|rg|stat|tail|test|tree|type|uname|wc|which)( |$)'
+  # File utilities (read-only)
+  '(cat|basename|dirname|realpath|readlink|du|df|nl|tr|cut|column|printenv)( |$)'
+  # Commands with dangerous flags (ask patterns above block unsafe forms)
+  '(find|fd|sort|git branch)( |$)'
   # Shell introspection (read-only forms only)
   'complete -p$'
   'command -v$'

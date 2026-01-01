@@ -7,3 +7,28 @@ toolName = "run_shell_command"
 argsPattern = '"command":"(bundle exec |bin/)?(rails|rake) db:'
 decision = "ask_user"
 priority = 200
+
+# 2. Commands with dangerous flags
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"find .*-(delete|exec|execdir|fprint|fprintf|fls|ok|okdir)'
+decision = "ask_user"
+priority = 200
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"fd .*( -x| --exec| -X| --exec-batch)'
+decision = "ask_user"
+priority = 200
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"sort .*(-o |--output)'
+decision = "ask_user"
+priority = 200
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"git branch .*(-(d|D|m|M)|--delete|--move|--force)'
+decision = "ask_user"
+priority = 200
