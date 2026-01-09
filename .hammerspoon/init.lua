@@ -30,7 +30,8 @@ dictate.icons = {
 
 -- Smart paste: app bundle ID -> keystroke
 dictate.pasteKeys = {
-  ["com.mitchellh.ghostty"] = {{"cmd", "shift"}, "v"},  -- bracketed paste
+  -- Add app-specific overrides here if needed
+  -- ["com.mitchellh.ghostty"] = {{"cmd", "shift"}, "v"},
   ["default"] = {{"cmd"}, "v"},
 }
 

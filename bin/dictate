@@ -4,6 +4,9 @@
 
 set -euo pipefail
 
+# Ensure Homebrew is in PATH (for Hammerspoon which has minimal env)
+export PATH="/opt/homebrew/bin:/usr/local/bin:${PATH}"
+
 # Config
 readonly MODEL_NAME="ggml-large-v3-turbo-q5_0.bin"
 readonly MODEL_URL="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/${MODEL_NAME}"
@@ -181,14 +184,14 @@ record_and_transcribe() {
   audio_file="${CACHE_DIR}/recording-$$.wav"
   trap cleanup EXIT
 
-  # Record from default mic until interrupted (SIGTERM/SIGINT)
-  sox -d -r "${SAMPLE_RATE}" -c 1 "${audio_file}" 2>/dev/null || {
-    # sox exits non-zero on interrupt, check if file exists
-    if [[ ! -f "${audio_file}" ]]; then
-      echo "Recording failed" >&2
-      exit $EXIT_RECORDING_FAILED
-    fi
-  }
+  # Record from default mic until SIGTERM/SIGINT
+  # Run sox in background, trap signals to kill it, then continue to transcription
+  echo "Recording... (Ctrl+C to stop)" >&2
+  sox -d -r "${SAMPLE_RATE}" -c 1 "${audio_file}" 2>/dev/null &
+  local sox_pid=$!
+  trap "kill ${sox_pid} 2>/dev/null; wait ${sox_pid} 2>/dev/null" TERM INT
+  wait ${sox_pid} 2>/dev/null || true
+  trap - TERM INT
 
   # Check if file exists and has content
   if [[ ! -f "${audio_file}" ]] || [[ ! -s "${audio_file}" ]]; then
