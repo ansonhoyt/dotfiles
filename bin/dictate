@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# Local speech-to-text using WhisperKit on Apple Silicon
+# Local speech-to-text using whisper.cpp on Apple Silicon
 # See: https://github.com/ansonhoyt/dotfiles/issues/1
 
 set -euo pipefail
 
 # Config
-MODEL="openai_whisper-large-v3-turbo"
+MODEL_NAME="ggml-large-v3-turbo-q5_0.bin"
+MODEL_URL="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/${MODEL_NAME}"
 CACHE_DIR="${HOME}/.cache/dictate"
+MODEL_DIR="${CACHE_DIR}/models"
+MODEL_PATH="${MODEL_DIR}/${MODEL_NAME}"
 SAMPLE_RATE=16000
 MIN_DURATION=0.5
 
@@ -20,7 +23,7 @@ usage() {
   cat <<EOF
 Usage: dictate [OPTIONS]
 
-Local speech-to-text using WhisperKit.
+Local speech-to-text using whisper.cpp.
 
 Options:
   --setup    Check deps, download model (interactive)
@@ -33,7 +36,7 @@ EOF
 
 check_deps() {
   local missing=()
-  command -v whisperkit-cli &>/dev/null || missing+=("whisperkit-cli")
+  command -v whisper-cpp &>/dev/null || missing+=("whisper-cpp")
   command -v sox &>/dev/null || missing+=("sox")
 
   if [[ ${#missing[@]} -gt 0 ]]; then
@@ -45,12 +48,16 @@ check_deps() {
 }
 
 check_model() {
-  # WhisperKit stores models in ~/Library/Caches/com.argmax.whisperkit/
-  local model_dir="${HOME}/Library/Caches/com.argmax.whisperkit"
-  if [[ -d "${model_dir}" ]] && find "${model_dir}" -name "*${MODEL}*" -type d 2>/dev/null | grep -q .; then
-    return 0
-  fi
-  return 1
+  [[ -f "${MODEL_PATH}" ]]
+}
+
+download_model() {
+  mkdir -p "${MODEL_DIR}"
+  echo "Downloading ${MODEL_NAME}..."
+  echo "  From: ${MODEL_URL}"
+  echo "  To: ${MODEL_PATH}"
+  echo
+  curl -L --progress-bar -o "${MODEL_PATH}" "${MODEL_URL}"
 }
 
 setup() {
@@ -59,7 +66,7 @@ setup() {
 
   echo "Checking dependencies..."
   if check_deps; then
-    echo "  whisperkit-cli: OK"
+    echo "  whisper-cpp: OK"
     echo "  sox: OK"
   else
     echo
@@ -68,24 +75,19 @@ setup() {
   fi
   echo
 
-  echo "Checking model (${MODEL})..."
+  echo "Checking model (${MODEL_NAME})..."
   if check_model; then
-    echo "  Model: OK"
+    echo "  Model: OK (${MODEL_PATH})"
   else
-    echo "  Model not found. Downloading..."
+    echo "  Model not found."
     echo
-    # First transcription triggers model download
-    # Use a silent audio file to trigger it
-    mkdir -p "${CACHE_DIR}"
-    local tmp_wav="${CACHE_DIR}/setup-silence.wav"
-    sox -n -r ${SAMPLE_RATE} -c 1 "${tmp_wav}" trim 0.0 1.0
-    whisperkit-cli transcribe --audio-path "${tmp_wav}" --model "${MODEL}" || true
-    rm -f "${tmp_wav}"
+    download_model
 
     if check_model; then
+      echo
       echo "  Model: OK"
     else
-      echo "  Model download may have failed. Try running again." >&2
+      echo "  Model download failed." >&2
       exit $EXIT_NOT_READY
     fi
   fi
@@ -108,39 +110,48 @@ check() {
 }
 
 record_and_transcribe() {
+  check_deps || exit $EXIT_NOT_READY
+  check_model || {
+    echo "Model not found. Run: dictate --setup" >&2
+    exit $EXIT_NOT_READY
+  }
+
   mkdir -p "${CACHE_DIR}"
   local audio_file="${CACHE_DIR}/recording-$$.wav"
 
-  # Record from default mic until interrupted
-  # Caller (Hammerspoon) sends SIGTERM/SIGINT to stop
-  trap "cleanup '${audio_file}'" EXIT
+  # Cleanup on exit
+  trap "rm -f '${audio_file}'" EXIT
 
+  # Record from default mic until interrupted (SIGTERM/SIGINT)
   sox -d -r ${SAMPLE_RATE} -c 1 "${audio_file}" 2>/dev/null || {
-    echo "Recording failed" >&2
-    exit $EXIT_RECORDING_FAILED
+    # sox exits non-zero on interrupt, check if file exists
+    if [[ ! -f "${audio_file}" ]]; then
+      echo "Recording failed" >&2
+      exit $EXIT_RECORDING_FAILED
+    fi
   }
+
+  # Check if file exists and has content
+  if [[ ! -f "${audio_file}" ]] || [[ ! -s "${audio_file}" ]]; then
+    exit $EXIT_SUCCESS  # No recording, exit silently
+  fi
 
   # Check minimum duration
   local duration
-  duration=$(sox "${audio_file}" -n stat 2>&1 | grep "Length" | awk '{print $3}')
+  duration=$(sox "${audio_file}" -n stat 2>&1 | grep "Length" | awk '{print $3}' || echo "0")
   if (( $(echo "${duration} < ${MIN_DURATION}" | bc -l) )); then
     exit $EXIT_SUCCESS  # Too short, skip silently
   fi
 
-  # Transcribe
+  # Transcribe (suppress whisper-cpp stderr, output text only)
   local result
-  result=$(whisperkit-cli transcribe --audio-path "${audio_file}" --model "${MODEL}" 2>/dev/null) || {
+  result=$(whisper-cpp -m "${MODEL_PATH}" -f "${audio_file}" --no-timestamps -nt 2>/dev/null) || {
     echo "Transcription failed" >&2
     exit $EXIT_TRANSCRIPTION_FAILED
   }
 
-  # Output text only (strip any metadata)
-  echo "${result}" | grep -v "^\\[" | tr -d '\n'
-}
-
-cleanup() {
-  local file="$1"
-  [[ -f "${file}" ]] && rm -f "${file}"
+  # Output trimmed text
+  echo "${result}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
 }
 
 # Main
@@ -155,7 +166,6 @@ case "${1:-}" in
     usage
     ;;
   "")
-    check_deps || exit $EXIT_NOT_READY
     record_and_transcribe
     ;;
   *)
