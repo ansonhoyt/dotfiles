@@ -74,6 +74,10 @@ cask 'copilot-cli'
 brew 'gemini-cli'
 cask 'macwhisper'
 
+## Dictation (local Whisper-based, see GH issue #1)
+cask 'hammerspoon' # macOS automation via Lua
+brew 'whisperkit-cli' # Local speech-to-text on Apple Silicon
+
 ## Performance
 brew 'bench' # benchmarking, a more-powerful `time` command
 brew 'gdb'
