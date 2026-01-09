@@ -19,6 +19,7 @@ vim.opt.number = true         -- Show line numbers (absolute for current line)
 vim.opt.relativenumber = true -- Show relative line numbers (for vim motions)
 vim.opt.list = true           -- Show whitespace characters
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", lead = "." }
+vim.opt.colorcolumn = "80,120"
 
 -- UI improvements
 vim.opt.termguicolors = true  -- True color support (for catppuccin theme)
