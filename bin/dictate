@@ -5,19 +5,22 @@
 set -euo pipefail
 
 # Config
-MODEL_NAME="ggml-large-v3-turbo-q5_0.bin"
-MODEL_URL="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/${MODEL_NAME}"
-CACHE_DIR="${HOME}/.cache/dictate"
-MODEL_DIR="${CACHE_DIR}/models"
-MODEL_PATH="${MODEL_DIR}/${MODEL_NAME}"
-SAMPLE_RATE=16000
-MIN_DURATION=0.5
+readonly MODEL_NAME="ggml-large-v3-turbo-q5_0.bin"
+readonly MODEL_URL="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/${MODEL_NAME}"
+readonly CACHE_DIR="${HOME}/.cache/dictate"
+readonly MODEL_DIR="${CACHE_DIR}/models"
+readonly MODEL_PATH="${MODEL_DIR}/${MODEL_NAME}"
+readonly SAMPLE_RATE=16000
+readonly MIN_DURATION=0.5
 
 # Exit codes
-EXIT_SUCCESS=0
-EXIT_NOT_READY=1
-EXIT_RECORDING_FAILED=2
-EXIT_TRANSCRIPTION_FAILED=3
+readonly EXIT_SUCCESS=0
+readonly EXIT_NOT_READY=1
+readonly EXIT_RECORDING_FAILED=2
+readonly EXIT_TRANSCRIPTION_FAILED=3
+
+# Temp file for recording (set in record_and_transcribe)
+audio_file=""
 
 usage() {
   cat <<EOF
@@ -26,7 +29,7 @@ Usage: dictate [OPTIONS]
 Local speech-to-text using whisper.cpp.
 
 Options:
-  --setup    Check deps, download model (interactive)
+  --setup    Install deps, download model (interactive)
   --check    Quick deps check (exit 0 if ready, 1 if not)
   --help     Show this help
 
@@ -34,17 +37,40 @@ Without options: record from mic, transcribe, output to stdout.
 EOF
 }
 
+cleanup() {
+  [[ -n "${audio_file:-}" && -f "${audio_file}" ]] && rm -f "${audio_file}"
+}
+
+require_brew() {
+  command -v brew &>/dev/null || {
+    echo "Homebrew required: https://brew.sh" >&2
+    exit $EXIT_NOT_READY
+  }
+}
+
 check_deps() {
   local missing=()
-  command -v whisper-cpp &>/dev/null || missing+=("whisper-cpp")
+  command -v whisper-cli &>/dev/null || missing+=("whisper-cpp")
   command -v sox &>/dev/null || missing+=("sox")
 
   if [[ ${#missing[@]} -gt 0 ]]; then
-    echo "Missing: ${missing[*]}" >&2
-    echo "Run: brew bundle --global" >&2
+    echo "${missing[*]}"
     return 1
   fi
   return 0
+}
+
+install_deps() {
+  require_brew
+  local missing
+  missing=$(check_deps) || true
+
+  if [[ -n "${missing}" ]]; then
+    echo "Installing: ${missing}..."
+    # shellcheck disable=SC2086
+    brew install ${missing}
+    echo
+  fi
 }
 
 check_model() {
@@ -65,13 +91,13 @@ setup() {
   echo
 
   echo "Checking dependencies..."
-  if check_deps; then
-    echo "  whisper-cpp: OK"
+  if check_deps >/dev/null; then
+    echo "  whisper-cli: OK"
     echo "  sox: OK"
   else
-    echo
-    echo "Install missing deps with: brew bundle --global"
-    exit $EXIT_NOT_READY
+    install_deps
+    echo "  whisper-cli: OK"
+    echo "  sox: OK"
   fi
   echo
 
@@ -104,26 +130,27 @@ setup() {
 }
 
 check() {
-  check_deps || exit $EXIT_NOT_READY
+  check_deps >/dev/null || exit $EXIT_NOT_READY
   check_model || exit $EXIT_NOT_READY
   exit $EXIT_SUCCESS
 }
 
 record_and_transcribe() {
-  check_deps || exit $EXIT_NOT_READY
+  check_deps >/dev/null || {
+    echo "Missing deps. Run: dictate --setup" >&2
+    exit $EXIT_NOT_READY
+  }
   check_model || {
     echo "Model not found. Run: dictate --setup" >&2
     exit $EXIT_NOT_READY
   }
 
   mkdir -p "${CACHE_DIR}"
-  local audio_file="${CACHE_DIR}/recording-$$.wav"
-
-  # Cleanup on exit
-  trap "rm -f '${audio_file}'" EXIT
+  audio_file="${CACHE_DIR}/recording-$$.wav"
+  trap cleanup EXIT
 
   # Record from default mic until interrupted (SIGTERM/SIGINT)
-  sox -d -r ${SAMPLE_RATE} -c 1 "${audio_file}" 2>/dev/null || {
+  sox -d -r "${SAMPLE_RATE}" -c 1 "${audio_file}" 2>/dev/null || {
     # sox exits non-zero on interrupt, check if file exists
     if [[ ! -f "${audio_file}" ]]; then
       echo "Recording failed" >&2
@@ -143,9 +170,9 @@ record_and_transcribe() {
     exit $EXIT_SUCCESS  # Too short, skip silently
   fi
 
-  # Transcribe (suppress whisper-cpp stderr, output text only)
+  # Transcribe (whisper-cli from whisper-cpp package)
   local result
-  result=$(whisper-cpp -m "${MODEL_PATH}" -f "${audio_file}" --no-timestamps -nt 2>/dev/null) || {
+  result=$(whisper-cli -m "${MODEL_PATH}" -f "${audio_file}" -nt -np 2>/dev/null) || {
     echo "Transcription failed" >&2
     exit $EXIT_TRANSCRIPTION_FAILED
   }
