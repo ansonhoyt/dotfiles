@@ -87,6 +87,8 @@ download_model() {
 }
 
 setup() {
+  require_brew
+
   echo "Checking dependencies..."
   if ! check_deps >/dev/null; then
     install_deps
