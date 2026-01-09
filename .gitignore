@@ -14,3 +14,6 @@
 # Git Credential Manager logs
 gcm-diagnose.log
 
+# Conductor runtime data
+.conductor/
+

@@ -10,6 +10,7 @@ readonly MODEL_URL="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/${
 readonly CACHE_DIR="${HOME}/.cache/dictate"
 readonly MODEL_DIR="${CACHE_DIR}/models"
 readonly MODEL_PATH="${MODEL_DIR}/${MODEL_NAME}"
+readonly HAMMERSPOON_CONFIG="${HOME}/.hammerspoon/init.lua"
 readonly SAMPLE_RATE=16000
 readonly MIN_DURATION=0.5
 
@@ -77,6 +78,27 @@ check_model() {
   [[ -f "${MODEL_PATH}" ]]
 }
 
+check_hammerspoon_installed() {
+  [[ -d "/Applications/Hammerspoon.app" ]]
+}
+
+check_hammerspoon_running() {
+  pgrep -x Hammerspoon &>/dev/null
+}
+
+check_hammerspoon_config() {
+  [[ -f "${HAMMERSPOON_CONFIG}" ]]
+}
+
+install_hammerspoon() {
+  require_brew
+  if ! check_hammerspoon_installed; then
+    echo "Installing Hammerspoon..."
+    brew install --cask hammerspoon
+    echo
+  fi
+}
+
 download_model() {
   mkdir -p "${MODEL_DIR}"
   echo "Downloading ${MODEL_NAME}..."
@@ -100,16 +122,35 @@ setup() {
   if ! check_model; then
     download_model
     if ! check_model; then
-      echo "  ✗ model download failed" >&2
+      echo "  ❌ model download failed" >&2
       exit $EXIT_NOT_READY
     fi
   fi
   echo "  ✓ ${MODEL_NAME} (${MODEL_PATH})"
 
+  echo "Checking Hammerspoon..."
+  if ! check_hammerspoon_installed; then
+    install_hammerspoon
+  fi
+  echo "  ✓ Hammerspoon.app"
+
+  if ! check_hammerspoon_config; then
+    echo "  ❌ config not found: ${HAMMERSPOON_CONFIG}" >&2
+    echo "    Run: cd ~/dotfiles && stow ." >&2
+    exit $EXIT_NOT_READY
+  fi
+  echo "  ✓ config (${HAMMERSPOON_CONFIG})"
+
+  if ! check_hammerspoon_running; then
+    echo " ❌ not running"
+    echo
+    echo " 👉 Launch Hammerspoon and grant Accessibility permission"
+    exit $EXIT_NOT_READY
+  fi
+  echo "  ✓ running"
+
   echo "Checking microphone access..."
   echo "  (will prompt on first recording)"
-
-  # TODO: check Hammerspoon config
 
   mkdir -p "${CACHE_DIR}"
   echo "✓ ready!"
@@ -120,6 +161,9 @@ setup() {
 check() {
   check_deps >/dev/null || exit $EXIT_NOT_READY
   check_model || exit $EXIT_NOT_READY
+  check_hammerspoon_installed || exit $EXIT_NOT_READY
+  check_hammerspoon_config || exit $EXIT_NOT_READY
+  check_hammerspoon_running || exit $EXIT_NOT_READY
   exit $EXIT_SUCCESS
 }
 
