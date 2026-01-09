@@ -87,46 +87,32 @@ download_model() {
 }
 
 setup() {
-  echo "=== Dictation Setup ==="
-  echo
-
   echo "Checking dependencies..."
-  if check_deps >/dev/null; then
-    echo "  whisper-cli: OK"
-    echo "  sox: OK"
-  else
+  if ! check_deps >/dev/null; then
     install_deps
-    echo "  whisper-cli: OK"
-    echo "  sox: OK"
   fi
-  echo
+  echo "  ✓ whisper-cli"
+  echo "  ✓ sox"
 
-  echo "Checking model (${MODEL_NAME})..."
-  if check_model; then
-    echo "  Model: OK (${MODEL_PATH})"
-  else
-    echo "  Model not found."
-    echo
+  echo "Checking model..."
+  if ! check_model; then
     download_model
-
-    if check_model; then
-      echo
-      echo "  Model: OK"
-    else
-      echo "  Model download failed." >&2
+    if ! check_model; then
+      echo "  ✗ model download failed" >&2
       exit $EXIT_NOT_READY
     fi
   fi
-  echo
+  echo "  ✓ ${MODEL_NAME} (${MODEL_PATH})"
 
   echo "Checking microphone access..."
-  echo "  (Will prompt on first recording if needed)"
-  echo
+  echo "  (will prompt on first recording)"
+
+  # TODO: check Hammerspoon config
 
   mkdir -p "${CACHE_DIR}"
-
-  echo "=== Setup complete ==="
-  echo "Hold Fn to dictate (requires Hammerspoon config)"
+  echo "✓ ready!"
+  echo
+  echo "Hold Fn to dictate"
 }
 
 check() {
