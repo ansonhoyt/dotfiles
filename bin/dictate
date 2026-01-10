@@ -1,0 +1,249 @@
+#!/usr/bin/env bash
+# Local speech-to-text using whisper.cpp on Apple Silicon
+# See: https://github.com/ansonhoyt/dotfiles/issues/1
+
+set -euo pipefail
+
+# Ensure Homebrew is in PATH (for Hammerspoon which has minimal env)
+export PATH="/opt/homebrew/bin:/usr/local/bin:${PATH}"
+
+# Config
+readonly MODEL_NAME="ggml-large-v3-turbo-q5_0.bin"
+readonly MODEL_URL="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/${MODEL_NAME}"
+readonly CACHE_DIR="${HOME}/.cache/dictate"
+readonly MODEL_DIR="${CACHE_DIR}/models"
+readonly MODEL_PATH="${MODEL_DIR}/${MODEL_NAME}"
+readonly HAMMERSPOON_CONFIG="${HOME}/.hammerspoon/init.lua"
+readonly SAMPLE_RATE=16000
+readonly MIN_DURATION=0.5
+
+# Exit codes
+readonly EXIT_SUCCESS=0
+readonly EXIT_NOT_READY=1
+readonly EXIT_RECORDING_FAILED=2
+readonly EXIT_TRANSCRIPTION_FAILED=3
+
+# Temp file for recording (set in record_and_transcribe)
+audio_file=""
+
+usage() {
+  cat <<EOF
+Usage: dictate [OPTIONS]
+
+Local speech-to-text using whisper.cpp.
+
+Options:
+  --setup    Install deps, download model (interactive)
+  --check    Quick deps check (exit 0 if ready, 1 if not)
+  --help     Show this help
+
+Without options: record from mic, transcribe, output to stdout.
+EOF
+}
+
+cleanup() {
+  [[ -n "${audio_file:-}" && -f "${audio_file}" ]] && rm -f "${audio_file}"
+}
+
+require_brew() {
+  command -v brew &>/dev/null || {
+    echo "Homebrew required: https://brew.sh" >&2
+    exit $EXIT_NOT_READY
+  }
+}
+
+check_deps() {
+  local missing=()
+  command -v whisper-cli &>/dev/null || missing+=("whisper-cpp")
+  command -v sox &>/dev/null || missing+=("sox")
+
+  if [[ ${#missing[@]} -gt 0 ]]; then
+    echo "${missing[*]}"
+    return 1
+  fi
+  return 0
+}
+
+install_deps() {
+  require_brew
+  local missing
+  missing=$(check_deps) || true
+
+  if [[ -n "${missing}" ]]; then
+    echo "Installing: ${missing}..."
+    # shellcheck disable=SC2086
+    brew install ${missing}
+    echo
+  fi
+}
+
+check_model() {
+  [[ -f "${MODEL_PATH}" ]]
+}
+
+check_hammerspoon_installed() {
+  [[ -d "/Applications/Hammerspoon.app" ]]
+}
+
+check_hammerspoon_running() {
+  pgrep -x Hammerspoon &>/dev/null
+}
+
+check_hammerspoon_config() {
+  [[ -f "${HAMMERSPOON_CONFIG}" ]]
+}
+
+install_hammerspoon() {
+  require_brew
+  if ! check_hammerspoon_installed; then
+    echo "Installing Hammerspoon..."
+    brew install --cask hammerspoon
+    echo
+  fi
+}
+
+download_model() {
+  mkdir -p "${MODEL_DIR}"
+  echo "Downloading ${MODEL_NAME}..."
+  echo "  From: ${MODEL_URL}"
+  echo "  To: ${MODEL_PATH}"
+  echo
+  curl -L --progress-bar -o "${MODEL_PATH}" "${MODEL_URL}"
+}
+
+setup() {
+  require_brew
+
+  echo "Checking dependencies..."
+  if ! check_deps >/dev/null; then
+    install_deps
+  fi
+  echo "  ✓ whisper-cli"
+  echo "  ✓ sox"
+
+  echo "Checking model..."
+  if ! check_model; then
+    download_model
+    if ! check_model; then
+      echo "  ❌ model download failed" >&2
+      exit $EXIT_NOT_READY
+    fi
+  fi
+  echo "  ✓ ${MODEL_NAME} (${MODEL_PATH})"
+
+  echo "Checking Hammerspoon..."
+  if ! check_hammerspoon_installed; then
+    install_hammerspoon
+  fi
+  echo "  ✓ Hammerspoon.app"
+
+  if ! check_hammerspoon_config; then
+    echo "  ❌ config not found: ${HAMMERSPOON_CONFIG}" >&2
+    echo "    Run: cd ~/dotfiles && stow ." >&2
+    exit $EXIT_NOT_READY
+  fi
+  echo "  ✓ config (${HAMMERSPOON_CONFIG})"
+
+  if ! check_hammerspoon_running; then
+    echo " ❌ not running"
+    echo
+    echo " 👉 Launch Hammerspoon and grant Accessibility permission"
+    exit $EXIT_NOT_READY
+  fi
+  echo "  ✓ running"
+
+  echo "Checking microphone access..."
+  echo "  (will prompt on first recording)"
+
+  mkdir -p "${CACHE_DIR}"
+  echo "✓ ready!"
+  echo
+  echo "Hold Fn to dictate"
+}
+
+check() {
+  check_deps >/dev/null || exit $EXIT_NOT_READY
+  check_model || exit $EXIT_NOT_READY
+  check_hammerspoon_installed || exit $EXIT_NOT_READY
+  check_hammerspoon_config || exit $EXIT_NOT_READY
+  check_hammerspoon_running || exit $EXIT_NOT_READY
+  exit $EXIT_SUCCESS
+}
+
+record_and_transcribe() {
+  check_deps >/dev/null || {
+    echo "Missing deps. Run: dictate --setup" >&2
+    exit $EXIT_NOT_READY
+  }
+  check_model || {
+    echo "Model not found. Run: dictate --setup" >&2
+    exit $EXIT_NOT_READY
+  }
+
+  mkdir -p "${CACHE_DIR}"
+  audio_file="${CACHE_DIR}/recording-$$.wav"
+  trap cleanup EXIT
+
+  # Record from default mic until SIGTERM/SIGINT
+  # Run sox in background, trap signals to kill it, then continue to transcription
+  echo "Recording... (Ctrl+C to stop)" >&2
+  sox -d -r "${SAMPLE_RATE}" -c 1 "${audio_file}" 2>/dev/null &
+  local sox_pid=$!
+  trap "kill ${sox_pid} 2>/dev/null; wait ${sox_pid} 2>/dev/null" TERM INT
+  wait ${sox_pid} 2>/dev/null || true
+  trap - TERM INT
+
+  # Check if file exists and has content
+  if [[ ! -f "${audio_file}" ]] || [[ ! -s "${audio_file}" ]]; then
+    exit $EXIT_SUCCESS  # No recording, exit silently
+  fi
+
+  # Check minimum duration
+  local duration
+  duration=$(sox "${audio_file}" -n stat 2>&1 | grep "Length" | awk '{print $3}' || echo "0")
+  if (( $(echo "${duration} < ${MIN_DURATION}" | bc -l) )); then
+    exit $EXIT_SUCCESS  # Too short, skip silently
+  fi
+
+  # Transcribe (whisper-cli from whisper-cpp package)
+  local result
+  result=$(whisper-cli -m "${MODEL_PATH}" -f "${audio_file}" -nt -np 2>/dev/null) || {
+    echo "Transcription failed" >&2
+    exit $EXIT_TRANSCRIPTION_FAILED
+  }
+
+  # Trim whitespace and newlines
+  result=$(printf '%s' "${result}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\n')
+
+  # Filter whisper hallucinations (common on silence/short audio)
+  local lower
+  lower=$(printf '%s' "${result}" | tr '[:upper:]' '[:lower:]')
+  case "${lower}" in
+    ""|"you"|"you."|"thank you"|"thank you.")
+      exit $EXIT_SUCCESS
+      ;;
+  esac
+
+  echo "${result}"
+}
+
+# Main
+case "${1:-}" in
+  --setup)
+    setup
+    ;;
+  --check)
+    check
+    ;;
+  --help|-h)
+    usage
+    ;;
+  "")
+    record_and_transcribe
+    ;;
+  *)
+    echo "Unknown option: $1" >&2
+    usage >&2
+    exit 1
+    ;;
+esac

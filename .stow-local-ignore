@@ -33,3 +33,6 @@ _darcs
 ^/bootstrap\.sh
 
 \.DS_Store   # MacOS Finder metadata
+
+# AI tool runtime data
+\.conductor
