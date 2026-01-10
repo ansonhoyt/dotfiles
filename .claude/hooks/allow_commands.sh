@@ -48,10 +48,16 @@ allow=(
   'brew (list|info|leaves|doctor|config|search)'
   # Git read-only
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
+  # GitHub CLI (read-only + bounded mutations)
+  'gh (issue|pr|repo) (view|list|status|diff|checks)'
+  'gh issue (edit|develop)'
+  'gh pr create'
   # Utilities (read-only)
   '(date|diff|echo|file|grep|head|jaq|jq|ls|pwd|rg|stat|tail|test|tree|type|uname|wc|which)( |$)'
   # File utilities (read-only)
-  '(cat|basename|dirname|realpath|readlink|du|df|nl|tr|cut|column|printenv)( |$)'
+  '(cat|basename|dirname|realpath|readlink|du|df|nl|tr|cut|column|pgrep|printenv|ps)( |$)'
+  # Directory management
+  'mkdir( |$)'
   # Commands with dangerous flags (ask patterns above block unsafe forms)
   '(find|fd|sort|git branch)( |$)'
   # Shell introspection (read-only forms only)
