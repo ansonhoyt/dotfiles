@@ -1,6 +1,20 @@
 {
+  // Keep other defaults
+  "default": true,
+  // Unordered list marker style: allow either as long as consistent
+  "MD004": { "style": "consistent" },
+  // Consistent indentation for list items at same level (default)
+  "MD005": true,
+  // List indentation: 2 spaces (matches VS Code default)
+  "MD007": { "indent": 2 },
+  // No hard tabs (default)
+  "MD010": true,
   // Disable line-length for code examples and long URLs
   "MD013": false,
+  // Blank lines around lists (default)
+  "MD032": true,
+  // Fenced code blocks should specify a language
+  "MD040": true,
   // No empty links like [text]() or [text](#)
   "MD042": true,
   // Fragment links must point to valid headings
@@ -8,11 +22,5 @@
   // Reference links must use defined labels
   "MD052": true,
   // Link definitions must be used
-  "MD053": true,
-  // Fenced code blocks should specify a language
-  "MD040": true,
-  // Unordered list marker style: allow either as long as consistent
-  "MD004": { "style": "consistent" },
-  // Keep other defaults
-  "default": true
+  "MD053": true
 }
