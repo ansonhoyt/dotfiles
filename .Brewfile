@@ -46,6 +46,7 @@ brew 'wget'
 brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github/gitignore
 
 ## Shell
+brew 'bat' # cat with syntax highlighting
 brew 'eza' # Modern ls replacement
 brew 'fish'
 brew 'fd'  # Simple, fast alternative to find
