@@ -212,8 +212,19 @@ record_and_transcribe() {
     exit $EXIT_TRANSCRIPTION_FAILED
   }
 
-  # Output trimmed text
-  echo "${result}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+  # Trim whitespace and newlines
+  result=$(printf '%s' "${result}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\n')
+
+  # Filter whisper hallucinations (common on silence/short audio)
+  local lower
+  lower=$(printf '%s' "${result}" | tr '[:upper:]' '[:lower:]')
+  case "${lower}" in
+    ""|"you"|"you."|"thank you"|"thank you.")
+      exit $EXIT_SUCCESS
+      ;;
+  esac
+
+  echo "${result}"
 }
 
 # Main

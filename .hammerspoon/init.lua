@@ -86,17 +86,17 @@ function dictate.stopRecording()
   if not dictate.recording then return end
   dictate.recording = false
 
-  -- Play stop sound
+  -- Terminate recording FIRST (before sound, so sound isn't captured)
+  if dictate.task and dictate.task:isRunning() then
+    dictate.task:terminate()
+  end
+
+  -- Play stop sound after recording ends
   if dictate.sounds.stop then
     dictate.sounds.stop:play()
   end
 
   dictate.setStatus("processing")
-
-  -- Send SIGTERM to stop recording (sox will exit, whisper runs)
-  if dictate.task and dictate.task:isRunning() then
-    dictate.task:terminate()
-  end
 end
 
 -- Handle transcription result
