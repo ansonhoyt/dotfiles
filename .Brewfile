@@ -74,6 +74,7 @@ cask 'claude-code'
 cask 'copilot-cli'
 brew 'gemini-cli'
 cask 'macwhisper'
+brew 'opencode'
 
 ## Dictation (local Whisper-based, see GH issue #1)
 cask 'hammerspoon' # macOS automation via Lua
