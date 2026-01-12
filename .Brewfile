@@ -74,7 +74,8 @@ cask 'claude-code'
 cask 'copilot-cli'
 brew 'gemini-cli'
 cask 'macwhisper'
-brew 'opencode'
+tap 'anomalyco/tap'
+brew 'anomalyco/tap/opencode' # https://opencode.ai/docs/#install
 
 ## Dictation (local Whisper-based, see GH issue #1)
 cask 'hammerspoon' # macOS automation via Lua
@@ -137,6 +138,7 @@ cask 'pgadmin4'
 brew 'postgresql'
 #brew 'redis'
 brew 'sqlite'
+cask 'tableplus'
 
 ## Containers and VMs
 cask 'docker-desktop' # includes docker, docker-compose CLI
