@@ -24,4 +24,4 @@ else
   exit 1
 fi
 
-rg --color=auto --glob 'Gemfile.lock' --glob '!shared/' --glob '!releases/' --glob '!.ruby-lsp/' "^\s*${NAME} \(\d.*\)$" "${FOLDER}"
+rg --color=always --no-heading --glob 'Gemfile.lock' --glob '!shared/' --glob '!releases/' --glob '!.ruby-lsp/' "^\s*${NAME} \(\d.*\)$" "${FOLDER}" | sed "s|${HOME}|~|"
