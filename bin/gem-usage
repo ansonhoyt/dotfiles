@@ -14,6 +14,13 @@ fi
 
 NAME=$1
 
+# Color output only when stdout is a TTY
+if [ -t 1 ]; then
+  COLOR="--color=always"
+else
+  COLOR="--color=never"
+fi
+
 # Look in the right code folder on my mac or the server.
 if [ "$(uname)" == "Darwin" ]; then
   FOLDER=~/code
@@ -24,4 +31,10 @@ else
   exit 1
 fi
 
-rg --color=always --no-heading --glob 'Gemfile.lock' --glob '!shared/' --glob '!releases/' --glob '!.ruby-lsp/' "^\s*${NAME} \(\d.*\)$" "${FOLDER}" | sed "s|${HOME}|~|"
+rg $COLOR --no-heading --glob 'Gemfile.lock' \
+  --glob '!shared/' \
+  --glob '!releases/' \
+  --glob '!.ruby-lsp/' \
+  "^\s*${NAME} \(\d.*\)$" \
+  "${FOLDER}" \
+  | sed "s|${HOME}|~|"
