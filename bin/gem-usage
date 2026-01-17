@@ -24,4 +24,4 @@ else
   exit 1
 fi
 
-grep -RE --color=auto --include Gemfile.lock --exclude-dir 'shared' --exclude-dir 'releases' --exclude-dir '.ruby-lsp' "^\s*${NAME} \(\d.*\)$" ${FOLDER}
+rg --color=auto --glob 'Gemfile.lock' --glob '!shared/' --glob '!releases/' --glob '!.ruby-lsp/' "^\s*${NAME} \(\d.*\)$" "${FOLDER}"
