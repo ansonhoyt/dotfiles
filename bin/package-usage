@@ -51,7 +51,7 @@ rg --multiline --sort path --only-matching --no-line-number --with-filename \
   --glob '!node_modules/' \
   --glob '!shared/' \
   --glob '!releases/' \
-  "^(\"(?:@[\w-]+/)?${NAME}@[^\":\n]+\")?:\n  version \"([^\"]+)\"" \
+  "^\"?((?:@[\w-]+/)?${NAME}@[^\":\n]+)\"?:\n  version \"([^\"]+)\"" \
   --replace '$1 version "$2"' \
   "${FOLDER}" \
   | sed "s|${HOME}|~|" \
