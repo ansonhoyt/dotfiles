@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# List currently used package version across all projects.
+# Given a package name, lists currently used package version across all projects.
 #
-# Displays matches from package.json with the version spec.
+# Displays the spec and currently installed version from yarn.lock for the named JS package.
 #
 # Usage: package-usage <package_name>
 
@@ -10,6 +10,7 @@
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <package-name>"
     echo "Example: $0 stimulus"
+    echo "Example: $0 @hotwired/stimulus"
     exit 1
 fi
 
@@ -22,6 +23,12 @@ else
   COLOR="--color=never"
 fi
 
+colorize() {
+  rg $COLOR --pcre2 --passthru \
+    -e "${NAME}" \
+    -e '(?<=version ")[^"]+(?=")'
+}
+
 # Look in the right code folder on my mac or the server.
 if [ "$(uname)" == "Darwin" ]; then
   FOLDER=~/code
@@ -32,17 +39,21 @@ else
   exit 1
 fi
 
-# Example package.json:
-#  "dependencies": {
-#    "@hotwired/hotwire-native-bridge": "^1.2.2",
-#    "@hotwired/stimulus": "^3.2.2",
+# Example yarn.lock:
+#   "@hotwired/stimulus@^3.2.1":
+#     version "3.2.2"
 #
-rg $COLOR --no-heading --sort path --glob 'package.json' \
+# Example result:
+#   ~/code/project1/yarn.lock: "@hotwired/stimulus@^3.2.1":   version "3.2.1"
+#   ~/code/project2/yarn.lock: "@hotwired/stimulus@^3.2.1":   version "3.2.1"
+rg --multiline --sort path --only-matching --no-line-number --with-filename \
+  --glob 'yarn.lock' \
   --glob '!node_modules/' \
   --glob '!shared/' \
   --glob '!releases/' \
-  --glob '!.ruby-lsp/' \
-  "^\s*\"(@[\w-]+/)?${NAME}\": \"[~^]?\d.*\",?$" \
+  "^(\"(?:@[\w-]+/)?${NAME}@[^\":\n]+\")?:\n  version \"([^\"]+)\"" \
+  --replace '$1 version "$2"' \
   "${FOLDER}" \
-  | sed "s|${HOME}|~|"
+  | sed "s|${HOME}|~|" \
+  | colorize
 
