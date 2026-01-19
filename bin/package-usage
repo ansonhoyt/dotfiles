@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# List currently used package version across all projects.
+#
+# Displays matches from package.json with the version spec.
+#
+# Usage: package-usage <package_name>
+
+# Check if package name argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <package-name>"
+    echo "Example: $0 stimulus"
+    exit 1
+fi
+
+NAME=$1
+
+# Color output only when stdout is a TTY
+if [ -t 1 ]; then
+  COLOR="--color=always"
+else
+  COLOR="--color=never"
+fi
+
+# Look in the right code folder on my mac or the server.
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+# Example package.json:
+#  "dependencies": {
+#    "@hotwired/hotwire-native-bridge": "^1.2.2",
+#    "@hotwired/stimulus": "^3.2.2",
+#
+rg $COLOR --no-heading --sort path --glob 'package.json' \
+  --glob '!node_modules/' \
+  --glob '!shared/' \
+  --glob '!releases/' \
+  --glob '!.ruby-lsp/' \
+  "^\s*\"(@[\w-]+/)?${NAME}\": \"[~^]?\d.*\",?$" \
+  "${FOLDER}" \
+  | sed "s|${HOME}|~|"
+
