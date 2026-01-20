@@ -141,8 +141,7 @@ brew 'sqlite'
 cask 'tableplus'
 
 ## Containers and VMs
-cask 'docker-desktop' # includes docker, docker-compose CLI
-brew 'docker-completion'
+cask 'docker-desktop' # includes docker, docker-compose CLI, completions
 brew 'lazydocker' # Docker TUI
 cask 'utm'
 cask 'vagrant'

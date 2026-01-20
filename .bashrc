@@ -1,5 +1,12 @@
 # Loaded for interactive non-login shells
 
+# Warn if using old system bash (completions require bash 4.1+)
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+  echo "⚠️ Using system bash ${BASH_VERSION} - completions won't work"
+  echo "   Fix:"
+  echo "     '/opt/homebrew/bin/bash' | sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash"
+fi
+
 # Homebrew
 if [[ $(uname -p) == "arm" ]]; then # Apple Silicon
   eval "$(/opt/homebrew/bin/brew shellenv)"
