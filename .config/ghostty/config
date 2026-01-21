@@ -1,6 +1,9 @@
 # Ghostty Config
 # https://ghostty.org/docs/config/reference
 
+# Use compatible TERM for remote hosts lacking xterm-ghostty terminfo
+term = xterm-256color
+
 # Set sudo wrapper to preserve terminfo.
 # Enable SSH environment variable compatibility.
 shell-integration-features = sudo,ssh-env
