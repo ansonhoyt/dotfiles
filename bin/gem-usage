@@ -31,7 +31,7 @@ else
   exit 1
 fi
 
-rg $COLOR --no-heading --glob 'Gemfile.lock' \
+rg $COLOR --no-heading --sort path --glob 'Gemfile.lock' \
   --glob '!shared/' \
   --glob '!releases/' \
   --glob '!.ruby-lsp/' \
