@@ -34,3 +34,10 @@ vim.opt.backup = false        -- Don't create backup files
 -- Mouse and clipboard integration
 vim.opt.mouse = "a"           -- Enable mouse support in all modes
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard for yank/paste
+
+-- Filetypes: treat JSONC-supporting files as jsonc
+vim.filetype.add({
+  pattern = {
+    [".*%.gemini/settings%.json"] = "jsonc",
+  },
+})
