@@ -96,6 +96,7 @@ brew 'iperf3'
 tap 'teamookla/speedtest'
 brew 'teamookla/speedtest/speedtest'
 mas 'Speedtest', id: 1153157709
+cask 'tailscale-app'
 
 ## Editors
 brew 'macvim'
