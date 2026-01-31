@@ -55,6 +55,7 @@ cask 'ghostty'
 #cask 'iterm2'
 brew 'starship' # cross-shell prompt
 brew 'tmux' # Terminal multiplexer
+brew 'yazi' # TUI file manager
 brew 'zoxide' # A smarter cd command
 ### shell completions:
 brew 'bash-completion@2'
