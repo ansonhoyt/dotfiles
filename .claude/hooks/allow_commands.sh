@@ -45,7 +45,7 @@ allow=(
   # Yarn read-only
   'yarn (list|why|info|versions|config list)'
   # Homebrew read-only
-  'brew (list|info|leaves|doctor|config|search)'
+  'brew (list|info|leaves|doctor|config|search|help)'
   # Git read-only
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
   # GitHub CLI (read-only + bounded mutations)
@@ -53,9 +53,9 @@ allow=(
   'gh issue (edit|develop)'
   'gh pr create'
   # Utilities (read-only)
-  '(date|diff|echo|file|grep|head|jaq|jq|ls|pwd|rg|stat|tail|test|tree|type|uname|wc|which)( |$)'
-  # File utilities (read-only)
-  '(cat|basename|dirname|realpath|readlink|du|df|nl|tr|cut|column|pgrep|printenv|ps)( |$)'
+  '(col|column|cut|date|diff|echo|grep|head|jaq|jq|man|nl|pgrep|printenv|ps|rg|tail|test|tr|uname|wc)( |$)'
+  # File/path utilities (read-only)
+  '(basename|cat|df|dirname|du|file|ls|pwd|readlink|realpath|stat|tree|type|which)( |$)'
   # Directory management
   'mkdir( |$)'
   # Commands with dangerous flags (ask patterns above block unsafe forms)
