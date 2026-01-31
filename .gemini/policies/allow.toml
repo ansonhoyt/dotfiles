@@ -34,7 +34,7 @@ priority = 150
 # 5. Homebrew read-only commands
 [[rule]]
 toolName = "run_shell_command"
-argsPattern = '"command":"brew (list|info|leaves|doctor|config|search)'
+argsPattern = '"command":"brew (list|info|leaves|doctor|config|search|help)'
 decision = "allow"
 priority = 150
 
@@ -45,10 +45,43 @@ argsPattern = '"command":"git (blame|check-ignore|config get|diff|grep|log|ls-fi
 decision = "allow"
 priority = 150
 
+# 6b. GitHub CLI (read-only + bounded mutations)
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"gh (issue|pr|repo) (view|list|status|diff|checks)'
+decision = "allow"
+priority = 150
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"gh issue (edit|develop)'
+decision = "allow"
+priority = 150
+
+[[rule]]
+toolName = "run_shell_command"
+argsPattern = '"command":"gh pr create'
+decision = "allow"
+priority = 150
+
 # 7. Utility commands (read-only)
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["basename", "cat", "column", "cut", "date", "df", "diff", "dirname", "du", "echo", "file", "grep", "head", "jaq", "jq", "ls", "nl", "printenv", "pwd", "readlink", "realpath", "rg", "stat", "tail", "test", "tr", "tree", "type", "uname", "wc", "which"]
+commandPrefix = ["col", "column", "cut", "date", "diff", "echo", "grep", "head", "jaq", "jq", "man", "nl", "pgrep", "printenv", "ps", "rg", "tail", "test", "tr", "uname", "wc"]
+decision = "allow"
+priority = 150
+
+# 7b. File/path utilities (read-only)
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["basename", "cat", "df", "dirname", "du", "file", "ls", "pwd", "readlink", "realpath", "stat", "tree", "type", "which"]
+decision = "allow"
+priority = 150
+
+# 7c. Directory management
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["mkdir"]
 decision = "allow"
 priority = 150
 
