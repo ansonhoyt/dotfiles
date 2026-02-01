@@ -75,6 +75,7 @@ cask 'claude-code'
 cask 'copilot-cli'
 brew 'gemini-cli'
 cask 'macwhisper'
+cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
 tap 'anomalyco/tap'
 brew 'anomalyco/tap/opencode' # https://opencode.ai/docs/#install
 
