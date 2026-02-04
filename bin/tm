@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Make Time Machine fast
+
+# Show status of low priority throttling
+echo Checking the current status...
+status=$(sudo sysctl -n debug.lowpri_throttle_enabled)
+if [[ $status == 1 ]]; then
+  echo Normal: Low priority throttling enabled.
+  echo 💥 Turning it off. Don\'t forget to put it back!
+  sudo sysctl debug.lowpri_throttle_enabled=0
+else
+  echo Disabled: Low priority throttling disabled.
+  echo ✅ Turning it on, restoring normal system behavior.
+  sudo sysctl debug.lowpri_throttle_enabled=1
+fi
