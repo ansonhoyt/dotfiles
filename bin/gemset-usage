@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# List projects using RVM gemsets.
+#
+# Helps identify repos still relying on .ruby-gemset files during RVM migration.
+
+# Color output only when stdout is a TTY
+if [ -t 1 ]; then
+  COLOR="--color=always"
+else
+  COLOR="--color=never"
+fi
+
+# Look in the right code folder on my mac or the server.
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+rg $COLOR --glob .ruby-gemset --no-heading --no-line-number . "${FOLDER}" \
+  | sed "s|${HOME}|~|"
