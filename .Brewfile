@@ -52,6 +52,7 @@ brew 'fish'
 brew 'fd'  # Simple, fast alternative to find
 brew 'fzf' # CLI fuzzy finder
 cask 'ghostty'
+brew 'gum' # tool for glamorous  scripts
 #cask 'iterm2'
 brew 'starship' # cross-shell prompt
 brew 'tmux' # Terminal multiplexer
@@ -118,6 +119,7 @@ brew 'gron' # Make JSON greppable
 brew 'jq' # JSON processor
 brew 'jaq' # Rust-based jq clone (faster, drop-in replacement)
 cask 'quicklook-json'
+brew 'yq' # jq-like YAML processor
 
 ## React Native
 cask 'android-studio'
@@ -155,6 +157,7 @@ if Gem::Platform.local =~ 'x86_64-darwin'
 end
 
 ## Media
+#cask 'amazon-music' # req. Rosetta
 cask 'audacity' # audio editing/recording
 cask 'blender' # 3D creation suite
 brew 'faac' # AAC audio encoder
