@@ -4,7 +4,7 @@
 #
 # Helps review work across local repos.
 
-if [[ "$1" == -* ]]; then
+if [[ "$1" == -h || "$1" == --help ]]; then
   cat <<'USAGE'
 Usage: gittimes [since [until]]
 
