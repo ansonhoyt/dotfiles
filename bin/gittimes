@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# List git logs for a time period.
+#
+# Helps review work across local repos.
+
+if [[ "$1" == -* ]]; then
+  cat <<'USAGE'
+Usage: gittimes [since [until]]
+
+  gittimes -1week now    # (default)
+  gittimes "last monday"
+  gittimes -2months -1months
+  gittimes 2026-01-01 2026-02-01
+USAGE
+  exit
+fi
+
+author=$(git config user.name)
+since=$(gdate -I -d "${1:--1week}")
+until=$(gdate -I -d "${2:-now}")
+
+echo "$author: $since..$until"
+echo
+
+if [[ "$since" > "$until" ]]; then
+  echo "Error: since ($since) is after until ($until)"
+  exit 1
+fi
+
+# Look in the right code folder on my mac or the server.
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+while IFS= read -r gitdir; do
+  repodir="${gitdir%/.git}"
+  # Skip empty repos (no commits)
+  git -C "$repodir" rev-parse HEAD >/dev/null 2>&1 || continue
+  output=$(git -C "$repodir" log \
+    --author="$author" \
+    --date=format:"%a %b %-d %-l%P" \
+    --pretty="  %Cgreen%ad%Creset %s" \
+    --since=$since \
+    --until=$until)
+  [ -n "$output" ] || continue
+  echo -e "\n\033[1;34m${repodir}\033[0m"
+  echo "$output"
+done < <(find $FOLDER -maxdepth 3 -name .git -type d)
