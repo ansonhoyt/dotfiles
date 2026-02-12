@@ -75,6 +75,7 @@ cask 'claude'
 cask 'claude-code'
 cask 'copilot-cli'
 brew 'gemini-cli'
+cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
 tap 'anomalyco/tap'
