@@ -69,6 +69,7 @@ brew 'yarn-completion'
 
 ## AI / LLM
 cask 'codex'
+cask 'codex-app'
 cask 'conductor'
 cask 'chatgpt'
 cask 'claude'
