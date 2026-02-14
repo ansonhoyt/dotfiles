@@ -79,6 +79,7 @@ brew 'gemini-cli'
 cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
+cask 'wispr-flow'
 tap 'anomalyco/tap'
 brew 'anomalyco/tap/opencode' # https://opencode.ai/docs/#install
 
