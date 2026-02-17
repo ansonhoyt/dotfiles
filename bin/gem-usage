@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
 # List currently used gem version across all projects.
-#
-# Displays the currently installed version per Gemfile.lock for the named gem.
-# Usage: gem-usage <gem_name>
+
+GROUP=false
+if [[ "$1" == -g ]]; then
+  GROUP=true
+  shift
+fi
 
 # Check if gem name argument is provided
 if [ $# -eq 0 ]; then
-    echo "Usage: $0 <gem-name>"
+    echo "Usage: $0 [-g] <gem-name>"
+    echo "  -g  Group output by version"
     echo "Example: $0 rails"
     exit 1
 fi
@@ -31,10 +35,30 @@ else
   exit 1
 fi
 
+# Grouped output needs plain text for parsing
+$GROUP && COLOR="--color=never"
+
 rg $COLOR --no-heading --sort path --glob 'Gemfile.lock' \
   --glob '!shared/' \
   --glob '!releases/' \
   --glob '!.ruby-lsp/' \
   "^\s*${NAME} \(\d.*\)$" \
   "${FOLDER}" \
-  | sed "s|${HOME}|~|"
+  | sed "s|${HOME}|~|" \
+  | if $GROUP; then
+      sed 's|/Gemfile.lock||' \
+        | while IFS= read -r line; do
+            path="${line%%:*}"
+            version="${line#*$NAME (}"
+            version="${version%)}"
+            echo "$version $path"
+          done \
+        | sort -V \
+        | awk '{
+            if ($1 != prev) { print "\033[1;34m" $1 "\033[0m" }
+            print "  " $2
+            prev = $1
+          }'
+    else
+      cat
+    fi
