@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# List Ruby versions across local repos.
+
+GROUP=false
+if [[ "$1" == -g ]]; then
+  GROUP=true
+elif [[ -n "$1" ]]; then
+  echo "Usage: $0 [-g]"
+  echo "  -g  Group output by version"
+  exit 1
+fi
+
+# Look in the right code folder on my mac or the server.
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+# Color output only when stdout is a TTY
+if [ -t 1 ]; then
+  COLOR="--color=always"
+else
+  COLOR="--color=never"
+fi
+
+# Grouped output needs plain text for parsing
+$GROUP && COLOR="--color=never"
+
+rg $COLOR --glob .ruby-version --sort path --no-heading --no-line-number . "${FOLDER}" \
+  | sed "s|${HOME}|~|" \
+  | if $GROUP; then
+      while IFS= read -r line; do
+        path="${line%%:*}"
+        version="${line#*:}"
+        version="${version#ruby-}"
+        echo "$version $path"
+      done \
+        | sort -V \
+        | awk '{
+            if ($1 != prev) { print "\033[1;34m" $1 "\033[0m" }
+            print "  " $2
+            prev = $1
+          }'
+    else
+      cat
+    fi
