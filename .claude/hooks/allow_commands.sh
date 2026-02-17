@@ -11,10 +11,10 @@
 #
 # Test:
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"git status"}}'
-#   # → {"permissionDecision":"allow"}
+#   # → {"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"allow"}}
 #
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"rails db:migrate"}}'
-#   # → {"permissionDecision":"ask"}
+#   # → {"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask"}}
 #
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"rm -rf /"}}'
 #   # → (no output, falls through to normal permissions)
@@ -83,6 +83,6 @@ exec jaq -c \
   --arg allow "$(join "${allow[@]}")" \
   '.tool_input.command // empty |
    if . == "" then empty
-   else (if test($ask) then {permissionDecision:"ask"}
-   else (if test($allow) then {permissionDecision:"allow"}
+   else (if test($ask) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask"}}
+   else (if test($allow) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"allow"}}
    else empty end) end) end'

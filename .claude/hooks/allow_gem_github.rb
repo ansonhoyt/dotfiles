@@ -54,7 +54,10 @@ matched_url = @matched_url
 
 if matched_url
   puts JSON.generate({
-    permissionDecision: 'allow',
+    hookSpecificOutput: {
+      hookEventName: 'PreToolUse',
+      permissionDecision: 'allow'
+    },
     matched_url: matched_url,
     cached: @cached,
     elapsed_ms: (elapsed * 1000).round(2)
