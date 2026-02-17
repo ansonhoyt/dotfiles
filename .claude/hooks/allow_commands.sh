@@ -11,15 +11,20 @@
 #
 # Test:
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"git status"}}'
-#   # → {"decision":"allow"}
+#   # → {"permissionDecision":"allow"}
 #
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"rails db:migrate"}}'
-#   # → {"decision":"ask"}
+#   # → {"permissionDecision":"ask"}
 #
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"rm -rf /"}}'
 #   # → (no output, falls through to normal permissions)
 
 set -euo pipefail
+
+# exit 2 + stderr = blocking error shown to Claude
+die() { echo >&2 "$@"; exit 2; }
+
+command -v jaq &>/dev/null || die "allow_commands.sh: jaq not found in PATH"
 
 # ============================================================
 # PATTERN LISTS - edit these as needed
@@ -78,6 +83,6 @@ exec jaq -c \
   --arg allow "$(join "${allow[@]}")" \
   '.tool_input.command // empty |
    if . == "" then empty
-   else (if test($ask) then {decision:"ask"}
-   else (if test($allow) then {decision:"allow"}
+   else (if test($ask) then {permissionDecision:"ask"}
+   else (if test($allow) then {permissionDecision:"allow"}
    else empty end) end) end'

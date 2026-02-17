@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+
 #
 # PreToolUse hook: auto-allow WebFetch for GitHub URLs matching gems in Gemfile.
 # Caches results per-project, expires in 1 hour, invalidates on Gemfile.lock changes.
@@ -10,7 +11,7 @@ require 'fileutils'
 require 'benchmark'
 
 elapsed = Benchmark.realtime do
-  input = JSON.parse(STDIN.read)
+  input = JSON.parse($stdin.read)
   exit 0 unless input['tool_name'] == 'WebFetch'
 
   @url = input.dig('tool_input', 'url')
@@ -53,7 +54,7 @@ matched_url = @matched_url
 
 if matched_url
   puts JSON.generate({
-    decision: 'allow',
+    permissionDecision: 'allow',
     matched_url: matched_url,
     cached: @cached,
     elapsed_ms: (elapsed * 1000).round(2)
