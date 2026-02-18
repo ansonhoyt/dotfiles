@@ -61,8 +61,8 @@ allow=(
   '(col|column|cut|date|diff|echo|grep|head|jaq|jq|man|nl|pgrep|printenv|ps|rg|tail|test|tr|uname|wc)( |$)'
   # File/path utilities (read-only)
   '(basename|cat|df|dirname|du|file|ls|pwd|readlink|realpath|stat|tree|type|which)( |$)'
-  # Directory management
-  'mkdir( |$)'
+  # File/directory creation
+  '(mkdir|touch)( |$)'
   # Commands with dangerous flags (ask patterns above block unsafe forms)
   '(find|fd|sort|git branch)( |$)'
   # Shell introspection (read-only forms only)
