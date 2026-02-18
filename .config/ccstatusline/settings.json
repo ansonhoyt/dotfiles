@@ -37,19 +37,28 @@
       },
       {
         "id": "3",
-        "type": "context-percentage",
+        "type": "context-percentage-usable",
         "color": "brightBlack",
         "rawValue": true
       },
       {
-        "id": "6",
-        "type": "separator"
+        "id": "60083db0-0eba-4f63-bcd1-781ff3ac1ac4",
+        "type": "flex-separator"
       },
       {
-        "id": "7",
-        "type": "git-changes",
-        "color": "yellow",
+        "id": "c05b3191-5eb9-42ac-a460-9593b8651b55",
+        "type": "session-clock",
         "rawValue": false
+      },
+      {
+        "id": "b3f0788f-f7cc-4008-b563-0dd243f61c36",
+        "type": "separator",
+        "character": ","
+      },
+      {
+        "id": "7e213e62-bd2e-4ebe-9552-966cf300682e",
+        "type": "session-cost",
+        "rawValue": true
       }
     ],
     [],
