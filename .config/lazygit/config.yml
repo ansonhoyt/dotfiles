@@ -1,3 +1,20 @@
+gui:
+  nerdFontsVersion: "3"
+  filterMode: fuzzy
+  showDivergenceFromBaseBranch: onlyArrow
+  spinner:
+    frames:
+      - ⠋
+      - ⠙
+      - ⠹
+      - ⠸
+      - ⠼
+      - ⠴
+      - ⠦
+      - ⠧
+      - ⠇
+      - ⠏
+    rate: 80
 git:
   overrideGpg: true
   pagers:
