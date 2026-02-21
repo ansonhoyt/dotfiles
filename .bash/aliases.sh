@@ -36,6 +36,7 @@ alias ....='cd ../../..'
 alias d='docker'
 alias r='rails'
 alias rnt='rails new --template https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb'
+alias t='tmux attach || tmux new -s Work'
 n() { if [ "$#" -eq 0 ]; then nvim .; else nvim "$@"; fi; }
 
 # Git
