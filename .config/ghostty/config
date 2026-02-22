@@ -1,6 +1,10 @@
 # Ghostty Config
 # https://ghostty.org/docs/config/reference
 
+# Font
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 13
+
 # Use compatible TERM for remote hosts lacking xterm-ghostty terminfo
 term = xterm-256color
 
@@ -8,3 +12,10 @@ term = xterm-256color
 # Enable SSH environment variable compatibility.
 shell-integration-features = sudo,ssh-env
 keybind = shift+enter=text:\x1b\r
+
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
+
+# no titlebar. rounded corners, borders
+macos-titlebar-style = hidden
+window-padding-balance = true
