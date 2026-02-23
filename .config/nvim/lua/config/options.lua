@@ -15,8 +15,7 @@ vim.opt.ignorecase = true     -- Case insensitive search
 vim.opt.smartcase = true      -- But case-sensitive if uppercase in search
 
 -- Display
-vim.opt.number = true         -- Show line numbers (absolute for current line)
-vim.opt.relativenumber = true -- Show relative line numbers (for vim motions)
+vim.opt.number = true         -- Show line numbers
 vim.opt.list = true           -- Show whitespace characters
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", lead = "." }
 vim.opt.colorcolumn = "80,120"
