@@ -5,6 +5,7 @@ return {
   opts = {
     integrations = {
       bufferline = true,
+      indent_blankline = { enabled = true, scope_color = "lavender" },
     },
   },
   config = function(_, opts)

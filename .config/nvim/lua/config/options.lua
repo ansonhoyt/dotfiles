@@ -17,7 +17,7 @@ vim.opt.smartcase = true      -- But case-sensitive if uppercase in search
 -- Display
 vim.opt.number = true         -- Show line numbers
 vim.opt.list = true           -- Show whitespace characters
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", lead = "." }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.colorcolumn = "80,120"
 
 -- UI improvements
