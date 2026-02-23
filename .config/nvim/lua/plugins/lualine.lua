@@ -9,9 +9,9 @@ return {
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch" },
+      lualine_b = { "branch", "diff"},
       lualine_c = { "diagnostics", { "filename", path = 1 } },
-      lualine_x = { "diff", "filetype" },
+      lualine_x = { "filetype" },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },
