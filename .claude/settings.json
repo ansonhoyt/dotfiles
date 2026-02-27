@@ -13,7 +13,8 @@
       "WebFetch(domain:betterspecs.org)",
       "WebFetch(domain:rubydoc.info)",
       "WebFetch(domain:thoughtbot.com)",
-      "WebFetch(domain:rubygems.org)"
+      "WebFetch(domain:rubygems.org)",
+      "WebFetch(domain:docs.docker.com)"
     ]
   },
   "model": "Opus",
