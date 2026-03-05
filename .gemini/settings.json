@@ -1,13 +1,25 @@
 {
   "security": {
     "auth": {
-      "selectedType": "oauth-personal"
+      "selectedType": "gemini-api-key"
     }
   },
   "general": {
-    "previewFeatures": true
+    "previewFeatures": true,
+    "sessionRetention": {
+      "enabled": true,
+      "maxAge": "120d",
+      "warningAcknowledged": true
+    }
   },
   "tools": {
     "enableMessageBusIntegration": true
+  },
+  "hasSeenIdeIntegrationNudge": true,
+  "ide": {
+    "enabled": true
+  },
+  "ui": {
+    "hideBanner": true
   }
 }
