@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# List local repos whose origin remote is still on Bitbucket.
+
+# Look in the right code folder on my mac or the server.
+if [ "$(uname)" == "Darwin" ]; then
+  FOLDER=~/code
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  FOLDER=/export/home
+else
+  echo Unexpected OS: $(uname -s)
+  exit 1
+fi
+
+while IFS= read -r gitdir; do
+  repodir="${gitdir%/.git}"
+  url=$(git -C "$repodir" remote get-url origin 2>/dev/null) || continue
+  [[ "$url" == *bitbucket* ]] && echo "$repodir  $url"
+done < <(find $FOLDER -maxdepth 3 -name .git -type d) | sort
