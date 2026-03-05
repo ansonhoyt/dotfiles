@@ -1,0 +1,43 @@
+# https://developers.openai.com/codex/rules/
+
+prefix_rule(
+  pattern = ["bundle", "update"],
+  decision = "allow",
+  match = [
+    "bundle update",
+    "bundle update rails"
+  ],
+)
+
+prefix_rule(
+  pattern = ["bundle", "add"],
+  decision = "allow",
+  match = [
+    "bundle add rails",
+    "bundle add foo --group development"
+  ],
+)
+
+prefix_rule(
+  pattern = ["git", "commit", "--amend"],
+  decision = "forbidden",
+  justification = "Do not amend commits from Codex.",
+)
+
+prefix_rule(
+  pattern = [["cap", "bin/cap", "./bin/cap"], ["production", "staging"]],
+  decision = "forbidden",
+  justification = "No Capistrano on production or staging",
+)
+
+prefix_rule(
+  pattern = ["bundle", "exec", "cap", ["production", "staging"]],
+  decision = "forbidden",
+  justification = "No Capistrano on production or staging",
+)
+
+prefix_rule(
+  pattern = ["git", "commit", ["-m", "--message"]],
+  decision = "allow",
+)
+

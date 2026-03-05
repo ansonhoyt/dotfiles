@@ -6,15 +6,24 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:docs.claude.com)",
+      "WebFetch(domain:developers.openai.com)",
+      "WebFetch(domain:google-gemini.github.io)",
       "WebFetch(domain:api.rubyonrails.org)",
       "WebFetch(domain:docs.ruby-lang.org)",
+      "WebFetch(domain:rdoc.info)",
+      "WebFetch(domain:rubydoc.info)",
+      "WebFetch(domain:rubygems.org)",
+      "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:hotwired.dev)",
       "WebFetch(domain:masilotti.com)",
       "WebFetch(domain:betterspecs.org)",
-      "WebFetch(domain:rubydoc.info)",
       "WebFetch(domain:thoughtbot.com)",
-      "WebFetch(domain:rubygems.org)",
-      "WebFetch(domain:docs.docker.com)"
+      "WebFetch(domain:www.meilisearch.com)",
+      "WebFetch(domain:moodledev.io)",
+      "WebFetch(domain:getbootstrap.com)",
+      "WebFetch(domain:docs.docker.com)",
+      "WebFetch(domain:hub.docker.com)",
+      "WebFetch(domain:kamal-deploy.org)"
     ]
   },
   "model": "Opus",
