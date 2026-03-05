@@ -25,6 +25,8 @@ tml() {
   local editor_pane ai_pane
   local ai="${1:-claude}"
 
+  tmux rename-window "$(basename "$current_dir")"
+
   # Get current pane ID (will become editor pane after splits)
   editor_pane=$(tmux display-message -p '#{pane_id}')
 
