@@ -27,15 +27,6 @@ export PATH=~/bin:$HOME/.local/bin:$PATH
 # export PATH="$(yarn global bin):$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-[[ -d "$HOME/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
-
-# Always install Ruby with documentation
-export rvm_docs_flag=1
-
 # Workaround for macOS fork() crashes in Ruby & Python (multiprocessing, app servers)
 #   objc[97005]: +[NSValue initialize] may have been in progress in another thread when fork() was called.
 # Ruby: https://blog.phusion.nl/2017/10/13/why-ruby-app-servers-break-on-macos-high-sierra-and-what-can-be-done-about-it/

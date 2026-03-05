@@ -1,6 +1,9 @@
 [settings]
 auto_install = true
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["node", "ruby"]
+
+[settings.ruby]
+compile = false
 
 [tools]
 node = "lts"
