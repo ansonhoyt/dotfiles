@@ -41,3 +41,14 @@ prefix_rule(
   decision = "allow",
 )
 
+prefix_rule(
+  pattern = ["gh", "run", ["list", "view", "watch", "download"]],
+  decision = "allow",
+  match = [
+    "gh run list",
+    "gh run view 12345",
+    "gh run watch 12345",
+    "gh run download 12345"
+  ],
+)
+

@@ -54,6 +54,12 @@ priority = 150
 
 [[rule]]
 toolName = "run_shell_command"
+argsPattern = '"command":"gh run (list|view|watch|download)'
+decision = "allow"
+priority = 150
+
+[[rule]]
+toolName = "run_shell_command"
 argsPattern = '"command":"gh search'
 decision = "allow"
 priority = 150

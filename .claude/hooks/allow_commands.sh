@@ -55,6 +55,7 @@ allow=(
   'git (blame|check-ignore|config get|diff|grep|log|ls-files|show|status)'
   # GitHub CLI (read-only + bounded mutations)
   'gh (issue|pr|repo) (view|list|status|diff|checks)'
+  'gh run (list|view|watch|download)'
   'gh search'
   'gh issue (edit|develop)'
   'gh pr create'
