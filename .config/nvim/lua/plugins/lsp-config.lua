@@ -13,6 +13,7 @@ return {
         "eslint", -- JavaScript/TypeScript linting
         "pyright", -- Python
         "jsonls", -- JSON
+        "taplo", -- TOML
       }
     },
     dependencies = {
@@ -80,7 +81,7 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
       })
 
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'pyright' })
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'pyright', 'taplo' })
 
       -- Configure diagnostic display
       vim.diagnostic.config({
