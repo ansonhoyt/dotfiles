@@ -37,7 +37,9 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 # https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init bash --cmd cd)"
 
+# Added by Obsidian
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
-
