@@ -1,9 +1,10 @@
-# Apply interactive shell settings to this (login) shell
-# See https://www.gnu.org/software/bash/manual/bashref.html#Bash-Startup-Files
+# Login shell configuration
 #
-# macOS checks for these in order: .bash_profile, .bash_login, .profile
-# The first one found is run, not the rest.
+# Bash looks for these in order, and runs the first available of:
+#   .bash_profile, .bash_login, .profile
+# - https://www.gnu.org/software/bash/manual/bashref.html#Bash-Startup-Files
 
+# Also apply the interactive shell config:
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi

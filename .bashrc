@@ -1,4 +1,7 @@
-# Loaded for interactive non-login shells
+# Interactive shell configuration (not a login shell)
+
+# If not running interactively, don't do anything (leave this at the top of this file)
+[[ $- != *i* ]] && return
 
 # Warn if using old system bash (completions require bash 4.1+)
 if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
@@ -15,31 +18,10 @@ else # Intel x86
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# Load all Bash configuration files from ~/.bash/*.sh
-# NOTE: *after* Homebrew since brews are used in several
-for bash_config in ~/.bash/*.sh; do source $bash_config; done
-
-# User bins (for my scripts and pipx tools)
-export PATH=~/bin:$HOME/.local/bin:$PATH
-
-# Yarn global bin
-# - https://classic.yarnpkg.com/en/docs/cli/global/
-# export PATH="$(yarn global bin):$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
-
-# Workaround for macOS fork() crashes in Ruby & Python (multiprocessing, app servers)
-#   objc[97005]: +[NSValue initialize] may have been in progress in another thread when fork() was called.
-# Ruby: https://blog.phusion.nl/2017/10/13/why-ruby-app-servers-break-on-macos-high-sierra-and-what-can-be-done-about-it/
-# Python <3.8: https://github.com/python/cpython/issues/77906
-#   (defaults to spawn since 3.8)
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-# https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init bash --cmd cd)"
-
-# Added by Obsidian
-export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.lmstudio/bin"
-# End of LM Studio CLI section
+# Load Bash configuration (order matters: env sets PATH before tools init)
+source ~/.bash/env.sh
+source ~/.bash/aliases.sh
+source ~/.bash/completions.sh
+source ~/.bash/functions.sh
+source ~/.bash/prompt.sh
+source ~/.bash/init.sh
