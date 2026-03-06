@@ -24,8 +24,10 @@ fi
 
 echo ""
 
-# Create necessary directories
-echo "Creating ~/.ssh/sockets for SSH connection multiplexing..."
+# Prevent stow from "tree folding" runtime dirs into dotfiles
+mkdir -p ~/.claude
+
+# Create SSH sockets directory for connection multiplexing
 mkdir -p ~/.ssh/sockets
 chmod 700 ~/.ssh/sockets
 
@@ -33,12 +35,15 @@ chmod 700 ~/.ssh/sockets
 echo "Stowing dotfiles..."
 stow --verbose --restow .
 
+# Install Homebrew packages
+echo "Installing Homebrew packages..."
+brew bundle --global
+
 echo ""
 echo "✓ Dotfiles setup complete"
 echo ""
 echo "Next steps:"
-echo "  1. Install Homebrew packages: brew bundle --global"
-echo "  2. Set Homebrew bash as default shell:"
+echo "  1. Set Homebrew bash as default shell:"
 echo "       sudo sh -c 'echo /opt/homebrew/bin/bash >> /etc/shells'"
 echo "       chsh -s /opt/homebrew/bin/bash"
-echo "  3. Configure macOS defaults: ./.osx"
+echo "  2. Configure macOS defaults: ./.osx"
