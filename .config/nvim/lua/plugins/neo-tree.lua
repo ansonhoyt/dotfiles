@@ -8,8 +8,17 @@ return {
     "MunifTanjim/nui.nvim",
     "nvim-tree/nvim-web-devicons",
   },
-  lazy = false, -- neo-tree will lazily load itself
-  config = function()
-    vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>')
-  end
+  cmd = "Neotree",
+  keys = {
+    { "<C-n>", "<cmd>Neotree filesystem reveal left<cr>", desc = "File Explorer" },
+  },
+  opts = {
+    filesystem = {
+      filtered_items = {
+        visible = true,          -- show filtered items dimmed
+        hide_dotfiles = true,    -- filter dotfiles (shown dimmed via visible)
+        hide_gitignored = true,
+      },
+    },
+  },
 }
