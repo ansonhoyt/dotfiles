@@ -69,5 +69,6 @@
     "type": "command",
     "command": "npx ccstatusline@latest"
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high"
 }
