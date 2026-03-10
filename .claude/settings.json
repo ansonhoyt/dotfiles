@@ -23,7 +23,8 @@
       "WebFetch(domain:getbootstrap.com)",
       "WebFetch(domain:docs.docker.com)",
       "WebFetch(domain:hub.docker.com)",
-      "WebFetch(domain:kamal-deploy.org)"
+      "WebFetch(domain:kamal-deploy.org)",
+      "Read(~/.local/share/mise/installs/ruby/**)"
     ]
   },
   "model": "Opus",

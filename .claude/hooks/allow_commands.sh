@@ -38,6 +38,8 @@ ask=(
   'fd .*( -x| --exec| -X| --exec-batch)'
   'sort .*(-o |--output)'
   'git branch .*(-(d|D|m|M)|--delete|--move|--force)'
+  # gh api with mutation flags (safe read-only form in allow below)
+  'gh api .*(-X |--method |--input|-f |--raw-field|-F |--field)'
 )
 
 allow=(
@@ -59,6 +61,8 @@ allow=(
   'gh search'
   'gh issue (edit|develop)'
   'gh pr create'
+  # gh api (read-only GET; mutation flags caught by ask above)
+  'gh api( |$)'
   # Utilities (read-only)
   '(col|column|cut|date|diff|echo|grep|head|jaq|jq|man|nl|pgrep|printenv|ps|rg|tail|test|tr|uname|wc)( |$)'
   # File/path utilities (read-only)
