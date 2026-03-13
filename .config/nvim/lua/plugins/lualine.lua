@@ -4,7 +4,7 @@ return {
   event = "VeryLazy",
   opts = {
     options = {
-      theme = "catppuccin",
+      theme = "catppuccin-nvim",
       globalstatus = true,
     },
     sections = {
