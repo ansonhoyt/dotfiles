@@ -56,6 +56,10 @@ brew 'gum' # tool for glamorous  scripts
 #cask 'iterm2'
 brew 'starship' # cross-shell prompt
 brew 'tmux' # Terminal multiplexer
+# brew tap tobi/try https://github.com/tobi/try && brew install --HEAD tobi/try/try
+# brew upgrade --fetch-HEAD tobi/try/try
+tap 'tobi/try', 'https://github.com/tobi/try'
+brew 'tobi/try/try', args: ['HEAD'] # Test commands before running for real
 brew 'yazi' # TUI file manager
 brew 'zoxide' # A smarter cd command
 ### shell completions:
