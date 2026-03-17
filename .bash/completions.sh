@@ -7,3 +7,5 @@ if [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
 else
   echo "run: brew install bash-completion@2"
 fi
+
+eval "$(register-python-argcomplete pipx)"
