@@ -181,6 +181,7 @@ cask 'makemkv' # MakeMKV video transcoder
 cask 'metaz' # Mp4 meta-data editor
 cask 'obs' # live streaming and screen recording
 brew 'pandoc' # Swiss-army knife of markup format conversion
+# brew 'oxipng' # PNG file optimizer
 # brew 'optipng' # PNG file optimizer
 # brew 'pngcrush' # Optimizer for PNG files
 # brew 'pngquant' # PNG image optimizing utility
