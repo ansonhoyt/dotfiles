@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Print all 256 colors available in the terminal
 256.times.each_slice(36) do |slice| # wrap every 36 colors for a nice pattern
