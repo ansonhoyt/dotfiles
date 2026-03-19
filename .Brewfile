@@ -119,7 +119,9 @@ cask 'visual-studio-code'
 ## Frameworks
 cask 'dotnet-sdk'
 # cask 'java' # OpenJDK
+brew 'pipx' # Install Python CLI apps into isolated environments
 brew 'python'
+brew 'python-argcomplete' # Provides register-python-argcomplete for shell completions
 
 # brew 'yarn' # NOTE: installed via nvm => node => npm
 brew 'gron' # Make JSON greppable
