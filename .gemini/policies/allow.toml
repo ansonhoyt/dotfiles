@@ -13,7 +13,7 @@ priority = 150
 # 2. Bundle read-only commands
 [[rule]]
 toolName = "run_shell_command"
-argsPattern = '"command":"bundle (config|show|outdated|platform|help|check|doctor|version)'
+argsPattern = '"command":"bundle (config|info|show|outdated|platform|help|check|doctor|version)'
 decision = "allow"
 priority = 150
 

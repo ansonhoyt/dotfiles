@@ -46,7 +46,7 @@ allow=(
   # Ruby/Rails: standalone, binstubs, or bundle exec
   '(bundle exec |bin/)?(brakeman|bundler-audit|rspec|rubocop|rake|rails|ruby -Itest)'
   # Bundle read-only
-  'bundle (config|show|outdated|platform|help|check|doctor|version)'
+  'bundle (config|info|show|outdated|platform|help|check|doctor|version)'
   # Gem read-only
   'gem (help|list|env|open|outdated|specification|stale|which)'
   # Yarn read-only
