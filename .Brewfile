@@ -111,6 +111,7 @@ cask 'tailscale-app'
 ## Editors
 brew 'macvim'
 brew 'neovim' # Modern Vim fork
+brew 'tree-sitter-cli' # Needed by nvim-treesitter (main branch) for parser compilation
 cask 'font-hack-nerd-font'
 cask 'font-jetbrains-mono-nerd-font'
 cask 'obsidian'

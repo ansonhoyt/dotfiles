@@ -91,7 +91,6 @@ return {
         severity_sort = true, -- Sort by severity (errors first)
       })
 
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
@@ -100,10 +99,6 @@ return {
 
       -- Signature help while typing (shows function parameters)
       vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})
-
-      -- Navigate diagnostics (errors/warnings)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, {})
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {})
     end
   }
 }

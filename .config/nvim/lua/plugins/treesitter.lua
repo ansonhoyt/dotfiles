@@ -1,14 +1,21 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  lazy = false,
   build = ':TSUpdate',
   config = function()
-    local config = require("nvim-treesitter.configs")
-    config.setup({
-      -- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages
-      ensure_installed = {"lua", "javascript", "python", "ruby"},
-      auto_install = true, -- install missing parsers on open
-      highlight = { enable = true },
-      indent = { enable = true }
+    -- Install parsers not bundled with Neovim (c, lua, markdown, query, vim, vimdoc are built-in)
+    require('nvim-treesitter').install {
+      'bash', 'css', 'embedded_template', 'html', 'javascript',
+      'json', 'python', 'ruby', 'scss', 'toml', 'yaml',
+    }
+
+    -- Enable treesitter highlighting + indentation for all filetypes with a parser
+    vim.api.nvim_create_autocmd('FileType', {
+      callback = function()
+        if pcall(vim.treesitter.start) then
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
     })
   end
 }
