@@ -91,14 +91,12 @@ return {
         severity_sort = true, -- Sort by severity (errors first)
       })
 
-      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
-      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {})
-
-      -- Signature help while typing (shows function parameters)
-      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})
+      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Find references" })
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = "Rename symbol" })
+      vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Show diagnostic" })
+      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { desc = "Signature help" })
     end
   }
 }
