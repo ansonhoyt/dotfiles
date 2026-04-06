@@ -7,6 +7,32 @@ function authorize () {
   fi
 }
 
+# Fuzzy-find and open an Obsidian note
+obo() {
+  local print_only=false
+  if [[ "$1" == "-p" ]]; then
+    print_only=true
+    shift
+  fi
+
+  local vault_dir="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+  local file
+  file=$(fd --type file --extension md --exclude .trash --exclude .obsidian . "$vault_dir" | \
+    sed "s|^${vault_dir}/||" | \
+    VAULT_DIR="$vault_dir" fzf --query "$*" --preview 'bat --style=numbers --color=always -- "$VAULT_DIR/"{}') || return
+
+  if $print_only; then
+    echo "${vault_dir}/${file}"
+    return
+  fi
+
+  # open match
+  local vault="${file%%/*}"
+  local note="${file#*/}"
+  note="${note%.md}"
+  obsidian vault="$vault" open file="$note" newtab
+}
+
 # List processes listening to TCP ports (or the given port)
 # https://stackoverflow.com/questions/4421633/who-is-listening-on-a-given-tcp-port-on-mac-os-x
 listening() {
