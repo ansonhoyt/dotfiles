@@ -63,6 +63,7 @@
   diffFilter = delta --color-only
 [delta]
   navigate = true  # use n and N to move between diff sections
+  hunk-header-style = omit
   line-numbers = true
   syntax-theme = zenburn
 [merge]
