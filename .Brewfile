@@ -240,6 +240,7 @@ cask 'github' # GitHub Desktop
 cask 'git-credential-manager'
 # cask 'google-chrome'
 cask 'keycastr'
+cask 'logi-options+'
 cask 'libreoffice'
 cask 'microsoft-auto-update'
 cask 'microsoft-edge'
