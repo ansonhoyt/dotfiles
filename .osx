@@ -6,7 +6,7 @@
 #
 # @author Anson Hoyt
 
-test `uname` == 'Darwin' && echo 'Configuring macOS...' || echo 'Not macOS...exiting!'; exit;
+test `uname` == 'Darwin' && echo 'Configuring macOS...' || { echo 'Not macOS...exiting!'; exit; }
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -51,5 +51,21 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 100
 
 # Disable in-app rating requests from apps downloaded from the App Store.
 defaults write com.apple.appstore InAppReviewEnabled -int 0
+
+###############################################################################
+# Dock                                                                        #
+###############################################################################
+
+# Remove unwanted apps from Dock
+remove_dock_item() {
+  local plist=~/Library/Preferences/com.apple.dock.plist i=0 label
+  while label=$(/usr/libexec/PlistBuddy -c "Print persistent-apps:$i:tile-data:file-label" "$plist" 2>/dev/null); do
+    [ "$label" = "$1" ] && /usr/libexec/PlistBuddy -c "Delete persistent-apps:$i" "$plist" && return
+    ((i++))
+  done
+}
+
+for app in News TV Maps; do remove_dock_item "$app"; done
+killall Dock
 
 echo "Done!"
