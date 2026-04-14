@@ -189,7 +189,8 @@ DIM=$'\033[2m'
 BOLD=$'\033[1m'
 RESET=$'\033[0m'
 # OSC 8 hyperlink escapes
-OSC=$'\033]8;;'
+# - https://github.com/Alhadis/OSC8-Adoption
+OSC8=$'\033]8;;'
 ST=$'\033\x5c'
 
 severity_label() {
@@ -231,7 +232,7 @@ header="${BOLD}${total} alerts${RESET}:"
 print_repo() {
   local repo=$1 count=$2
   local repo_url="https://github.com/${repo}/security/dependabot?q=${gh_query}"
-  local linked_repo="${OSC}${repo_url}${ST}${repo}${OSC}${ST}"
+  local linked_repo="${OSC8}${repo_url}${ST}${repo}${OSC8}${ST}"
   printf '\n%s%s%s %s(%d)%s\n' "$BOLD$BLUE" "$linked_repo" "$RESET" "$DIM" "$count" "$RESET"
 }
 
@@ -263,7 +264,7 @@ print_repo() {
     fi
 
     pad_pkg=$(printf '%-*s' "$PKG_WIDTH" "$pkg")
-    linked_pkg="${BOLD}${BLUE}${OSC}${url}${ST}${pad_pkg}${OSC}${ST}${RESET}"
+    linked_pkg="${BOLD}${BLUE}${OSC8}${url}${ST}${pad_pkg}${OSC8}${ST}${RESET}"
 
     repo_alerts+="  $(severity_dot "$sev") ${linked_pkg}  ${version_info}  ${alert_summary}"$'\n'
   done < <(sort -t$'\t' -k1,1 -k2,2n <<< "$results")
