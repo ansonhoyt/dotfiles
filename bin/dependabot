@@ -1,0 +1,266 @@
+#!/usr/bin/env bash
+
+# Browse Dependabot alerts across a GitHub organization.
+# https://docs.github.com/en/rest/dependabot/alerts?apiVersion=2022-11-28
+
+set -euo pipefail
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/dependabot"
+ORG_CACHE="$CONFIG_DIR/org"
+
+usage() {
+  cat <<'EOF'
+Usage: dependabot [options]
+
+Browse Dependabot alerts across a GitHub organization.
+
+State:
+  --open              Open alerts (default)
+  --closed            Closed alerts
+  --all               All alerts
+
+Severity:
+  -s, --severity LIST    Exact severities (comma-separated: critical,high,medium,low)
+  -S, --min-severity LVL Minimum severity (e.g. -S high → high+critical)
+
+Resolution (with --closed):
+  -r, --resolution RES   fixed, auto_dismissed, fix_started, no_bandwidth,
+                         tolerable_risk, inaccurate, not_used
+
+Filters:
+  -p, --package PKG      Filter by package name
+  -e, --ecosystem ECO    Filter by ecosystem (npm, rubygems, pip, go, etc.)
+  -m, --manifest FILE    Filter by manifest (e.g. Gemfile.lock, yarn.lock)
+
+Other:
+  -o, --organization ORG GitHub org (cached for future calls)
+      --sort FIELD       Sort by: created, updated, epss_percentage
+  -h, --help             Show this help
+EOF
+}
+
+# --- Parse arguments ---
+
+state=""
+severity=""
+severity_min=""
+resolution=""
+package=""
+ecosystem=""
+manifest=""
+sort_by=""
+org=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)           usage; exit 0 ;;
+    -o|--organization)   org="$2"; shift 2 ;;
+    --open)              state="open"; shift ;;
+    --closed)            state="closed"; shift ;;
+    --all)               state="all"; shift ;;
+    -s|--severity)       severity="$2"; shift 2 ;;
+    -S|--min-severity)   severity_min="$2"; shift 2 ;;
+    -r|--resolution)     resolution="$2"; shift 2 ;;
+    -p|--package)        package="$2"; shift 2 ;;
+    -e|--ecosystem)      ecosystem="$2"; shift 2 ;;
+    -m|--manifest)       manifest="$2"; shift 2 ;;
+    --sort)              sort_by="$2"; shift 2 ;;
+    *) echo "Unknown option: $1" >&2; usage >&2; exit 1 ;;
+  esac
+done
+
+# --- Resolve organization ---
+
+if [[ -n "$org" ]]; then
+  mkdir -p "$CONFIG_DIR"
+  printf '%s' "$org" > "$ORG_CACHE"
+elif [[ -f "$ORG_CACHE" ]]; then
+  org=$(<"$ORG_CACHE")
+else
+  org=$(gum input --placeholder "GitHub organization")
+  [[ -z "$org" ]] && { echo "Organization required." >&2; exit 1; }
+  mkdir -p "$CONFIG_DIR"
+  printf '%s' "$org" > "$ORG_CACHE"
+fi
+
+# --- Expand -S to -s ---
+
+if [[ -n "$severity_min" ]]; then
+  case "$severity_min" in
+    critical) severity="critical" ;;
+    high)     severity="high,critical" ;;
+    medium)   severity="medium,high,critical" ;;
+    low)      severity="low,medium,high,critical" ;;
+    *) echo "Invalid severity: $severity_min" >&2; exit 1 ;;
+  esac
+fi
+
+# --- Determine state ---
+
+if [[ -z "$state" ]]; then
+  state="open"
+fi
+
+# --- Build API query params ---
+
+params="per_page=100"
+
+case "$state" in
+  open) params+="&state=open" ;;
+  closed)
+    if [[ -n "$resolution" ]]; then
+      case "$resolution" in
+        fixed)          params+="&state=fixed" ;;
+        auto_dismissed) params+="&state=auto_dismissed" ;;
+        *)              params+="&state=dismissed" ;;
+      esac
+    else
+      params+="&state=dismissed,fixed,auto_dismissed"
+    fi
+    ;;
+  all) ;; # omit state param
+esac
+
+[[ -n "$severity" ]]  && params+="&severity=$severity"
+[[ -n "$package" ]]   && params+="&package=$package"
+[[ -n "$ecosystem" ]] && params+="&ecosystem=$ecosystem"
+[[ -n "$sort_by" ]]   && params+="&sort=$sort_by"
+
+# --- Build GitHub UI search query (for repo hyperlinks) ---
+
+gh_query_parts=()
+case "$state" in
+  open)   gh_query_parts+=("is:open") ;;
+  closed) gh_query_parts+=("is:closed") ;;
+esac
+[[ -n "$severity" ]]  && gh_query_parts+=("severity:$severity")
+[[ -n "$package" ]]   && gh_query_parts+=("package:$package")
+[[ -n "$ecosystem" ]] && gh_query_parts+=("ecosystem:$ecosystem")
+[[ -n "$manifest" ]]  && gh_query_parts+=("manifest:$manifest")
+
+# URL-encode the query: space→+ :→%3A ,→%2C
+gh_query=$(IFS=' '; echo "${gh_query_parts[*]}")
+gh_query=${gh_query// /+}
+gh_query=${gh_query//:/%3A}
+gh_query=${gh_query//,/%2C}
+
+# --- Build jq filter ---
+
+jq_filter='.[]'
+
+# Client-side filters (no API param available)
+if [[ -n "$manifest" ]]; then
+  jq_filter+=" | select(.dependency.manifest_path == \"$manifest\")"
+fi
+if [[ -n "$resolution" ]] && [[ ! "$resolution" =~ ^(fixed|auto_dismissed)$ ]]; then
+  jq_filter+=" | select(.dismissed_reason == \"$resolution\")"
+fi
+
+# Extract fields as TSV (severity_rank for sorting: critical=1, high=2, medium=3, low=4)
+jq_filter+=' | [.repository.full_name, ({"critical":1,"high":2,"medium":3,"low":4}[.security_vulnerability.severity] // 5 | tostring), .security_vulnerability.severity, .dependency.package.name, (.security_vulnerability.first_patched_version.identifier // "—"), .security_advisory.summary, .html_url] | @tsv'
+
+# --- Fetch alerts ---
+
+url="/orgs/$org/dependabot/alerts?$params"
+tmpout=$(mktemp)
+tmperr=$(mktemp)
+trap 'rm -f "$tmpout" "$tmperr"' EXIT
+
+if ! gum spin --spinner dot --title "Fetching alerts from $org..." -- \
+  sh -c 'gh api --paginate "$1" --jq "$2" > "$3" 2> "$4"' _ "$url" "$jq_filter" "$tmpout" "$tmperr"; then
+  cat "$tmperr" >&2
+  exit 1
+fi
+
+if [[ -s "$tmperr" ]]; then
+  cat "$tmperr" >&2
+  exit 1
+fi
+
+results=$(<"$tmpout")
+
+if [[ -z "$results" ]]; then
+  gum style --foreground 2 "No alerts found."
+  exit 0
+fi
+
+# --- ANSI colors ---
+
+RED=$'\033[1;31m'
+ORANGE=$'\033[1;38;5;208m'
+BLUE=$'\033[0;34m'
+DIM=$'\033[2m'
+BOLD=$'\033[1m'
+RESET=$'\033[0m'
+# OSC 8 hyperlink escapes
+OSC=$'\033]8;;'
+ST=$'\033\x5c'
+
+severity_badge() {
+  case "$1" in
+    critical) printf '%s' "${RED}● critical${RESET}" ;;
+    high)     printf '%s' "${ORANGE}● high    ${RESET}" ;;
+    medium)   printf '%s' "${BLUE}● medium  ${RESET}" ;;
+    low)      printf '%s' "${DIM}● low     ${RESET}" ;;
+  esac
+}
+
+# --- Summary header ---
+
+total=0 n_critical=0 n_high=0 n_medium=0 n_low=0
+while IFS=$'\t' read -r _ rank _rest; do
+  ((++total))
+  case "$rank" in
+    1) ((++n_critical)) ;; 2) ((++n_high)) ;; 3) ((++n_medium)) ;; 4) ((++n_low)) ;;
+  esac
+done <<< "$results"
+
+header="${BOLD}${total} alerts${RESET}:"
+((n_critical)) && header+=" ${RED}${n_critical} critical${RESET}"
+((n_high))     && header+=" ${ORANGE}${n_high} high${RESET}"
+((n_medium))   && header+=" ${BLUE}${n_medium} medium${RESET}"
+((n_low))      && header+=" ${DIM}${n_low} low${RESET}"
+
+print_repo() {
+  local repo=$1 count=$2
+  local repo_url="https://github.com/${repo}/security/dependabot?q=${gh_query}"
+  local linked_repo="${OSC}${repo_url}${ST}${repo}${OSC}${ST}"
+  printf '\n%s%s ↗%s %s(%d)%s\n' "$BOLD$BLUE" "$linked_repo" "$RESET" "$DIM" "$count" "$RESET"
+}
+
+# --- Format output ---
+
+{
+  printf '%s\n' "$header"
+
+  current_repo=""
+  repo_count=0
+
+  while IFS=$'\t' read -r repo _rank sev pkg patched alert_summary url; do
+    if [[ "$repo" != "$current_repo" ]]; then
+      if [[ -n "$current_repo" ]]; then
+        print_repo "$current_repo" "$repo_count"
+        printf '%s' "$repo_alerts"
+      fi
+      current_repo="$repo"
+      repo_count=0
+      repo_alerts=""
+    fi
+
+    ((++repo_count))
+
+    if [[ "$patched" == "—" ]]; then
+      version_info="${DIM}(no fix)${RESET}"
+    else
+      version_info="→ $patched"
+    fi
+
+    linked_pkg="${OSC}${url}${ST}${pkg}${OSC}${ST}"
+    repo_alerts+="  $(severity_badge "$sev")  ${linked_pkg}  ${version_info}  ${alert_summary}"$'\n'
+  done < <(sort -t$'\t' -k1,1 -k2,2n <<< "$results")
+
+  if [[ -n "$current_repo" ]]; then
+    print_repo "$current_repo" "$repo_count"
+    printf '%s' "$repo_alerts"
+  fi
+} | less -RFX
