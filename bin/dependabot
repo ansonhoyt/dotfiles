@@ -95,11 +95,7 @@ if [[ -n "$severity_min" ]]; then
   esac
 fi
 
-# --- Determine state ---
-
-if [[ -z "$state" ]]; then
-  state="open"
-fi
+state="${state:-open}"
 
 # --- Build API query params ---
 
@@ -156,7 +152,7 @@ if [[ -n "$resolution" ]] && [[ ! "$resolution" =~ ^(fixed|auto_dismissed)$ ]]; 
   jq_filter+=" | select(.dismissed_reason == \"$resolution\")"
 fi
 
-# Extract fields as TSV (severity_rank for sorting: critical=1, high=2, medium=3, low=4)
+# Extract as TSV: repo, severity_rank (1-4 for sort), severity, package, patched_version, summary, url
 jq_filter+=' | [.repository.full_name, ({"critical":1,"high":2,"medium":3,"low":4}[.security_vulnerability.severity] // 5 | tostring), .security_vulnerability.severity, .dependency.package.name, (.security_vulnerability.first_patched_version.identifier // "—"), .security_advisory.summary, .html_url] | @tsv'
 
 # --- Fetch alerts ---
@@ -196,14 +192,25 @@ RESET=$'\033[0m'
 OSC=$'\033]8;;'
 ST=$'\033\x5c'
 
-severity_badge() {
+severity_label() {
   case "$1" in
     critical) printf '%s' "${RED}● critical${RESET}" ;;
-    high)     printf '%s' "${ORANGE}● high    ${RESET}" ;;
-    medium)   printf '%s' "${BLUE}● medium  ${RESET}" ;;
-    low)      printf '%s' "${DIM}● low     ${RESET}" ;;
+    high)     printf '%s' "${ORANGE}● high${RESET}" ;;
+    medium)   printf '%s' "${BLUE}● medium${RESET}" ;;
+    low)      printf '%s' "${DIM}● low${RESET}" ;;
   esac
 }
+
+severity_dot() {
+  case "$1" in
+    critical) printf '%s' "${RED}●${RESET}" ;;
+    high)     printf '%s' "${ORANGE}●${RESET}" ;;
+    medium)   printf '%s' "${BLUE}●${RESET}" ;;
+    low)      printf '%s' "${DIM}●${RESET}" ;;
+  esac
+}
+
+PKG_WIDTH=15
 
 # --- Summary header ---
 
@@ -216,16 +223,16 @@ while IFS=$'\t' read -r _ rank _rest; do
 done <<< "$results"
 
 header="${BOLD}${total} alerts${RESET}:"
-((n_critical)) && header+=" ${RED}${n_critical} critical${RESET}"
-((n_high))     && header+=" ${ORANGE}${n_high} high${RESET}"
-((n_medium))   && header+=" ${BLUE}${n_medium} medium${RESET}"
-((n_low))      && header+=" ${DIM}${n_low} low${RESET}"
+((n_critical)) && header+=" $(severity_label critical) ${n_critical}"
+((n_high))     && header+=" $(severity_label high) ${n_high}"
+((n_medium))   && header+=" $(severity_label medium) ${n_medium}"
+((n_low))      && header+=" $(severity_label low) ${n_low}"
 
 print_repo() {
   local repo=$1 count=$2
   local repo_url="https://github.com/${repo}/security/dependabot?q=${gh_query}"
   local linked_repo="${OSC}${repo_url}${ST}${repo}${OSC}${ST}"
-  printf '\n%s%s ↗%s %s(%d)%s\n' "$BOLD$BLUE" "$linked_repo" "$RESET" "$DIM" "$count" "$RESET"
+  printf '\n%s%s%s %s(%d)%s\n' "$BOLD$BLUE" "$linked_repo" "$RESET" "$DIM" "$count" "$RESET"
 }
 
 # --- Format output ---
@@ -255,8 +262,10 @@ print_repo() {
       version_info="→ $patched"
     fi
 
-    linked_pkg="${OSC}${url}${ST}${pkg}${OSC}${ST}"
-    repo_alerts+="  $(severity_badge "$sev")  ${linked_pkg}  ${version_info}  ${alert_summary}"$'\n'
+    pad_pkg=$(printf '%-*s' "$PKG_WIDTH" "$pkg")
+    linked_pkg="${BOLD}${BLUE}${OSC}${url}${ST}${pad_pkg}${OSC}${ST}${RESET}"
+
+    repo_alerts+="  $(severity_dot "$sev") ${linked_pkg}  ${version_info}  ${alert_summary}"$'\n'
   done < <(sort -t$'\t' -k1,1 -k2,2n <<< "$results")
 
   if [[ -n "$current_repo" ]]; then
