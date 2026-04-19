@@ -30,6 +30,8 @@
       "WebFetch(domain:moodledev.io)",
       "WebFetch(domain:docs.sentry.io)",
       "WebFetch(domain:getbootstrap.com)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:github.blog)",
       "WebFetch(domain:docs.docker.com)",
       "WebFetch(domain:hub.docker.com)",
       "WebFetch(domain:kamal-deploy.org)",
@@ -103,6 +105,11 @@
         "source": "github",
         "repo": "ChromeDevTools/chrome-devtools-mcp"
       }
+    }
+  },
+  "sandbox": {
+    "network": {
+      "allowUnixSockets": ["~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"]
     }
   },
   "alwaysThinkingEnabled": true,

@@ -75,6 +75,10 @@ allow=(
   'complete -p$'
   'command -v$'
   'env$'
+  # Ansible lint (no side effects)
+  'ansible-lint( |$)'
+  # Kamal read-only
+  'kamal (config|version|help|docs)( |$)'
 )
 
 # ============================================================
