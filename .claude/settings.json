@@ -78,6 +78,24 @@
     "type": "command",
     "command": "npx ccstatusline@latest"
   },
+  "enabledPlugins": {
+    "codex@openai-codex": true,
+    "chrome-devtools-mcp@chrome-devtools-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    }
+  },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high"
 }
