@@ -93,6 +93,8 @@ exec jaq -c \
   --arg allow "$(join "${allow[@]}")" \
   '.tool_input.command // empty |
    if . == "" then empty
-   else (if test($ask) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask"}}
-   else (if test($allow) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"allow"}}
-   else empty end) end) end'
+   # reject chained/piped/redirected commands (fall through to normal permissions)
+   elif test("[;|`<>]|&&|[$][(]") then empty
+   elif test($ask) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask"}}
+   elif test($allow) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"allow"}}
+   else empty end'
