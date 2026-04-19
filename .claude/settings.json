@@ -56,6 +56,15 @@
             "command": "~/.claude/hooks/allow_gem_github.rb"
           }
         ]
+      },
+      {
+        "matcher": "mcp__plugin_chrome-devtools-mcp_chrome-devtools__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/allow_chrome_devtools.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
