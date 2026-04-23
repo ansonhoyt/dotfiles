@@ -8,10 +8,6 @@
 #     brew bundle --help
 #     brew bundle --global # install this Brewfile
 
-# Taps (https://docs.brew.sh/brew-tap.html)
-# tap 'caskroom/cask' # https://caskroom.github.io/
-# tap 'caskroom/versions' # https://github.com/caskroom/homebrew-versions
-
 # Homebrew
 # (from `brew leaves`)
 
@@ -155,9 +151,12 @@ brew 'postgresql'
 brew 'sqlite'
 cask 'tableplus'
 
-## Containers and VMs
+## Infrastructure
+brew 'awscli'
 cask 'docker-desktop' # includes docker, docker-compose CLI, completions
 brew 'lazydocker' # Docker TUI
+tap 'hashicorp/tap'
+brew 'hashicorp/tap/terraform'
 cask 'utm'
 cask 'vagrant'
 cask 'virtualbox'

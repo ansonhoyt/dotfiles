@@ -14,6 +14,8 @@ return {
         "pyright", -- Python
         "jsonls", -- JSON
         "taplo", -- TOML
+        "terraformls", -- Terraform (HashiCorp terraform-ls)
+        "tflint", -- Terraform linting
       }
     },
     dependencies = {
@@ -81,7 +83,7 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
       })
 
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'pyright', 'taplo' })
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'pyright', 'taplo', 'terraformls', 'tflint' })
 
       -- Configure diagnostic display
       vim.diagnostic.config({

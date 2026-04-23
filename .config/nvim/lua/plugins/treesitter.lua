@@ -5,8 +5,8 @@ return {
   config = function()
     -- Install parsers not bundled with Neovim (c, lua, markdown, query, vim, vimdoc are built-in)
     require('nvim-treesitter').install {
-      'bash', 'css', 'embedded_template', 'html', 'javascript',
-      'json', 'python', 'ruby', 'scss', 'toml', 'typescript', 'yaml',
+      'bash', 'css', 'embedded_template', 'hcl', 'html', 'javascript',
+      'json', 'python', 'ruby', 'scss', 'terraform', 'toml', 'typescript', 'yaml',
     }
 
     -- Enable treesitter highlighting + indentation for all filetypes with a parser
