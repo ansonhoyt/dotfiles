@@ -9,4 +9,5 @@ compile = false
 
 [tools]
 node = "lts"
+python = "latest"
 ruby = "latest"

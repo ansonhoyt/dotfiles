@@ -11,7 +11,8 @@ return {
         "lua_ls", -- Lua
         "ts_ls", -- TypeScript/JavaScript
         "eslint", -- JavaScript/TypeScript linting
-        "pyright", -- Python
+        "basedpyright", -- Python type checker (community fork of pyright)
+        "ruff", -- Python linter + formatter LSP (replaces black, isort, flake8, pylint)
         "jsonls", -- JSON
         "taplo", -- TOML
         "terraformls", -- Terraform (HashiCorp terraform-ls)
@@ -29,7 +30,6 @@ return {
       ensure_installed = {
         "stylua", -- Lua formatter
         "prettier", -- JS/TS formatter
-        "ruff", -- Python formatter + linter (replaces black, isort, flake8, pylint)
       }
     },
     dependencies = { "mason-org/mason.nvim" }
@@ -66,11 +66,11 @@ return {
         }
       }
 
-      vim.lsp.config.pyright = {
+      vim.lsp.config.basedpyright = {
         settings = {
-          python = {
+          basedpyright = {
             analysis = {
-              typeCheckingMode = "basic",  -- "off" | "basic" | "strict"
+              typeCheckingMode = "basic",  -- "off" | "basic" | "standard" | "strict" | "all"
               autoSearchPaths = true,
               useLibraryCodeForTypes = true,
             }
@@ -78,12 +78,19 @@ return {
         }
       }
 
+      -- Ruff: linter + formatter. Disable hover so basedpyright handles it.
+      vim.lsp.config.ruff = {
+        on_attach = function(client, _)
+          client.server_capabilities.hoverProvider = false
+        end,
+      }
+
       -- Advertise cmp capabilities to all LSP servers
       vim.lsp.config('*', {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
       })
 
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'pyright', 'taplo', 'terraformls', 'tflint' })
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'basedpyright', 'ruff', 'taplo', 'terraformls', 'tflint' })
 
       -- Configure diagnostic display
       vim.diagnostic.config({

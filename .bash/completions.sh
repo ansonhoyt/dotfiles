@@ -8,8 +8,6 @@ else
   echo "run: brew install bash-completion@2"
 fi
 
-eval "$(register-python-argcomplete pipx)"
-
 # Fuzzy-complete AWS CLI via fzf: aws ec2 **<TAB>
 # Overrides `complete -C` with `-F` so fzf's ** trigger works.
 # Normal TAB still completes as usual.
