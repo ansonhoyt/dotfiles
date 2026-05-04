@@ -122,7 +122,6 @@ brew 'uv' # Python package/project manager (replaces pip, pipx, venv)
 brew 'gron' # Make JSON greppable
 brew 'jq' # JSON processor
 brew 'jaq' # Rust-based jq clone (faster, drop-in replacement)
-cask 'quicklook-json'
 brew 'yq' # jq-like YAML processor
 
 ## React Native
