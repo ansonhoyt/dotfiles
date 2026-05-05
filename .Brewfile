@@ -73,7 +73,7 @@ cask 'codex-app'
 cask 'conductor'
 cask 'chatgpt'
 cask 'claude'
-cask 'claude-code'
+cask 'claude-code@latest'
 cask 'copilot-cli'
 brew 'gemini-cli'
 cask 'lm-studio' # run local LLMs
