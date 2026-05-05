@@ -97,6 +97,7 @@ LogLevel VERBOSE
 ClientAliveInterval 300
 ClientAliveCountMax 2
 EOF
+sudo ssh-keygen -A 2>/dev/null  # generate host keys if missing (no-op if present)
 sudo sshd -t || { echo "sshd config invalid; not reloading"; exit 1; }
 sudo launchctl kickstart -k system/com.openssh.sshd
 
