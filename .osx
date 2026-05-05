@@ -100,4 +100,25 @@ EOF
 sudo sshd -t || { echo "sshd config invalid; not reloading"; exit 1; }
 sudo launchctl kickstart -k system/com.openssh.sshd
 
+###############################################################################
+# Time Machine                                                                #
+###############################################################################
+
+# Exclude large/ephemeral directories
+for path in \
+  ~/Parallels \
+  ~/VirtualBox\ VMs \
+  ~/.vagrant.d \
+  ~/.lmstudio/models \
+  ~/.npm \
+  ~/.gradle \
+  ~/.m2 \
+  ~/.local/share/mise \
+  ~/Library/Developer/Xcode/DerivedData \
+  ~/Library/Developer/CoreSimulator/Devices \
+  ~/Library/Containers/com.docker.docker/Data
+do
+  sudo tmutil addexclusion -p "$path"
+done
+
 echo "Done!"
