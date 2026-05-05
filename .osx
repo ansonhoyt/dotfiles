@@ -68,4 +68,36 @@ remove_dock_item() {
 for app in News TV Maps; do remove_dock_item "$app"; done
 killall Dock
 
+###############################################################################
+# SSH                                                                         #
+###############################################################################
+
+# Install authorized_keys BEFORE enabling pubkey-only auth to avoid lockout.
+touch ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys
+
+key=$(op read --account my.1password.com "op://Private/Personal ed25519/public key") \
+  || { echo "op read failed"; exit 1; }
+echo "$key" | ssh-keygen -l -f - >/dev/null 2>&1 \
+  || { echo "key from 1Password is not a valid SSH public key"; exit 1; }
+grep -qxF "$key" ~/.ssh/authorized_keys || echo "$key" >> ~/.ssh/authorized_keys
+
+# Enable Remote Login (SSHD). bootstrap is no-op if already loaded.
+sudo launchctl enable system/com.openssh.sshd
+sudo launchctl bootstrap system /System/Library/LaunchDaemons/ssh.plist 2>/dev/null || true
+
+sudo tee /etc/ssh/sshd_config.d/100-hardening.conf >/dev/null <<'EOF'
+AllowGroups admin
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+ChallengeResponseAuthentication no
+PubkeyAuthentication yes
+MaxAuthTries 3
+LoginGraceTime 30
+LogLevel VERBOSE
+ClientAliveInterval 300
+ClientAliveCountMax 2
+EOF
+sudo sshd -t || { echo "sshd config invalid; not reloading"; exit 1; }
+sudo launchctl kickstart -k system/com.openssh.sshd
+
 echo "Done!"

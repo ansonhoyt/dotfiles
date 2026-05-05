@@ -27,9 +27,12 @@ echo ""
 # Prevent stow from "tree folding" runtime dirs into dotfiles
 mkdir -p ~/.claude
 
-# Create SSH sockets directory for connection multiplexing
-mkdir -p ~/.ssh/sockets
-chmod 700 ~/.ssh/sockets
+# Ensure ~/.ssh exists with correct perms before stow
+# (avoids tree-folding the whole dir into dotfiles/.ssh)
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+
+# SSH sockets directory for connection multiplexing
+mkdir -p ~/.ssh/sockets && chmod 700 ~/.ssh/sockets
 
 # Stow dotfiles
 echo "Stowing dotfiles..."
