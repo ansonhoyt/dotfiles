@@ -104,21 +104,38 @@ sudo launchctl kickstart -k system/com.openssh.sshd
 # Time Machine                                                                #
 ###############################################################################
 
-# Exclude large/ephemeral directories
-for path in \
-  ~/Parallels \
-  ~/VirtualBox\ VMs \
-  ~/.vagrant.d \
-  ~/.lmstudio/models \
-  ~/.npm \
-  ~/.gradle \
-  ~/.m2 \
-  ~/.local/share/mise \
-  ~/Library/Developer/Xcode/DerivedData \
-  ~/Library/Developer/CoreSimulator/Devices \
+# Exclude large/ephemeral dirs. xattr form (no -p) avoids needing FDA, but
+# the dir must exist — re-run ./.osx after installing a new tool.
+tm_paths=(
+  ~/Parallels
+  "$HOME/VirtualBox VMs"
+  ~/.vagrant.d
+  ~/.lmstudio/models
+  ~/.npm
+  ~/.gradle
+  ~/.m2
+  ~/.local/share/mise
+  ~/Library/Developer/Xcode/DerivedData
+  ~/Library/Developer/CoreSimulator/Devices
   ~/Library/Containers/com.docker.docker/Data
-do
-  sudo tmutil addexclusion -p "$path"
+)
+
+echo "Configure Time Machine exclusions:"
+tm_to_add=()
+for path in "${tm_paths[@]}"; do
+  if [ ! -e "$path" ]; then
+    printf '  \033[2m∅  %s\033[0m\n' "$path"
+  elif [[ "$(tmutil isexcluded "$path")" == *"[Excluded"* ]]; then
+    printf '  ✅ %s\n' "$path"
+  else
+    tm_to_add+=("$path")
+  fi
 done
+if [ ${#tm_to_add[@]} -gt 0 ]; then
+  tmutil addexclusion "${tm_to_add[@]}"
+  for path in "${tm_to_add[@]}"; do
+    printf '  ➕ %s\n' "$path"
+  done
+fi
 
 echo "Done!"
