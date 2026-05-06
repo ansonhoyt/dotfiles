@@ -48,6 +48,8 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # Ruby: https://blog.phusion.nl/2017/10/13/why-ruby-app-servers-break-on-macos-high-sierra-and-what-can-be-done-about-it/
 # Python <3.8: https://github.com/python/cpython/issues/77906
 #   (defaults to spawn since 3.8)
+# Ansible: https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#running-on-macos-as-a-control-node
+#   (explicitly uses multiprocessing fork)
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Added by Obsidian
