@@ -38,11 +38,6 @@ export HISTFILESIZE="${HISTSIZE}"
 # - https://blog.joncairns.com/2013/12/understanding-ssh-agent-and-ssh-add/
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
-# Yarn global bin
-# - https://classic.yarnpkg.com/en/docs/cli/global/
-# export PATH="$(yarn global bin):$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
-
 # Workaround for macOS fork() crashes in Ruby & Python (multiprocessing, app servers)
 #   objc[97005]: +[NSValue initialize] may have been in progress in another thread when fork() was called.
 # Ruby: https://blog.phusion.nl/2017/10/13/why-ruby-app-servers-break-on-macos-high-sierra-and-what-can-be-done-about-it/

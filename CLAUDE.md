@@ -35,11 +35,11 @@ Files listed in `.stow-local-ignore` are automatically excluded from symlinking 
    - SSH agent initialization
    - Homebrew environment (with Apple Silicon vs Intel detection)
    - Loads all files from `~/.bash/*.sh` (aliases, functions, completions, etc.)
-   - Configures NVM, Yarn, RVM
    - Adds `~/bin` to PATH
 3. **`.bash/init.sh`** - Initializes modern CLI tools (fzf, mise, zoxide, starship)
 
 Key bash modules in `.bash/`:
+
 - `aliases.sh` - Command shortcuts, modern replacements (eza for ls, zoxide for cd)
 - `functions.sh` - Utility functions (authorize, listening)
 - `completions.sh` - Shell completions
@@ -68,10 +68,12 @@ Key bash modules in `.bash/`:
 ### Tool Setup
 
 **Package Management:**
+
 - `.Brewfile` - Comprehensive list of Homebrew packages, casks, and Mac App Store apps (stowed to `~/.Brewfile`)
 - Install with: `brew bundle --global` (works from any directory)
 
 **Neovim:**
+
 - Uses lazy.nvim plugin manager (not the full LazyVim distribution)
 - Entry point: `init.lua` - minimal, just loads config.lazy
 - Plugin manager setup: `lua/config/lazy.lua` - bootstrap, mapleader, loads options, then lazy.setup()
@@ -82,11 +84,11 @@ Key bash modules in `.bash/`:
 - Mouse enabled with system clipboard integration
 
 **Version Managers:**
-- **mise** - Replaces asdf/rbenv for Ruby and other runtimes
-- **NVM** - Node version management (loaded in .bashrc)
-- **RVM** - Ruby version management (loaded as function in .bashrc)
+
+- **mise** - Sole runtime manager (Node, Python, Ruby). Config: `.config/mise/config.toml`. Also installs npm-backed CLIs (e.g. `npm:hunkdiff` → `hunk`).
 
 **Modern CLI Tools** (initialized in `.bash/init.sh`):
+
 - **fzf** - Fuzzy finder with keybindings
 - **zoxide** - Smart directory jumper (aliased to cd)
 - **starship** - Cross-shell prompt
@@ -95,6 +97,7 @@ Key bash modules in `.bash/`:
 ## Common Commands
 
 ### Setup/Installation
+
 ```bash
 # Install Homebrew packages
 brew bundle --global
@@ -105,17 +108,22 @@ brew bundle --global
 # Apply dotfiles with GNU Stow
 cd ~/dotfiles
 stow --verbose .
+
+# Install mise-managed runtimes and CLIs
+mise install
 ```
 
 ### Development Workflows
 
 **Ruby/Rails:**
+
 ```bash
 rlist                    # List RSpec tests with descriptions
 rspec-diff              # Run specs for changed files
 ```
 
 **File Navigation:**
+
 ```bash
 ls                      # eza with icons and directories first
 lt                      # Tree view (2 levels)
@@ -125,6 +133,7 @@ cd <fuzzy-path>         # zoxide smart jump
 ```
 
 **Git Aliases:**
+
 ```bash
 g                       # git
 gcm "message"           # git commit -m
@@ -133,6 +142,7 @@ gcad                    # git commit -a --amend
 ```
 
 **Useful Functions:**
+
 ```bash
 authorize server.com    # Copy SSH key to remote host
 listening [port]        # List processes on TCP ports
@@ -140,6 +150,7 @@ n [files]              # Open nvim (current dir if no args)
 ```
 
 ### Homebrew
+
 ```bash
 bug                           # brew upgrade --greedy (alias)
 brew bundle dump --global     # Generate Brewfile from installed packages
@@ -149,7 +160,6 @@ brew leaves                   # List installed packages (no dependencies)
 ## Important Notes
 
 - **Architecture Detection**: `.bashrc` detects Apple Silicon vs Intel and sets up Homebrew accordingly (`/opt/homebrew` vs `/usr/local`)
-- **Ruby Configuration**: `rvm_docs_flag=1` ensures Ruby gems install with documentation
 - **SSH Agent**: Automatically started and managed by `.bashrc`
 - **Readline**: `.inputrc` configures case-insensitive completion, history search with arrow keys
 - **Git**: Config in `.config/git/config` with aliases (co, br, ci, st) and pull.rebase=true
@@ -159,6 +169,7 @@ brew leaves                   # List installed packages (no dependencies)
 ## Stow Ignore Patterns
 
 When modifying `.stow-local-ignore`, note it uses regex patterns. Currently ignores:
+
 - Version control directories (.git, .svn, etc.)
 - Documentation (README, LICENSE, markdown files)
 - Editor artifacts (backup files, autosave)

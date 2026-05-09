@@ -11,3 +11,4 @@ compile = false
 node = "lts"
 python = "latest"
 ruby = "latest"
+"npm:hunkdiff" = "latest" # `hunk` diff viewer
