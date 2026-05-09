@@ -35,10 +35,11 @@
       "WebFetch(domain:docs.docker.com)",
       "WebFetch(domain:hub.docker.com)",
       "WebFetch(domain:kamal-deploy.org)",
-      "Read(~/.local/share/mise/installs/ruby/**)"
+      "Read(~/.local/share/mise/installs/ruby/**)",
+      "Bash(brew info *)",
+      "Bash(pmset -g *)"
     ]
   },
-  "model": "Opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -109,9 +110,12 @@
   },
   "sandbox": {
     "network": {
-      "allowUnixSockets": ["~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"]
+      "allowUnixSockets": [
+        "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+      ]
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "model": "opus"
 }
