@@ -3,7 +3,7 @@ return {
   lazy = false,
   build = ':TSUpdate',
   config = function()
-    -- Install parsers not bundled with Neovim (c, lua, markdown, query, vim, vimdoc are built-in)
+    -- Install parsers not bundled with Neovim (c, lua, markdown, markdown_inline, query, vim, vimdoc are built-in)
     require('nvim-treesitter').install {
       'bash', 'css', 'embedded_template', 'hcl', 'html', 'javascript',
       'json', 'python', 'ruby', 'scss', 'terraform', 'toml', 'typescript', 'yaml',

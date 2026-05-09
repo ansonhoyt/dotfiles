@@ -31,6 +31,12 @@ vim.opt.updatetime = 250      -- Faster LSP/plugin updates (default 4000ms)
 vim.opt.cmdheight = 0         -- Hide command line when not in use
 vim.opt.showmode = false      -- Mode already shown in lualine
 
+-- Folding: treesitter by default; LspAttach upgrades to LSP folds when supported
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = "v:lua.vim.lsp.foldtext()"
+vim.o.foldlevelstart = 99     -- Start with all folds open
+
 -- Session restore (auto-session)
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
