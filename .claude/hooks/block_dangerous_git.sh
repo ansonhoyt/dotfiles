@@ -13,14 +13,17 @@ COMMAND=$(jaq -r '.tool_input.command // empty')
 
 DANGEROUS_PATTERNS=(
   'git push'
-  'git reset --hard'
-  'git clean -fd'
-  'git clean -f'
-  'git branch -D'
-  'git checkout \.'
-  'git restore \.'
-  'push --force'
-  'reset --hard'
+  'git reset .*--hard'
+  # -f anywhere in flag cluster, or --force
+  'git clean .*(-[[:alpha:]]*f|--force)'
+  # -D anywhere in flag cluster, or --delete + --force
+  'git branch .*(-[[:alpha:]]*D|--delete .*--force|--force .*--delete)'
+  # git checkout [<ref>] .
+  'git checkout .*\.( |$)'
+  # git checkout [<ref>] -- <path>
+  'git checkout .*-- '
+  'git restore .*\.( |$)'
+  'git stash (drop|clear)'
 )
 
 for pattern in "${DANGEROUS_PATTERNS[@]}"; do
