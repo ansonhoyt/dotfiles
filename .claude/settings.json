@@ -47,6 +47,10 @@
         "hooks": [
           {
             "type": "command",
+            "command": "~/.claude/hooks/block_dangerous_git.sh"
+          },
+          {
+            "type": "command",
             "command": "~/.claude/hooks/allow_commands.sh"
           }
         ]
