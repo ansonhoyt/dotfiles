@@ -1,0 +1,28 @@
+name: test-hooks
+
+on:
+  push:
+    paths:
+      - '.claude/hooks/**'
+      - '.github/workflows/test-hooks.yml'
+  pull_request:
+    paths:
+      - '.claude/hooks/**'
+      - '.github/workflows/test-hooks.yml'
+  workflow_dispatch:
+
+jobs:
+  bats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bats
+        run: sudo apt-get update && sudo apt-get install -y bats
+      - name: Install jaq (latest)
+        run: |
+          curl -fsSL -o jaq https://github.com/01mf02/jaq/releases/latest/download/jaq-x86_64-unknown-linux-gnu
+          chmod +x jaq
+          sudo mv jaq /usr/local/bin/
+          jaq --version
+      - name: Run hook tests
+        run: bats .claude/hooks/test/

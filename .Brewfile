@@ -43,6 +43,7 @@ brew 'gibo' # Access GitHub's .gitignore boilerplates, https://github.com/github
 
 ## Shell
 brew 'bat' # cat with syntax highlighting
+brew 'bats-core' # Bash test runner (used by .claude/hooks/test/)
 brew 'eza' # Modern ls replacement
 brew 'fish'
 brew 'fd'  # Simple, fast alternative to find

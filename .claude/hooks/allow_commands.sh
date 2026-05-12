@@ -18,6 +18,15 @@
 #
 #   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"rm -rf /"}}'
 #   # → (no output, falls through to normal permissions)
+#
+#   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"cat foo | grep bar | wc -l"}}'
+#   # → allow (all segments match allow patterns)
+#
+#   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"git status && rm -rf /"}}'
+#   # → (no output; rm segment doesn't match allow)
+#
+#   ~/.claude/hooks/allow_commands.sh <<< '{"tool_input":{"command":"cat ~/.ssh/id_rsa > /tmp/key"}}'
+#   # → (no output; redirect rejected)
 
 set -euo pipefail
 
@@ -92,9 +101,21 @@ exec jaq -c \
   --arg ask "$(join "${ask[@]}")" \
   --arg allow "$(join "${allow[@]}")" \
   '.tool_input.command // empty |
+   gsub("^\\s+|\\s+$"; "") |
    if . == "" then empty
-   # reject chained/piped/redirected commands (fall through to normal permissions)
-   elif test("[;|`<>]|&&|[$][(]") then empty
-   elif test($ask) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask"}}
-   elif test($allow) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"allow"}}
-   else empty end'
+   # Reject shell constructs that break per-segment evaluation:
+   #   newlines (bash separator), redirects (< > heredocs, process sub),
+   #   backticks, subshells, $() substitution
+   elif test("[\\r\\n]") then empty
+   elif test("[<>`(]") then empty
+   elif test("\\$\\(") then empty
+   # Reject lone `&` (background) but allow `&&`
+   elif test("(^|[^&])&($|[^&])") then empty
+   else
+     # Split on safe compound operators: ; && || |
+     ([splits("\\s*(&&|\\|\\||;|\\|)\\s*")] | map(select(. != ""))) as $parts
+     | if ($parts | length) == 0 then empty
+       elif any($parts[]; test($ask)) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask"}}
+       elif all($parts[]; test($allow)) then {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"allow"}}
+       else empty end
+   end'
