@@ -65,3 +65,34 @@ tds() {
   tmux select-pane -t "$editor_pane"
 }
 
+# Create a multi-pane swarm layout with the same command started in each pane (great for AI)
+# Usage: tsl <pane_count> [<command>]
+tsl() {
+  [[ -z $TMUX ]] && { echo "You must start tmux to use tsl."; return 1; }
+  [[ $1 == -h || $1 == --help ]] && { echo "Usage: tsl <pane_count> [<command>]"; return 0; }
+  [[ -z $1 ]] && { echo "Usage: tsl <pane_count> [<command>]"; return 1; }
+
+  local count="$1"
+  local cmd="${2:-c}"
+  local current_dir="${PWD}"
+  local -a panes
+
+  tmux rename-window -t "$TMUX_PANE" "$(basename "$current_dir")"
+
+  panes+=("$TMUX_PANE")
+
+  while (( ${#panes[@]} < count )); do
+    local new_pane
+    local split_target="${panes[-1]}"
+    new_pane=$(tmux split-window -h -t "$split_target" -c "$current_dir" -P -F '#{pane_id}')
+    panes+=("$new_pane")
+  done
+
+  tmux select-layout -t "${panes[0]}" tiled
+
+  for pane in "${panes[@]}"; do
+    tmux send-keys -t "$pane" "$cmd" C-m
+  done
+
+  tmux select-pane -t "${panes[0]}"
+}
