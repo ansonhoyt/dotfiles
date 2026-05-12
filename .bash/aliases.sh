@@ -33,6 +33,8 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Tools
+alias c='claude'
+alias cx='printf "\033[2J\033[3J\033[H" && claude --permission-mode bypassPermissions'
 alias d='docker'
 alias r='rails'
 alias rnt='rails new --template https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb'

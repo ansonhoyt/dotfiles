@@ -1,31 +1,39 @@
+# Create a Tmux Dev Layout with editor, ai, and terminal
+# Usage: tdl [<c|cx|codex|other_ai>] [<second_ai>]
+tdl() {
+  [[ -z $TMUX ]] && { echo "You must start tmux to use tdl."; return 1; }
+  [[ $1 == -h || $1 == --help ]] && { echo "Usage: tdl [<c|cx|codex|other_ai>] [<second_ai>]"; return 0; }
 
-# Create a tmux layout for dev with editor, ai, and terminal
-tml() {
   local current_dir="${PWD}"
-  local editor_pane ai_pane
+  local editor_pane ai_pane ai2_pane
   local ai="${1:-claude}"
+  local ai2="$2"
 
-  tmux rename-window "$(basename "$current_dir")"
+  # Use TMUX_PANE for the pane we're running in (stable even if active window changes)
+  editor_pane="$TMUX_PANE"
 
-  # Get current pane ID (will become editor pane after splits)
-  editor_pane=$(tmux display-message -p '#{pane_id}')
+  # Name the current window after the base directory name
+  tmux rename-window -t "$editor_pane" "$(basename "$current_dir")"
 
-  # Split window vertically - top 90%, bottom 10%
-  tmux split-window -v -p 10 -c "$current_dir"
+  # Split window vertically - top 90%, bottom 10% (target editor pane explicitly)
+  tmux split-window -v -p 10 -t "$editor_pane" -c "$current_dir"
 
-  # Go back to top pane (editor_pane) and split it horizontally
-  tmux select-pane -t "$editor_pane"
-  tmux split-window -h -p 40 -c "$current_dir"
+  # Split editor pane horizontally - AI on right 40% (capture new pane ID directly)
+  ai_pane=$(tmux split-window -h -p 40 -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
 
-  # After horizontal split, cursor is in the right pane (new pane)
-  # Get its ID and run ai there
-  ai_pane=$(tmux display-message -p '#{pane_id}')
+  # If second AI provided, split the AI pane vertically
+  if [[ -n $ai2 ]]; then
+    ai2_pane=$(tmux split-window -v -t "$ai_pane" -c "$current_dir" -P -F '#{pane_id}')
+    tmux send-keys -t "$ai2_pane" "$ai2" C-m
+  fi
+
+  # Run ai in the right pane
   tmux send-keys -t "$ai_pane" "$ai" C-m
 
-  # Run nvim in the left pane
+  # Run editor in the left pane
   tmux send-keys -t "$editor_pane" "$EDITOR ." C-m
 
-  # Select the nvim pane for focus
+  # Select the editor pane for focus
   tmux select-pane -t "$editor_pane"
 }
 
