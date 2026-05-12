@@ -37,3 +37,31 @@ tdl() {
   tmux select-pane -t "$editor_pane"
 }
 
+# Create a Tmux Dev Square layout with editor, diff watch, terminal, and AI.
+# Usage: tds [<c|cx|codex|other_ai>]
+tds() {
+  [[ -z $TMUX ]] && { echo "You must start tmux to use tds."; return 1; }
+  [[ $1 == -h || $1 == --help ]] && { echo "Usage: tds [<c|cx|codex|other_ai>]"; return 0; }
+
+  local ai="${1:-claude}"
+  local current_dir="${PWD}"
+  local editor_pane diff_pane terminal_pane ai_pane
+
+  editor_pane="$TMUX_PANE"
+
+  tmux rename-window -t "$editor_pane" "$(basename "$current_dir")"
+
+  terminal_pane=$(tmux split-window -v -p 50 -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
+  diff_pane=$(tmux split-window -h -p 50 -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
+  ai_pane=$(tmux split-window -h -p 50 -t "$terminal_pane" -c "$current_dir" -P -F '#{pane_id}')
+
+  tmux send-keys -t "$editor_pane" -l "$EDITOR ."
+  tmux send-keys -t "$editor_pane" C-m
+  tmux send-keys -t "$diff_pane" -l "hunk diff --watch"
+  tmux send-keys -t "$diff_pane" C-m
+  tmux send-keys -t "$ai_pane" -l "$ai"
+  tmux send-keys -t "$ai_pane" C-m
+
+  tmux select-pane -t "$editor_pane"
+}
+
