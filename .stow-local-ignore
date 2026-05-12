@@ -23,6 +23,8 @@ _darcs
 
 \.git
 \.gitignore
+^/\.github   # repo-level GitHub config (workflows, dependabot)
+\.bats$      # bats test files (dev/CI, not runtime config)
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files

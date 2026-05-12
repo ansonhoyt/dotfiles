@@ -51,6 +51,7 @@ brew 'fzf' # CLI fuzzy finder
 cask 'ghostty'
 brew 'gum' # tool for glamorous  scripts
 #cask 'iterm2'
+brew 'shellcheck' # Static analysis for shell scripts (used by .github/workflows/lint.yml)
 brew 'starship' # cross-shell prompt
 brew 'tmux' # Terminal multiplexer
 # brew tap tobi/try https://github.com/tobi/try && brew install --HEAD tobi/try/try

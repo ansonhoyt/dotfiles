@@ -1,0 +1,44 @@
+name: lint
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # gitleaks needs full history
+
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install shellcheck and stow
+        run: sudo apt-get update && sudo apt-get install -y shellcheck stow
+
+      - name: shellcheck
+        # Scope: hooks only. .bash/* has pre-existing findings (no-shebang
+        # sourced files, etc.); extend coverage when those are cleaned up.
+        run: shellcheck .claude/hooks/*.sh
+
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+      - name: actionlint
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash
+
+      - name: stow dry-run
+        run: |
+          mkdir -p /tmp/stow-target
+          stow --no --verbose=2 --target=/tmp/stow-target .

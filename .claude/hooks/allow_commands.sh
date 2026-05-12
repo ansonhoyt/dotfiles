@@ -97,6 +97,7 @@ allow=(
 # Combine arrays into regex: ^(pattern1|pattern2|...)
 join() { local IFS='|'; echo "^($*)"; }
 
+# shellcheck disable=SC2016 # jaq script — $vars are jaq, not bash
 exec jaq -c \
   --arg ask "$(join "${ask[@]}")" \
   --arg allow "$(join "${allow[@]}")" \
