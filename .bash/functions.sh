@@ -3,7 +3,7 @@ function authorize () {
   if [ $# -eq 0 ]; then
     echo "Usage: authorize server.example.com"
   else
-    ssh-copy-id -i ~/.ssh/id_rsa.pub $@
+    ssh-copy-id -i ~/.ssh/id_rsa.pub "$@"
   fi
 }
 
@@ -39,7 +39,7 @@ listening() {
     if [ $# -eq 0 ]; then
         sudo lsof -iTCP -sTCP:LISTEN -n -P
     elif [ $# -eq 1 ]; then
-        sudo lsof -i:$1 -sTCP:LISTEN -n -P
+        sudo lsof -i:"$1" -sTCP:LISTEN -n -P
     else
         echo "Usage: listening [pattern]"
     fi

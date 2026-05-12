@@ -26,9 +26,16 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y shellcheck stow
 
       - name: shellcheck
-        # Scope: hooks only. .bash/* has pre-existing findings (no-shebang
-        # sourced files, etc.); extend coverage when those are cleaned up.
-        run: shellcheck .claude/hooks/*.sh
+        # Discover shell files two ways: 
+        # 1. known extensions/names
+        # 2. bash shebang on the first line.
+        run: |
+          {
+            git ls-files '*.sh' '.bashrc' '.bash_profile' '.osx'
+            git ls-files | while read -r f; do
+              head -1 "$f" 2>/dev/null | grep -qE '^#!.*\bbash\b' && echo "$f"
+            done
+          } | sort -u | xargs shellcheck
 
       - name: Download actionlint
         id: get_actionlint

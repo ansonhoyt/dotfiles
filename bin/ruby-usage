@@ -14,10 +14,10 @@ fi
 # Look in the right code folder on my mac or the server.
 if [ "$(uname)" == "Darwin" ]; then
   FOLDER=~/code
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(uname -s)" = "Linux" ]; then
   FOLDER=/export/home
 else
-  echo Unexpected OS: $(uname -s)
+  echo "Unexpected OS: $(uname -s)"
   exit 1
 fi
 

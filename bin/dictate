@@ -20,6 +20,7 @@ readonly MIN_DURATION=0.5
 # Exit codes
 readonly EXIT_SUCCESS=0
 readonly EXIT_NOT_READY=1
+# shellcheck disable=SC2034 # reserved for future sox-failure handling
 readonly EXIT_RECORDING_FAILED=2
 readonly EXIT_TRANSCRIPTION_FAILED=3
 
@@ -189,7 +190,7 @@ record_and_transcribe() {
   echo "Recording... (Ctrl+C to stop)" >&2
   sox -d -r "${SAMPLE_RATE}" -c 1 "${audio_file}" 2>/dev/null &
   local sox_pid=$!
-  trap "kill ${sox_pid} 2>/dev/null; wait ${sox_pid} 2>/dev/null" TERM INT
+  trap 'kill ${sox_pid} 2>/dev/null; wait ${sox_pid} 2>/dev/null' TERM INT
   wait ${sox_pid} 2>/dev/null || true
   trap - TERM INT
 

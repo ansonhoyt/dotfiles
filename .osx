@@ -6,7 +6,12 @@
 #
 # @author Anson Hoyt
 
-test `uname` == 'Darwin' && echo 'Configuring macOS...' || { echo 'Not macOS...exiting!'; exit; }
+if [ "$(uname)" = 'Darwin' ]; then
+  echo 'Configuring macOS...'
+else
+  echo 'Not macOS...exiting!'
+  exit
+fi
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #

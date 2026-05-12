@@ -31,10 +31,10 @@ fi
 # Look in the right code folder on my mac or the server.
 if [ "$(uname)" == "Darwin" ]; then
   FOLDER=~/code
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(uname -s)" = "Linux" ]; then
   FOLDER=/export/home
 else
-  echo Unexpected OS: $(uname -s)
+  echo "Unexpected OS: $(uname -s)"
   exit 1
 fi
 
@@ -46,8 +46,8 @@ while IFS= read -r gitdir; do
     --author="$author" \
     --date=format:"%a %b %-d %-l%P" \
     --pretty="  %Cgreen%ad%Creset %s" \
-    --since=$since \
-    --until=$until)
+    --since="$since" \
+    --until="$until")
   [ -n "$output" ] || continue
   echo -e "\n\033[1;34m${repodir}\033[0m"
   echo "$output"

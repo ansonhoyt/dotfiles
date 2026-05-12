@@ -6,7 +6,7 @@ alias grep='grep --color=auto'
 alias vlc="open /Applications/VLC.app"
 
 # Lock screen (macOS)
-test `uname` == 'Darwin' && alias lock='pmset displaysleepnow'
+test "$(uname)" == 'Darwin' && alias lock='pmset displaysleepnow'
 
 # List RSpec tests
 alias rlist="rspec --format documentation --color --dry-run"

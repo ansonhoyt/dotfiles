@@ -22,7 +22,6 @@ die() { echo >&2 "$@"; exit 2; }
 
 command -v jaq &>/dev/null || die "allow_chrome_devtools.sh: jaq not found in PATH"
 
-# shellcheck disable=SC2016 # jaq script — $vars are jaq, not bash
 exec jaq '
   def decide($d): {hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:$d}};
   def tool: .tool_name | ltrimstr("mcp__plugin_chrome-devtools-mcp_chrome-devtools__");

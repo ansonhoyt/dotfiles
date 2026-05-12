@@ -1,0 +1,9 @@
+# Sourced .bash/* files have no shebang by design — declare the shell once.
+shell=bash
+
+# Project-wide suppressions for canonical patterns used in this repo:
+#   SC1090/SC1091 — dynamic/runtime source paths
+#   SC2016        — single-quoted $vars in jaq / fzf preview strings
+#   SC2139        — intentional define-time alias expansion ($HOMEBREW_PREFIX)
+#   SC2207        — canonical bash-completion COMPREPLY=($(...)) pattern
+disable=SC1090,SC1091,SC2016,SC2139,SC2207
