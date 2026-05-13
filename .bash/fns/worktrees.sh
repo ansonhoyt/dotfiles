@@ -6,10 +6,11 @@ ga() {
   fi
 
   local branch="$1"
-  local base="$(basename "$PWD")"
-  local wt_path="../${base}--${branch}"
+  local root wt_path
+  root="$(git worktree list --porcelain | awk '/^worktree / {print $2; exit}')"
+  wt_path="${root%/*}/$(basename "$root")--${branch}"
 
-  git worktree add -b "$branch" "$wt_path"
+  git worktree add -b "$branch" "$wt_path" || return 1
   mise trust "$wt_path"
   cd "$wt_path"
 }
