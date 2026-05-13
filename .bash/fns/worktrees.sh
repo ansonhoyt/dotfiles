@@ -50,10 +50,15 @@ gw() {
 
   if [[ -n $target ]]; then
     path=$(awk -v t="$target" -F'\t' '$1==t {print $2; exit}' <<<"$list")
-    [[ -n $path ]] && { cd "$path"; return; }
+    if [[ -n $path ]]; then
+      cd "$path" || return 1
+      echo "→ $target"
+      return
+    fi
   fi
 
   choice=$(gum filter ${target:+--value "$target"} <<<"$list")
   [[ -z $choice ]] && return 1
-  cd "$(awk -F'\t' '{print $2}' <<<"$choice")"
+  cd "$(awk -F'\t' '{print $2}' <<<"$choice")" || return 1
+  echo "→ $(awk -F'\t' '{print $1}' <<<"$choice")"
 }
