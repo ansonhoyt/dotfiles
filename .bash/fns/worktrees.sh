@@ -34,3 +34,25 @@ gd() {
     fi
   fi
 }
+
+# Switch worktree and directory. Shows picker if no branch given or doesn't match.
+# Usage: gw [<branch>]
+gw() {
+  local target="$1" list choice path
+
+  list=$(git worktree list --porcelain 2>/dev/null | awk '
+    /^worktree / { p=$2 }
+    /^branch /   { sub("refs/heads/", "", $2); print $2 "\t" p }
+    /^detached/  { print "(detached)\t" p }
+  ')
+  [[ -z $list ]] && { echo "No git worktrees found."; return 1; }
+
+  if [[ -n $target ]]; then
+    path=$(awk -v t="$target" -F'\t' '$1==t {print $2; exit}' <<<"$list")
+    [[ -n $path ]] && { cd "$path"; return; }
+  fi
+
+  choice=$(gum filter ${target:+--value "$target"} <<<"$list")
+  [[ -z $choice ]] && return 1
+  cd "$(awk -F'\t' '{print $2}' <<<"$choice")"
+}
