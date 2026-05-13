@@ -12,13 +12,13 @@ ga() {
 
   git worktree add -b "$branch" "$wt_path" || return 1
   mise trust "$wt_path"
-  cd "$wt_path"
+  cd "$wt_path" || return 1
 }
 
 # Remove worktree and branch from within active worktree directory.
 gd() {
   if gum confirm "Remove worktree and branch?"; then
-    local cwd base branch root worktree
+    local cwd branch root worktree
 
     cwd="$(pwd)"
     worktree="$(basename "$cwd")"
@@ -29,7 +29,7 @@ gd() {
 
     # Protect against accidentally nuking a non-worktree directory
     if [[ "$root" != "$worktree" ]]; then
-      cd "../$root"
+      cd "../$root" || return 1
       git worktree remove "$cwd" --force || return 1
       git branch -D "$branch"
     fi
