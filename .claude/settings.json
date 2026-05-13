@@ -32,6 +32,8 @@
       "WebFetch(domain:getbootstrap.com)",
       "WebFetch(domain:docs.github.com)",
       "WebFetch(domain:github.blog)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:learn.omacom.io)",
       "WebFetch(domain:docs.docker.com)",
       "WebFetch(domain:hub.docker.com)",
       "WebFetch(domain:kamal-deploy.org)",
@@ -123,6 +125,13 @@
       ]
     },
     "network": {
+      "allowedHosts": [
+        "api.github.com",
+        "github.com",
+        "raw.githubusercontent.com",
+        "objects.githubusercontent.com",
+        "codeload.github.com"
+      ],
       "allowUnixSockets": [
         "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
       ]

@@ -12,6 +12,7 @@ COMMAND=$(jaq -r '.tool_input.command // empty')
 [ -z "$COMMAND" ] && exit 0
 
 DANGEROUS_PATTERNS=(
+  # git
   'git push'
   'git reset .*--hard'
   # -f anywhere in flag cluster, or --force
@@ -24,6 +25,22 @@ DANGEROUS_PATTERNS=(
   'git checkout .*-- '
   'git restore .*\.( |$)'
   'git stash (drop|clear)'
+
+  # gh
+  'gh repo (create|delete|edit|archive|unarchive|transfer|rename)'
+  'gh release (create|delete|edit|upload)'
+  'gh pr (merge|close)'
+  'gh issue (close|delete)'
+  'gh secret (set|delete)'
+  'gh variable (set|delete)'
+  'gh ruleset delete'
+  'gh workflow (disable|run)'
+  'gh cache delete'
+  'gh auth logout'
+  'gh (ssh-key|gpg-key) delete'
+  # POST omitted: GraphQL reads use POST. Higher-level subcommands above
+  # cover most write endpoints; remaining gap is acceptable.
+  'gh api .*(-X|--method)[= ]*(DELETE|PUT|PATCH)'
 )
 
 for pattern in "${DANGEROUS_PATTERNS[@]}"; do
