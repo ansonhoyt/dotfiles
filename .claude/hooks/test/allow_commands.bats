@@ -242,3 +242,84 @@ assert_decision() {
   run_hook 'gh api repos/owner/repo -X DELETE'
   assert_decision ask
 }
+
+# --- Asset builds & dependency install ---
+
+@test "yarn build allows" {
+  run_hook 'yarn build'
+  assert_decision allow
+}
+
+@test "yarn build:css:compile allows" {
+  run_hook 'yarn build:css:compile'
+  assert_decision allow
+}
+
+@test "yarn install allows" {
+  run_hook 'yarn install'
+  assert_decision allow
+}
+
+@test "bundle install allows" {
+  run_hook 'bundle install'
+  assert_decision allow
+}
+
+@test "uv sync allows" {
+  run_hook 'uv sync'
+  assert_decision allow
+}
+
+@test "uv run falls through (arbitrary execution)" {
+  run_hook 'uv run python -c "import os; os.remove(\"x\")"'
+  assert_decision fallthrough
+}
+
+# --- Setup & introspection ---
+
+@test "bin/setup allows" {
+  run_hook 'bin/setup'
+  assert_decision allow
+}
+
+@test "node --version allows" {
+  run_hook 'node --version'
+  assert_decision allow
+}
+
+@test "node -e falls through (arbitrary execution)" {
+  run_hook 'node -e "console.log(1)"'
+  assert_decision fallthrough
+}
+
+@test "mise current allows" {
+  run_hook 'mise current'
+  assert_decision allow
+}
+
+@test "asdf current falls through (not installed)" {
+  run_hook 'asdf current'
+  assert_decision fallthrough
+}
+
+# --- rails runner hardening ---
+
+@test "rails runner asks" {
+  run_hook 'rails runner "puts 1"'
+  assert_decision ask
+}
+
+@test "bin/rails runner asks" {
+  run_hook 'bin/rails runner "puts 1"'
+  assert_decision ask
+}
+
+@test "bundle exec rails runner asks" {
+  run_hook 'bundle exec rails runner "puts 1"'
+  assert_decision ask
+}
+
+@test "rails test still allows (not runner)" {
+  run_hook 'rails test'
+  assert_decision allow
+}

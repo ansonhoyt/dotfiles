@@ -25,6 +25,8 @@ command -v jaq &>/dev/null || die "allow_commands.sh: jaq not found in PATH"
 ask=(
   # Database commands need confirmation
   '(bundle exec |bin/)?(rails|rake) db:'
+  # rails runner = arbitrary Ruby execution
+  '(bundle exec |bin/)?(rails|rake) runner'
   # Commands with dangerous flags (safe forms in allow below)
   'find .*-(delete|exec|execdir|fprint|fprintf|fls|ok|okdir)'
   'fd .*( -x| --exec| -X| --exec-batch)'
@@ -43,6 +45,16 @@ allow=(
   'gem (help|list|env|open|outdated|specification|stale|which)'
   # Yarn read-only
   'yarn (list|why|info|versions|config list)'
+  # Yarn asset builds (write only to app/assets/builds/)
+  'yarn (build|build:css|build:css:compile|build:css:prefix)( |$)'
+  # Dependency install (modifies lockfiles only)
+  '(yarn|bundle) install( |$)'
+  'uv sync( |$)'
+  # Setup script (idempotent per AGENTS.md)
+  'bin/setup( |$)'
+  # Version/env introspection
+  'node --version'
+  'mise (current|ls|env|where|which)( |$)'
   # Homebrew read-only
   'brew (list|info|leaves|doctor|config|search|help)'
   # Git read-only
