@@ -13,6 +13,7 @@ ga() {
   git worktree add -b "$branch" "$wt_path" || return 1
   mise trust "$wt_path"
   cd "$wt_path" || return 1
+  [[ -x bin/setup ]] && echo "💡 bin/setup"
 }
 
 # Remove worktree and branch from within active worktree directory.
