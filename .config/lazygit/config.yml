@@ -19,4 +19,5 @@ gui:
 git:
   overrideGpg: true
   pagers:
+    - pager: hunk pager --no-hunk-headers
     - pager: delta --dark --paging=never
