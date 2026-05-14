@@ -37,6 +37,8 @@
       "WebFetch(domain:docs.docker.com)",
       "WebFetch(domain:hub.docker.com)",
       "WebFetch(domain:kamal-deploy.org)",
+      "WebFetch(domain:mise.en.dev)",
+      "WebFetch(domain:mise.jdx.dev)",
       "Read(~/.local/share/mise/installs/ruby/**)",
       "Bash(brew info *)",
       "Bash(pmset -g *)"
