@@ -25,6 +25,8 @@ _darcs
 \.gitignore
 ^/\.github   # repo-level GitHub config (workflows, dependabot)
 \.bats$      # bats test files (dev/CI, not runtime config)
+^/\.claude/hooks/test$  # bats test directory (dev/CI, not runtime config)
+^/\.shellcheckrc  # repo-scoped shellcheck config (not for ~)
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
