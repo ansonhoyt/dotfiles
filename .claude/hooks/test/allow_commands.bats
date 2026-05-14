@@ -106,6 +106,28 @@ assert_decision() {
   assert_decision fallthrough
 }
 
+# --- Safe redirects stripped before evaluation ---
+
+@test "2>/dev/null stripped" {
+  run_hook 'bundle show foo 2>/dev/null'
+  assert_decision allow
+}
+
+@test "2>&1 stripped" {
+  run_hook 'bin/rails test test/foo.rb 2>&1 | head -30'
+  assert_decision allow
+}
+
+@test ">/dev/null stripped" {
+  run_hook 'bundle info foo > /dev/null 2>&1'
+  assert_decision allow
+}
+
+@test "&>/dev/null stripped" {
+  run_hook 'brew info ripgrep &>/dev/null'
+  assert_decision allow
+}
+
 # --- Command substitution rejected ---
 
 @test "dollar-paren substitution rejected" {
