@@ -8,17 +8,8 @@
     <array>
         <string>/usr/local/sbin/logi-switch</string>
     </array>
-    <key>LaunchEvents</key>
-    <dict>
-        <key>com.apple.notifyd.matching</key>
-        <dict>
-            <key>fus</key>
-            <dict>
-                <key>Notification</key>
-                <string>com.apple.system.loginwindow.fus</string>
-            </dict>
-        </dict>
-    </dict>
+    <key>StartInterval</key>
+    <integer>15</integer>
     <key>StandardOutPath</key>
     <string>/var/log/logi-switch.log</string>
     <key>StandardErrorPath</key>
