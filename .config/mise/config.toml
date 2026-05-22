@@ -12,3 +12,4 @@ node = "lts"
 python = "latest"
 ruby = "latest"
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
+"npm:@tobilu/qmd" = { version = "latest", npm_args = "--ignore-scripts=false" } # `qmd` doc search (needs postinstall for better-sqlite3)
