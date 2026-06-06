@@ -24,6 +24,7 @@ brew 'gnupg' # GNU Pretty Good Privacy (PGP)
 brew 'highlight'
 brew 'lazygit' # Git TUI
 brew 'mas' # Mac App Store command-line interface
+brew 'mermaid-cli' # mmdc — renders Mermaid diagrams in markdown (snacks.image)
 brew 'mise'
 cask 'mitmproxy'
 brew 'nginx'
@@ -36,6 +37,7 @@ brew 'rogue'
 brew 'rsyslog'
 brew 'ssh-copy-id'
 brew 'stow' # Organize software neatly under a single directory tree
+brew 'tectonic' # LaTeX engine — renders math expressions in markdown (snacks.image)
 brew 'tree'
 brew 'wget'
 

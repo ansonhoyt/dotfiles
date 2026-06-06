@@ -5,6 +5,7 @@ return {
   lazy = false,
   opts = {
     bufdelete = { enabled = true },
+    image = { enabled = true }, -- inline image rendering via Ghostty kitty graphics protocol
   },
   keys = {
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },

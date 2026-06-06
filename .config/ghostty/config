@@ -5,14 +5,14 @@
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 12.8
 
-# Use compatible TERM for remote hosts lacking xterm-ghostty terminfo
-# NOTE: Ubuntu 25.05+, Debian 13+ ship with ncurses >= 6.5-20241228
-term = xterm-256color
-
-# Set sudo wrapper to preserve terminfo.
-# Enable SSH environment variable compatibility.
-shell-integration-features = sudo,ssh-env
+# Shell integration:
+# - sudo: preserve terminfo through sudo
+# - ssh-env: propagate TERM_PROGRAM, COLORTERM, etc. to remote hosts
+# - ssh-terminfo: auto-install xterm-ghostty terminfo on remotes (falls back to xterm-256color if it can't)
+shell-integration-features = sudo,ssh-env,ssh-terminfo
 keybind = shift+enter=text:\x1b\r
+# Let cmd+enter pass through (lazygit commit submit via kitty protocol) instead of toggling fullscreen
+keybind = cmd+enter=unbind
 
 # Slowdown mouse scrolling
 mouse-scroll-multiplier = 0.95
