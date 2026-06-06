@@ -16,11 +16,6 @@ gui:
       - ⠇
       - ⠏
     rate: 80
-keybinding:
-  universal:
-    # Revert v0.59 default (cmd+enter on Mac); lazygit doesn't decode kitty/CSI-u keys yet.
-    # Remove once https://github.com/jesseduffield/lazygit/issues/3237 ships.
-    confirmInEditor: [<alt+enter>, <ctrl+s>]
 git:
   overrideGpg: true
   pagers:
