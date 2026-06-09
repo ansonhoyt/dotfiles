@@ -1,0 +1,11 @@
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+# model unset → latest (codex <default>)
+model_reasoning_effort = "medium"
+
+# These only take effect under sandbox_mode = "workspace-write" (i.e. this profile).
+# network_access: allow outbound network in the workspace-write sandbox (default off).
+# writable_roots: let rubocop write its cache outside the project dir.
+[sandbox_workspace_write]
+network_access = true
+writable_roots = ["~/.cache/rubocop_cache"]
