@@ -29,6 +29,12 @@ vim.opt.cursorline = true     -- Highlight current line
 vim.opt.signcolumn = "yes"    -- Always show sign column (prevents text shifting)
 vim.opt.updatetime = 250      -- Faster LSP/plugin updates (default 4000ms)
 vim.opt.cmdheight = 0         -- Hide command line when not in use
+-- cmdheight=0 has no row for messages, so long/multiline ones escalate to a
+-- blocking hit-enter prompt. In a backgrounded instance that prompt never gets
+-- answered -> main loop parks in wait_return while timers keep allocating ->
+-- unbounded LuaJIT heap growth (multi-GB). Drop hit-enter for a brief,
+-- dismissible pause; history:500 keeps everything readable via :messages.
+vim.opt.messagesopt = "wait:1500,history:500"
 vim.opt.showmode = false      -- Mode already shown in lualine
 
 -- Folding: treesitter by default; LspAttach upgrades to LSP folds when supported
