@@ -83,6 +83,8 @@ allow=(
   'ansible-lint( |$)'
   # Kamal read-only
   'kamal (config|version|help|docs)( |$)'
+  # Hunk diff viewer: read-only session inspection (comment/reload mutations still prompt)
+  'hunk (skill path|session (list|get|context|review|navigate))( |$)'
 )
 
 # ============================================================

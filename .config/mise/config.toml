@@ -13,3 +13,14 @@ python = "latest"
 ruby = "latest"
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
 "npm:@tobilu/qmd" = { version = "latest", npm_args = "--ignore-scripts=false" } # `qmd` doc search (needs postinstall for better-sqlite3)
+
+[tasks.sync-agent-skills]
+description = "Symlink bundled agent skills into ~/.claude/skills"
+run = '''
+command -v hunk >/dev/null || exit 0
+mkdir -p ~/.claude/skills
+ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk-review
+'''
+
+[hooks]
+postinstall = "mise run sync-agent-skills"
