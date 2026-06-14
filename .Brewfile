@@ -154,6 +154,7 @@ cask 'tableplus'
 
 ## Infrastructure
 brew 'awscli'
+brew 'container' # Apple container
 cask 'docker-desktop' # includes docker, docker-compose CLI, completions
 brew 'lazydocker' # Docker TUI
 tap 'hashicorp/tap'

@@ -8,6 +8,8 @@ LAZY_COMP_DIR="$HOMEBREW_PREFIX/share/bash-completion/completions"
 declare -A generators=(
   # op completion --help
   [op]="op completion bash"
+  # container --help
+  [container]="container --generate-completion-script bash"
 )
 
 for cmd in "${!generators[@]}"; do
