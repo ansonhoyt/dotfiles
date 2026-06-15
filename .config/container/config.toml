@@ -1,0 +1,9 @@
+# Apple container settings:
+#   container system property list
+#
+# Apply edits:
+#   container system stop && container system start
+
+[machine]
+homeMount = "ro" # default "rw"
+memory = "2gb"   # default half of RAM
