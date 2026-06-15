@@ -114,7 +114,7 @@ sudo launchctl kickstart -k system/com.openssh.sshd
 # the dir must exist — re-run ./.osx after installing a new tool.
 tm_paths=(
   ~/Parallels
-  "$HOME/VirtualBox VMs"
+  ~/"VirtualBox VMs"
   ~/.vagrant.d
   ~/.lmstudio/models
   ~/.npm
@@ -124,6 +124,8 @@ tm_paths=(
   ~/Library/Developer/Xcode/DerivedData
   ~/Library/Developer/CoreSimulator/Devices
   ~/Library/Containers/com.docker.docker/Data
+  ~/.docker/sandboxes
+  ~/"Library/Application Support/com.apple.container"
 )
 
 echo "Configure Time Machine exclusions:"
