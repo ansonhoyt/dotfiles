@@ -30,8 +30,8 @@ tdl() {
   # Run ai in the right pane
   tmux send-keys -t "$ai_pane" "$ai" C-m
 
-  # Run editor in the left pane
-  tmux send-keys -t "$editor_pane" "$EDITOR ." C-m
+  # Run editor in the left pane (override the command via TDL_MAIN, e.g. a diff viewer)
+  tmux send-keys -t "$editor_pane" "${TDL_MAIN:-$EDITOR .}" C-m
 
   # Select the editor pane for focus
   tmux select-pane -t "$editor_pane"
