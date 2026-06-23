@@ -11,6 +11,7 @@ compile = false
 node = "lts"
 python = "latest"
 ruby = "latest"
+aube = "latest" # fast npm/yarn replacement; node stays mise-managed
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
 "npm:@tobilu/qmd" = { version = "latest", npm_args = "--ignore-scripts=false" } # `qmd` doc search (needs postinstall for better-sqlite3)
 
