@@ -8,10 +8,12 @@ idiomatic_version_file_enable_tools = ["node", "ruby"]
 compile = false
 
 [tools]
+aube = "latest" # fast npm/yarn replacement; node stays mise-managed
 node = "lts"
+pitchfork = "latest" # a CLI for managing daemons
 python = "latest"
 ruby = "latest"
-aube = "latest" # fast npm/yarn replacement; node stays mise-managed
+
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
 "npm:@tobilu/qmd" = { version = "latest", npm_args = "--ignore-scripts=false" } # `qmd` doc search (needs postinstall for better-sqlite3)
 
