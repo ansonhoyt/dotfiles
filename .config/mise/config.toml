@@ -7,8 +7,12 @@ idiomatic_version_file_enable_tools = ["node", "ruby"]
 [settings.ruby]
 compile = false
 
+[env]
+HK_MISE = 1 # hk resolves tools via mise
+
 [tools]
 aube = "latest" # fast npm/yarn replacement; node stays mise-managed
+hk = "latest" # git hooks
 node = "lts"
 pitchfork = "latest" # a CLI for managing daemons
 python = "latest"
@@ -26,4 +30,7 @@ ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk-review
 '''
 
 [hooks]
-postinstall = "mise run sync-agent-skills"
+postinstall = [
+  { run = "mise run sync-agent-skills" },
+  { run = "hk install --mise" }, # install/update git hooks on tool install
+]
