@@ -32,5 +32,5 @@ ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk-review
 [hooks]
 postinstall = [
   { run = "mise run sync-agent-skills" },
-  { run = "hk install --mise" }, # install/update git hooks on tool install
+  { run = "hk install --global --mise" }, # install/update git hooks on tool install
 ]
