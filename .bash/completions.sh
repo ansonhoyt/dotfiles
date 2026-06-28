@@ -31,3 +31,8 @@ _aws_fzf_completion() {
   fi
 }
 complete -F _aws_fzf_completion aws
+
+# hk (mise-installed) — generated completion needs the `usage` CLI on PATH
+if command -v hk &>/dev/null; then
+  source <(hk completion bash)
+fi
