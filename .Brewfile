@@ -59,7 +59,7 @@ brew 'tmux' # Terminal multiplexer
 # brew tap tobi/try https://github.com/tobi/try && brew install --HEAD tobi/try/try
 # brew upgrade --fetch-HEAD tobi/try/try
 tap 'tobi/try', 'https://github.com/tobi/try'
-brew 'tobi/try/try', args: ['HEAD'] # Test commands before running for real
+brew 'tobi/try/try', args: ['HEAD'], trusted: true # Test commands before running for real
 brew 'yazi' # TUI file manager
 brew 'zoxide' # A smarter cd command
 ### shell completions:
@@ -85,7 +85,7 @@ cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
 cask 'wispr-flow'
 tap 'anomalyco/tap'
-brew 'anomalyco/tap/opencode' # https://opencode.ai/docs/#install
+brew 'anomalyco/tap/opencode', trusted: true # https://opencode.ai/docs/#install
 
 ## Dictation (local Whisper-based, see GH issue #1)
 cask 'hammerspoon' # macOS automation via Lua
@@ -104,7 +104,7 @@ brew 'iperf' # Tool to measure maximum TCP and UDP bandwidth
 brew 'iperf3'
 
 tap 'teamookla/speedtest'
-brew 'teamookla/speedtest/speedtest'
+brew 'teamookla/speedtest/speedtest', trusted: true
 mas 'Speedtest', id: 1153157709
 cask 'tailscale-app'
 
@@ -158,7 +158,7 @@ brew 'container' # Apple container
 cask 'docker-desktop' # includes docker, docker-compose CLI, completions
 brew 'lazydocker' # Docker TUI
 tap 'hashicorp/tap'
-brew 'hashicorp/tap/terraform'
+brew 'hashicorp/tap/terraform', trusted: true
 cask 'utm'
 cask 'vagrant'
 cask 'virtualbox'
