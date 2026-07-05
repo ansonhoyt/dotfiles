@@ -80,6 +80,7 @@ cask 'claude'
 cask 'claude-code@latest'
 cask 'copilot-cli'
 brew 'gemini-cli'
+cask 'grok-build'
 cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
