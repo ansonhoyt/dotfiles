@@ -42,6 +42,17 @@ stow --verbose --restow .
 echo "Installing Homebrew packages..."
 brew bundle --global
 
+# Sync Claude Code plugins declared in .claude/settings.json
+# (marketplace add / plugin install are idempotent no-ops if already present)
+echo ""
+echo "Syncing Claude Code plugins..."
+jq -r '.extraKnownMarketplaces // {} | to_entries[] | .value.source.repo // .value.source.url // .value.source.path' .claude/settings.json | while read -r source; do
+  claude plugin marketplace add "$source"
+done
+jq -r '.enabledPlugins // {} | to_entries[] | select(.value == true) | .key' .claude/settings.json | while read -r plugin; do
+  claude plugin install "$plugin"
+done
+
 echo ""
 echo "✓ Dotfiles setup complete"
 echo ""

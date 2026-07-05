@@ -104,7 +104,8 @@
   },
   "enabledPlugins": {
     "codex@openai-codex": true,
-    "chrome-devtools-mcp@chrome-devtools-plugins": true
+    "chrome-devtools-mcp@chrome-devtools-plugins": true,
+    "qmd@qmd": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -117,6 +118,12 @@
       "source": {
         "source": "github",
         "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    },
+    "qmd": {
+      "source": {
+        "source": "github",
+        "repo": "tobi/qmd"
       }
     }
   },
