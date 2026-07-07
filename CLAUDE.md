@@ -54,7 +54,6 @@ Key bash modules in `.bash/`:
 ├── .config/            # XDG-style configs
 │   ├── git/           # Git config, ignore, attributes
 │   ├── nvim/          # Neovim (lazy.nvim setup)
-│   ├── lsp/           # LSP configurations
 │   ├── starship.toml  # Prompt configuration
 │   ├── mise/          # Runtime version manager
 │   └── bat/           # bat (cat replacement) config
@@ -79,7 +78,7 @@ Key bash modules in `.bash/`:
 - Plugin manager setup: `lua/config/lazy.lua` - bootstrap, mapleader, loads options, then lazy.setup()
 - Vim options: `lua/config/options.lua` - manually required by lazy.lua before plugins load
 - Plugins: `lua/plugins/*.lua` - individual plugin specs
-- LSP: ruby-lsp enabled in init.lua
+- LSP: servers enabled in `lua/plugins/lsp-config.lua`; per-server overrides in `after/lsp/<server>.lua` (after/ so they win the rtp merge over nvim-lspconfig defaults)
 - Leader key: Space
 - Mouse enabled with system clipboard integration
 

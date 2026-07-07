@@ -47,11 +47,7 @@ return {
         }
       }
 
-      vim.lsp.config.ruby_lsp = {
-        cmd = { "ruby-lsp" },
-        filetypes = { "ruby" },
-        root_dir = vim.fs.root(0, { "Gemfile", ".git" })
-      }
+      -- ruby_lsp: configured in after/lsp/ruby_lsp.lua
 
       vim.lsp.config.eslint = {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
