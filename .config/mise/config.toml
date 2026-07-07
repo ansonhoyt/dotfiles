@@ -19,10 +19,11 @@ python = "latest"
 ruby = "latest"
 
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
+"npm:skills" = "latest" # `skills` agent-skill manager (skills.sh)
 "npm:@tobilu/qmd" = { version = "latest", npm_args = "--ignore-scripts=false" } # `qmd` doc search (needs postinstall for better-sqlite3)
 
 [tasks.sync-agent-skills]
-description = "Symlink bundled agent skills into ~/.claude/skills and ~/.agents/skills"
+description = "Install and update agent skills in ~/.claude and ~/.agents"
 run = '''
 if command -v hunk >/dev/null; then
   mkdir -p ~/.claude/skills ~/.agents/skills
@@ -31,6 +32,9 @@ if command -v hunk >/dev/null; then
 fi
 if command -v qmd >/dev/null; then
   qmd skill install --global --yes -f
+fi
+if command -v skills >/dev/null; then
+  skills update --global --yes
 fi
 '''
 
