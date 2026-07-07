@@ -72,6 +72,8 @@ brew 'ruby-completion'
 brew 'yarn-completion'
 
 ## AI / LLM
+cask 'antigravity'
+cask 'antigravity-cli'
 cask 'codex'
 cask 'codex-app'
 cask 'conductor'
