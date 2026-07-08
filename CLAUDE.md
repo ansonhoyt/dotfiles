@@ -58,6 +58,7 @@ Key bash modules in `.bash/`:
 │   ├── mise/          # Runtime version manager
 │   └── bat/           # bat (cat replacement) config
 ├── bin/                # User scripts (in PATH via .bashrc)
+├── system/             # Root LaunchDaemons (sudo, not stowed; per-dir install.sh — see docs/adr/0001)
 ├── .inputrc           # Readline configuration
 ├── .osx               # macOS defaults script
 ├── .Brewfile          # Homebrew packages/casks/apps

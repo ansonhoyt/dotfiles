@@ -36,6 +36,7 @@ _darcs
 ^/COPYING
 ^/bootstrap\.sh
 ^/system        # System-level files (LaunchDaemons etc.) installed via system/*/install.sh
+^/docs          # Repo documentation (ADRs etc.), not config
 
 \.DS_Store   # MacOS Finder metadata
 
