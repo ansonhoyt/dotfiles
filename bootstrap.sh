@@ -31,6 +31,7 @@ echo ""
 
 # Prevent stow from "tree folding" runtime dirs into dotfiles
 mkdir -p ~/.claude
+mkdir -p ~/.config/homebrew
 
 # Ensure ~/.ssh exists with correct perms before stow
 # (avoids tree-folding the whole dir into dotfiles/.ssh)
