@@ -16,17 +16,12 @@ cd ~/dotfiles
 
 Bootstrap handles:
 
-- Homebrew installation (if needed)
-- GNU Stow installation (if needed)
-- Directory creation (`~/.ssh/sockets`)
-- Stow (symlinking dotfiles to home)
+- Homebrew + packages (`brew bundle --global`)
+- GNU Stow installation and stowing (symlinking dotfiles to home)
+- mise runtimes and CLIs (`mise install` — postinstall hooks add git hooks and agent skills)
+- Claude Code plugin sync
 
-Optional next steps:
-
-```sh
-brew bundle --global # Install Homebrew packages
-./.osx               # Configure macOS defaults
-```
+When done it prints the remaining manual steps.
 
 ## [Stow](https://www.gnu.org/software/stow/)
 

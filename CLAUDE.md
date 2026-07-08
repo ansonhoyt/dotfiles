@@ -98,18 +98,16 @@ Key bash modules in `.bash/`:
 ### Setup/Installation
 
 ```bash
-# Install Homebrew packages
-brew bundle --global
+# New machine: one script, end-to-end (see bootstrap.sh for the order)
+./bootstrap.sh
 
-# Configure macOS defaults
-./.osx
+# Individual pieces, idempotent (bootstrap runs these; also useful standalone):
+brew bundle --global       # Homebrew packages
+stow --verbose --restow .  # Re-apply symlinks
+mise install               # mise runtimes and CLIs
 
-# Apply dotfiles with GNU Stow
-cd ~/dotfiles
-stow --verbose .
-
-# Install mise-managed runtimes and CLIs
-mise install
+# Manual, not run by bootstrap:
+./.osx                     # macOS defaults
 ```
 
 ### Development Workflows

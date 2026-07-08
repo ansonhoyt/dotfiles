@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Bootstrap script to setup dependencies and stow dotfiles.
 
-set -e  # Exit on error
+set -e -o pipefail  # Exit on error, including failures early in a pipeline
+
+# Relative paths below (stow ., .claude/settings.json) need the repo root
+cd "$(dirname "$0")" || exit
 
 echo "Setting up dotfiles..."
 echo ""
@@ -10,6 +13,8 @@ echo ""
 if ! command -v brew &> /dev/null; then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # Installer can't modify this shell's PATH — add brew (arm64 or intel)
+  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
 else
   echo "✓ Homebrew already installed"
 fi
@@ -42,6 +47,14 @@ stow --verbose --restow .
 echo "Installing Homebrew packages..."
 brew bundle --global
 
+# Install mise-managed runtimes and CLIs (node, ruby, npm tools).
+# Needs mise (from brew bundle above) and ~/.config/mise/config.toml
+# (stowed above). Postinstall hooks sync agent skills and install
+# git hooks — see .config/mise/config.toml.
+echo ""
+echo "Installing mise-managed tools..."
+mise install
+
 # Sync Claude Code plugins declared in .claude/settings.json
 # (marketplace add / plugin install are idempotent no-ops if already present)
 echo ""
@@ -58,8 +71,8 @@ echo "✓ Dotfiles setup complete"
 echo ""
 echo "Next steps:"
 echo "  1. Set Homebrew bash as default shell:"
-echo "       sudo sh -c 'echo /opt/homebrew/bin/bash >> /etc/shells'"
-echo "       chsh -s /opt/homebrew/bin/bash"
+echo "       sudo sh -c 'echo $(brew --prefix)/bin/bash >> /etc/shells'"
+echo "       chsh -s $(brew --prefix)/bin/bash"
 echo "  2. Configure macOS defaults: ./.osx"
 echo "  3. (Optional, multi-user Macs) Install Logi Options+ FUS switcher:"
 echo "       ./system/logi-switch/install.sh"
