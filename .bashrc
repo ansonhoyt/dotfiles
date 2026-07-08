@@ -12,6 +12,7 @@ fi
 
 # Load Bash configuration (order matters: env sets PATH before tools init)
 source ~/.bash/env.sh
+source ~/.bash/android.sh
 source ~/.bash/aliases.sh
 source ~/.bash/completions.sh
 source ~/.bash/functions.sh

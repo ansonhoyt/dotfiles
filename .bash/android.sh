@@ -1,9 +1,11 @@
-# Android (for React Native, etc.)
-# See http://facebook.github.io/react-native/docs/getting-started.html
-# https://reactnative.dev/docs/getting-started.html
-# https://github.com/facebook/react-native/wiki/Building-from-source
-# https://developer.android.com/studio/command-line/variables
-export ANDROID_HOME=~/Library/Android/sdk
-export ANDROID_SDK_ROOT=~/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+# Android SDK (Hotwire Native, React Native, Kotlin)
+# https://developer.android.com/tools/variables
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+
+# JDK: use Android Studio's bundled JBR for CLI gradle builds
+_jbr="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+[ -d "$_jbr" ] && export JAVA_HOME="$_jbr"
+unset _jbr
