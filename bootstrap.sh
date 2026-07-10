@@ -9,14 +9,22 @@ cd "$(dirname "$0")" || exit
 echo "Setting up dotfiles..."
 echo ""
 
+# Brew may be installed but not on PATH (fresh terminal, default zsh, pre-chsh)
+eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv 2>/dev/null || true)"
+
 # Install Homebrew if missing
-if ! command -v brew &> /dev/null; then
+if command -v brew >/dev/null 2>&1; then
+  echo "✓ Homebrew already installed"
+else
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  # Installer can't modify this shell's PATH — add brew (arm64 or intel)
+  # Installer can't modify this shell's PATH; apply it for this run.
   eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
-else
-  echo "✓ Homebrew already installed"
+fi
+
+# Accept the Xcode license before future brew installs.
+if [ -d /Applications/Xcode.app ] && ! xcodebuild -checkFirstLaunchStatus >/dev/null 2>&1; then
+  sudo xcodebuild -runFirstLaunch
 fi
 
 # Install stow if missing
@@ -46,7 +54,7 @@ stow --verbose --restow .
 
 # Install Homebrew packages
 echo "Installing Homebrew packages..."
-brew bundle --global
+brew bundle --global || echo "🔥 bundle failed, so will need re-run.... Continuing with remaining steps."
 
 # Install mise-managed runtimes and CLIs (node, ruby, npm tools).
 # Needs mise (from brew bundle above) and ~/.config/mise/config.toml

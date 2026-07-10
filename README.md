@@ -9,7 +9,8 @@ Having a Git repo in your home folder doesn't work very well, so we clone this i
 Clone and bootstrap:
 
 ```sh
-git clone git@github.com:ansonhoyt/dotfiles.git ~/dotfiles
+xcode-select --install # for git
+git clone https://github.com/ansonhoyt/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap.sh
 ```
