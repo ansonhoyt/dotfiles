@@ -77,6 +77,15 @@ jq -r '.enabledPlugins // {} | to_entries[] | select(.value == true) | .key' .cl
 done
 
 echo ""
+
+# No 1Password CLI/API to enable this (GUI toggle only), and commit signing
+# (op-ssh-sign) fails silently without it, so warn.
+if [ ! -S ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ]; then
+  echo "⚠️  1Password SSH Agent not detected — git commit signing will fail until enabled:"
+  echo "    1Password → Settings → Developer → check 'Use the SSH Agent'"
+  echo ""
+fi
+
 echo "✓ Dotfiles setup complete"
 echo ""
 echo "Next steps:"
