@@ -205,7 +205,7 @@ cask 'vlc' # media player
 
 ## Raspberry Pi
 cask 'raspberry-pi-imager'
-cask 'vnc-viewer'
+# VNC: use built-in macOS Screen Sharing, e.g. `open vnc://raspberrypi.local`
 
 ## Password Managers
 mas 'Bitwarden', id: 1352778147
@@ -242,7 +242,7 @@ cask 'calibre' # E-books management software
 brew 'gh' # GitHub CLI
 cask 'github' # GitHub Desktop
 cask 'git-credential-manager'
-# cask 'google-chrome'
+cask 'google-chrome'
 cask 'keycastr'
 cask 'logi-options+'
 cask 'libreoffice'
