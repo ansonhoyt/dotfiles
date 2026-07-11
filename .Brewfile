@@ -212,6 +212,7 @@ mas 'Bitwarden', id: 1352778147
 brew 'bitwarden-cli'
 cask '1password'
 cask '1password-cli'
+mas '1Password for Safari', id: 1569813296 # enable in Safari > Settings > Extensions
 
 # Mac App Store
 # (ids from `mas list`)
