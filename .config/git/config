@@ -87,6 +87,8 @@
 [mergetool "sourcetree"]
   cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
+[credential "https://dev.azure.com"]
+	useHttpPath = true
 [hook "hk-commit-msg"]
 	command = test \"${HK:-1}\" = \"0\" || /opt/homebrew/bin/mise x hk -- hk run commit-msg --from-hook \"$@\"
 	event = commit-msg
