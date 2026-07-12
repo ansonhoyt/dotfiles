@@ -233,7 +233,6 @@ mas 'Microsoft Remote Desktop', id: 1295203466
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'Playgrounds', id: 1496833156
-mas 'Transporter', id: 1450874784
 
 # Cask
 
