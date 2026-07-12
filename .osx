@@ -68,12 +68,14 @@ remove_dock_item() {
 }
 
 # Keep: Apps, Safari, Messages, Mail, Calendar, App Store, System Settings
-dock_changed=0
 for app in News TV Maps FaceTime Photos Games "iPhone Mirroring" Notes \
            Phone Contacts Reminders Music Keynote Numbers Pages; do
-  remove_dock_item "$app" && dock_changed=1
+  remove_dock_item "$app" || true
 done
-[ "$dock_changed" -eq 1 ] && killall Dock
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+killall Dock
 
 ###############################################################################
 # SSH                                                                         #
