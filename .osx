@@ -35,9 +35,6 @@ defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 # 6: CPU History
 defaults write com.apple.ActivityMonitor IconType -int 6
 
-# Show all processes in Activity Monitor
-defaults write com.apple.ActivityMonitor ShowCategory -int 0
-
 # Show processes in Activity Monitor
 # 100: All Processes
 # 101: All Processes, Hierarchally
@@ -45,7 +42,6 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 # 103: System Processes
 # 104: Other User Processes
 # 105: Active Processes
-# 106: Inactive Processes
 # 106: Inactive Processes
 # 107: Windowed Processes
 defaults write com.apple.ActivityMonitor ShowCategory -int 100
@@ -68,10 +64,16 @@ remove_dock_item() {
     [ "$label" = "$1" ] && /usr/libexec/PlistBuddy -c "Delete persistent-apps:$i" "$plist" && return
     ((i++))
   done
+  return 1
 }
 
-for app in News TV Maps; do remove_dock_item "$app"; done
-killall Dock
+# Keep: Apps, Safari, Messages, Mail, Calendar, App Store, System Settings
+dock_changed=0
+for app in News TV Maps FaceTime Photos Games "iPhone Mirroring" Notes \
+           Phone Contacts Reminders Music Keynote Numbers Pages; do
+  remove_dock_item "$app" && dock_changed=1
+done
+[ "$dock_changed" -eq 1 ] && killall Dock
 
 ###############################################################################
 # SSH                                                                         #
@@ -85,6 +87,10 @@ key=$(op read --account my.1password.com "op://Private/Personal ed25519/public k
 echo "$key" | ssh-keygen -l -f - >/dev/null 2>&1 \
   || { echo "key from 1Password is not a valid SSH public key"; exit 1; }
 grep -qxF "$key" ~/.ssh/authorized_keys || echo "$key" >> ~/.ssh/authorized_keys
+
+# SSH hardening below needs sudo; authenticate up front so a missing
+# TTY (e.g. run via a non-interactive shell) fails fast and clearly.
+sudo -v || { echo "sudo needs a terminal — run ./.osx in an interactive shell"; exit 1; }
 
 # Enable Remote Login (SSHD). bootstrap is no-op if already loaded.
 sudo launchctl enable system/com.openssh.sshd
