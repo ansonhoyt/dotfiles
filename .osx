@@ -20,6 +20,10 @@ fi
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
+# Tap to click (built-in trackpad + any paired Bluetooth trackpad)
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
