@@ -75,6 +75,9 @@ done
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
+# App Exposé: swipe down with three fingers
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+
 killall Dock
 
 ###############################################################################
