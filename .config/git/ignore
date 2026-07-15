@@ -35,3 +35,5 @@ __pycache__/
 
 **/.claude/settings.local.json
 **/.claude/*.local.*
+
+**/.claude/.cc-writes/
