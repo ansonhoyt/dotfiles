@@ -128,25 +128,42 @@
     }
   },
   "sandbox": {
-    "filesystem": {
-      "allowWrite": [
-        "~/.claude/plugins/data/codex-openai-codex"
-      ]
-    },
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
     "network": {
-      "allowedHosts": [
-        "api.github.com",
+      "allowedDomains": [
         "github.com",
-        "raw.githubusercontent.com",
+        "*.github.com",
         "objects.githubusercontent.com",
-        "codeload.github.com"
+        "codeload.github.com",
+        "raw.githubusercontent.com",
+        "rubygems.org",
+        "index.rubygems.org",
+        "pypi.org",
+        "files.pythonhosted.org"
       ],
       "allowUnixSockets": [
         "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+      ],
+      "allowLocalBinding": true
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.claude/plugins/data/codex-openai-codex",
+        "~/.local/share/mise",
+        "~/.cache"
       ]
-    }
+    },
+    "credentials": {
+      "envVars": [
+        { "name": "GH_TOKEN", "mode": "deny" },
+        { "name": "GITHUB_TOKEN", "mode": "deny" }
+      ]
+    },
+    "excludedCommands": ["docker*", "docker-compose*"]
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
-  "model": "opus"
+  "tui": "fullscreen",
+  "theme": "dark"
 }
