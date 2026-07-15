@@ -20,7 +20,7 @@ ruby = "latest"
 
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
 "npm:skills" = "latest" # `skills` agent-skill manager (skills.sh)
-"npm:@tobilu/qmd" = { version = "latest", npm_args = "--ignore-scripts=false" } # `qmd` doc search (needs postinstall for better-sqlite3)
+"npm:@tobilu/qmd" = { version = "latest", allow_builds = ["better-sqlite3"] } # `qmd` doc search (needs native better-sqlite3 build)
 
 [tasks.sync-agent-skills]
 description = "Install and update agent skills in ~/.claude and ~/.agents"
