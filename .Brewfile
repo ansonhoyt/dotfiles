@@ -158,6 +158,8 @@ cask 'tableplus'
 ## Infrastructure
 brew 'awscli'
 brew 'container' # Apple container
+tap 'docker/tap'
+cask 'docker/tap/sbx', trusted: true
 cask 'docker-desktop' # includes docker, docker-compose CLI, completions
 brew 'lazydocker' # Docker TUI
 tap 'hashicorp/tap'
@@ -237,8 +239,7 @@ mas 'Playgrounds', id: 1496833156
 # Cask
 
 cask 'calibre' # E-books management software
-# cask 'chromedriver' # for headless Selenium testing # TODO: drop for webdrivers gem??? or is this de-dupish?
-# cask 'firefox'
+cask 'firefox'
 brew 'gh' # GitHub CLI
 cask 'github' # GitHub Desktop
 cask 'git-credential-manager'
