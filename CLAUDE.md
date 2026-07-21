@@ -163,6 +163,7 @@ brew leaves                   # List installed packages (no dependencies)
 - **Git**: Config in `.config/git/config` with aliases (co, br, ci, st) and pull.rebase=true
 - **User Scripts**: Place custom scripts in `bin/` - automatically added to PATH
 - **Claude Code**: Settings in `.claude/settings.json` with auto-updates disabled (managed by Homebrew). Runtime data (projects, history, etc.) lives in `~/.claude/` but is not version controlled.
+- **Antigravity CLI** (`agy`): Replaces gemini-cli. Uses `~/.gemini/` as app-data (settings in `~/.gemini/antigravity-cli/settings.json`, machine-specific), not version controlled — like `~/.claude/`. The former gemini-cli `.gemini/settings.json` + `policies/*.toml` were removed. Portable customizations, when added, are stowed under `.gemini/config/` (see Antigravity's built-in `agy-customizations` skill for the hook/rule/MCP schema).
 
 ## Stow Ignore Patterns
 
