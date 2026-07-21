@@ -68,7 +68,7 @@
 	syntax-theme = zenburn
 
 # Hunk: https://github.com/modem-dev/hunk
-# Prefer `hunk diff` / `hunk show` natively for multi-file review.
+# Terminal diff viewer. Prefer `hunk diff` / `hunk show` natively.
 [diff]
 	tool = hunk
 [difftool "hunk"]
@@ -77,16 +77,9 @@
 	prompt = false
 
 [merge]
-	tool = nvimdiff
+	tool = vscode
 	conflictStyle = zdiff3
 
-# SourceTree https://www.deltawalker.com/integrate/other-apps
-[difftool "sourcetree"]
-	cmd = /Applications/DeltaWalker.app/Contents/MacOS/DeltaWalker \"$REMOTE\" \"$LOCAL\" -mi -pwd=\"`pwd`\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [hook "hk-commit-msg"]
