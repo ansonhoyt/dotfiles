@@ -52,3 +52,63 @@ prefix_rule(
   ],
 )
 
+prefix_rule(
+  pattern = ["gh", "issue", ["view", "list", "status"]],
+  decision = "allow",
+  match = [
+    "gh issue view 123",
+    "gh issue list",
+    "gh issue status",
+  ],
+  not_match = [
+    "gh issue edit 123",
+  ],
+)
+
+prefix_rule(
+  pattern = ["gh", "pr", ["view", "list", "status", "diff", "checks"]],
+  decision = "allow",
+  match = [
+    "gh pr view 123",
+    "gh pr list",
+    "gh pr status",
+    "gh pr diff 123",
+    "gh pr checks 123",
+  ],
+  not_match = [
+    "gh pr create",
+  ],
+)
+
+prefix_rule(
+  pattern = ["gh", "repo", ["view", "list"]],
+  decision = "allow",
+  match = [
+    "gh repo view openai/codex",
+    "gh repo list openai",
+  ],
+  not_match = [
+    "gh repo delete openai/codex",
+  ],
+)
+
+prefix_rule(
+  pattern = ["gh", "search"],
+  decision = "allow",
+  match = [
+    "gh search code execpolicy",
+    "gh search issues sandbox",
+  ],
+)
+
+prefix_rule(
+  pattern = ["gh", "auth", "status"],
+  decision = "allow",
+  match = [
+    "gh auth status",
+  ],
+  not_match = [
+    "gh auth login",
+    "gh auth logout",
+  ],
+)
