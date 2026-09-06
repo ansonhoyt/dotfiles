@@ -185,7 +185,7 @@ cask 'inkscape'
 cask 'jellyfin' # media system
 brew 'mad' # MPEG audio decoder
 cask 'makemkv' # MakeMKV video transcoder
-cask 'metaz' # Mp4 meta-data editor
+cask 'subler' # MP4 metadata editor and muxer
 cask 'obs' # live streaming and screen recording
 brew 'pandoc' # Swiss-army knife of markup format conversion
 # brew 'oxipng' # PNG file optimizer
