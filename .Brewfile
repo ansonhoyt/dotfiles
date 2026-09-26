@@ -86,7 +86,7 @@ cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
 cask 'wispr-flow'
 tap 'anomalyco/tap'
-brew 'anomalyco/tap/opencode', trusted: true # https://opencode.ai/docs/#install
+brew 'anomalyco/tap/opencode-v2', trusted: true # https://opencode.ai/docs/#install
 
 ## Dictation (local Whisper-based, see GH issue #1)
 cask 'hammerspoon' # macOS automation via Lua
