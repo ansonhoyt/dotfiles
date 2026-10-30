@@ -81,6 +81,8 @@ cask 'claude'
 cask 'claude-code@latest'
 cask 'copilot-cli'
 cask 'grok-build'
+brew 'herdr' # agent multiplexer
+cask 'herdr-app' # Desktop app for terminals and coding agents
 cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)

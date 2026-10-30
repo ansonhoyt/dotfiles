@@ -41,6 +41,7 @@ echo ""
 mkdir -p ~/.claude
 mkdir -p ~/.codex
 mkdir -p ~/.config/homebrew
+mkdir -p ~/.config/herdr-app
 mkdir -p ~/.config/opencode
 
 # Ensure ~/.ssh exists with correct perms before stow
