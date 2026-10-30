@@ -122,6 +122,13 @@ sudo sshd -t || { echo "sshd config invalid; not reloading"; exit 1; }
 sudo launchctl kickstart -k system/com.openssh.sshd
 
 ###############################################################################
+# Power                                                                       #
+###############################################################################
+
+# Keep Rex/SSH reachable over Tailnet on AC power; allow the display to sleep.
+sudo pmset -c sleep 0
+
+###############################################################################
 # Time Machine                                                                #
 ###############################################################################
 
