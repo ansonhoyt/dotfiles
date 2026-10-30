@@ -43,6 +43,7 @@ mkdir -p ~/.codex
 mkdir -p ~/.config/homebrew
 mkdir -p ~/.config/herdr-app
 mkdir -p ~/.config/opencode
+mkdir -p ~/.config/tmux
 
 # Ensure ~/.ssh exists with correct perms before stow
 # (avoids tree-folding the whole dir into dotfiles/.ssh)
@@ -71,15 +72,15 @@ echo ""
 echo "Installing mise-managed tools..."
 mise install
 
-# Install tmux plugins. .tmux.conf auto-clones TPM on first tmux launch,
+# Install tmux plugins. tmux.conf auto-clones TPM on first tmux launch,
 # but plugin install normally needs an interactive `prefix + I`; TPM's CLI
-# installer covers it here (idempotent, needs tmux + stowed .tmux.conf).
+# installer covers it here (idempotent, needs tmux + stowed tmux.conf).
 echo ""
 echo "Installing tmux plugins..."
-if [ ! -d ~/.tmux/plugins/tpm ]; then
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d ~/.config/tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 fi
-~/.tmux/plugins/tpm/bin/install_plugins
+~/.config/tmux/plugins/tpm/bin/install_plugins
 
 # Sync Claude Code plugins declared in .claude/settings.json
 # (marketplace add / plugin install are idempotent no-ops if already present)

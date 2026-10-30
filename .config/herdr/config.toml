@@ -1,7 +1,7 @@
 onboarding = false
 # herdr configuration
 #
-# Mirrors ~/.tmux.conf bindings where herdr has an equivalent. Defaults that
+# Mirrors ~/.config/tmux/tmux.conf bindings where herdr has an equivalent. Defaults that
 # already match tmux are left unset: prefix ctrl+b, prefix h/j/k/l pane focus,
 # prefix c new tab, prefix x close pane, mouse on, new panes inherit cwd.
 #
