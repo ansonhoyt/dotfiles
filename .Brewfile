@@ -84,9 +84,8 @@ cask 'grok-build'
 cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
+cask 'opencode-desktop' # OpenCode GUI (CLI managed separately)
 cask 'wispr-flow'
-tap 'anomalyco/tap'
-brew 'anomalyco/tap/opencode', trusted: true # https://opencode.ai/docs/#install
 
 ## Dictation (local Whisper-based, see GH issue #1)
 cask 'hammerspoon' # macOS automation via Lua
