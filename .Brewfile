@@ -236,11 +236,9 @@ mas 'Playgrounds', id: 1496833156
 # Cask
 
 cask 'calibre' # E-books management software
-cask 'firefox'
 brew 'gh' # GitHub CLI
 cask 'github' # GitHub Desktop
 cask 'git-credential-manager'
-cask 'google-chrome'
 cask 'keycastr'
 cask 'logi-options+'
 cask 'libreoffice'
