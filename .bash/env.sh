@@ -1,7 +1,7 @@
 # XDG Base Directory
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# User bins (for my scripts and pipx tools)
+# User bins (for my scripts and uv-installed tools)
 export PATH=~/bin:$HOME/.local/bin:$PATH
 
 # Default editor (git, etc.)

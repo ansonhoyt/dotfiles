@@ -41,6 +41,7 @@ echo ""
 mkdir -p ~/.claude
 mkdir -p ~/.codex
 mkdir -p ~/.config/homebrew
+mkdir -p ~/.config/opencode
 
 # Ensure ~/.ssh exists with correct perms before stow
 # (avoids tree-folding the whole dir into dotfiles/.ssh)
@@ -56,6 +57,10 @@ stow --verbose --restow .
 # Install Homebrew packages
 echo "Installing Homebrew packages..."
 brew bundle --global || echo "🔥 bundle failed, so will need re-run.... Continuing with remaining steps."
+
+# Generate completions not supplied by the Homebrew packages (op, container).
+echo "Generating shell completions..."
+./bin/refresh-completions
 
 # Install mise-managed runtimes and CLIs (node, ruby, npm tools).
 # Needs mise (from brew bundle above) and ~/.config/mise/config.toml

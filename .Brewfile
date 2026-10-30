@@ -24,7 +24,6 @@ brew 'gnupg' # GNU Pretty Good Privacy (PGP)
 brew 'highlight'
 brew 'lazygit' # Git TUI
 brew 'mas' # Mac App Store command-line interface
-brew 'mermaid-cli' # mmdc — renders Mermaid diagrams in markdown (snacks.image)
 brew 'mise'
 cask 'mitmproxy'
 brew 'nginx'
@@ -33,6 +32,7 @@ brew 'openssl'
 brew 'p7zip' # 7-Zip (high compression file archiver)
 brew 'ripgrep'
 brew 'ripgrep-all' # ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
+brew 'rsync' # Current rsync rather than the macOS-provided version
 brew 'rogue'
 brew 'rsyslog'
 brew 'ssh-copy-id'
@@ -94,6 +94,7 @@ brew 'whisper-cpp' # Local speech-to-text (Metal-accelerated)
 
 ## Performance
 brew 'bench' # benchmarking, a more-powerful `time` command
+brew 'btop' # Resource monitor
 brew 'gdb'
 brew 'htop'
 # brew 'jmeter' # Load testing and performance measurement application
@@ -123,7 +124,6 @@ cask 'dotnet-sdk'
 # cask 'java' # OpenJDK
 brew 'uv' # Python package/project manager (replaces pip, pipx, venv)
 
-# brew 'yarn' # NOTE: installed via nvm => node => npm
 brew 'gron' # Make JSON greppable
 brew 'jq' # JSON processor
 brew 'jaq' # Rust-based jq clone (faster, drop-in replacement)
@@ -131,7 +131,6 @@ brew 'yq' # jq-like YAML processor
 
 ## React Native
 cask 'android-studio'
-brew 'firebase-cli'
 
 ## Rails Active Storage dependencies
 brew 'vips' # for image analysis and transformations
@@ -155,13 +154,13 @@ cask 'tableplus'
 
 ## Infrastructure
 brew 'awscli'
+brew 'googleworkspace-cli' # `gws` Google Workspace CLI
 brew 'container' # Apple container
 tap 'docker/tap'
 cask 'docker/tap/sbx', trusted: true
 cask 'docker-desktop' # includes docker, docker-compose CLI, completions
 brew 'lazydocker' # Docker TUI
 tap 'hashicorp/tap'
-brew 'hashicorp/tap/terraform', trusted: true
 cask 'utm'
 cask 'vagrant'
 cask 'virtualbox'
@@ -209,7 +208,6 @@ cask 'raspberry-pi-imager'
 
 ## Password Managers
 mas 'Bitwarden', id: 1352778147
-brew 'bitwarden-cli'
 cask '1password'
 cask '1password-cli'
 mas '1Password for Safari', id: 1569813296 # enable in Safari > Settings > Extensions

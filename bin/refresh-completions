@@ -20,5 +20,6 @@ for cmd in "${!generators[@]}"; do
   [[ -f "$dest" && ! "$bin" -nt "$dest" ]] && continue
 
   echo "🔄 Refreshing $cmd completion..."
-  ${generators[$cmd]} > "$dest" 2>/dev/null
+  completion=$(${generators[$cmd]}) || exit
+  printf '%s\n' "$completion" > "$dest"
 done
