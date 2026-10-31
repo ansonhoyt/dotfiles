@@ -1,0 +1,36 @@
+onboarding = false
+# herdr configuration
+#
+# Mirrors ~/.config/tmux/tmux.conf bindings where herdr has an equivalent. Defaults that
+# already match tmux are left unset: prefix ctrl+b, prefix h/j/k/l pane focus,
+# prefix c new tab, prefix x close pane, mouse on, new panes inherit cwd.
+#
+# Full surface: `herdr --default-config`. Validate with `herdr config check`.
+
+[theme]
+# tmux: catppuccin/tmux @catppuccin_flavour "mocha"
+name = "catppuccin"
+
+[ui]
+# tmux: bind c new-window creates immediately, no name prompt
+prompt_new_tab_name = false
+
+[keys]
+# tmux: bind | split-window -h  /  bind - split-window -v
+split_vertical = "prefix+|"
+split_horizontal = "prefix+minus"
+
+[keys.indexed]
+# tmux: bind -n M-1..M-9 select-window -t 1..9
+tabs = "alt"
+
+# Not carried over from tmux.conf — no herdr equivalent:
+#   - prefix H/J/K/L repeatable resize: use resize_mode (prefix+r) instead
+#   - vi copy mode (v/y): herdr uses copy_on_select + edit_scrollback (prefix+e)
+#   - bind PageUp/PageDown splits: herdr has no split-up action
+#   - vim-tmux-navigator, tmux-resurrect/continuum, TPM
+#   - terminal plumbing (extended-keys, undercurl, allow-passthrough,
+#     focus-events, escape-time, history-limit) is handled internally
+#
+# Note: tmux's `prefix r` reload is `prefix+shift+r` here; herdr's prefix+r is
+# resize_mode, which is the closest replacement for prefix H/J/K/L.

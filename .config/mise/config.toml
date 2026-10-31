@@ -17,14 +17,22 @@ node = "lts"
 pitchfork = "latest" # a CLI for managing daemons
 python = "latest"
 ruby = "latest"
+terraform = "latest" # Projects can override the global default
 
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
+"npm:@opencode/cli" = { version = "latest", allow_builds = ["@opencode/cli"] } # `opencode` v2 CLI
+"npm:firebase-tools" = "latest" # `firebase` CLI
+# Chromium BiDi moved publishing from GitHub Actions to Google's CfT pipeline (upstream README).
+"npm:@mermaid-js/mermaid-cli" = { version = "latest", allow_builds = ["puppeteer"], trust_policy_excludes = ["chromium-bidi@157.0.8090-0"] } # `mmdc` diagrams (snacks.image); Puppeteer downloads Chrome
 "npm:skills" = "latest" # `skills` agent-skill manager (skills.sh)
 "npm:@tobilu/qmd" = { version = "latest", allow_builds = ["better-sqlite3"] } # `qmd` doc search (needs native better-sqlite3 build)
 
 [tasks.sync-agent-skills]
 description = "Install and update agent skills in ~/.claude and ~/.agents"
 run = '''
+# Version-matched skills declared by packslip releases; prune only mise-owned links.
+mise skills sync --dir ~/.claude/skills --prune
+mise skills sync --dir ~/.agents/skills --prune
 if command -v hunk >/dev/null; then
   mkdir -p ~/.claude/skills ~/.agents/skills
   ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk-review
