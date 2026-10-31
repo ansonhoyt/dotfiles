@@ -81,7 +81,6 @@ cask 'claude'
 cask 'claude-code@latest'
 cask 'copilot-cli'
 cask 'grok-build'
-brew 'herdr' # agent multiplexer
 cask 'herdr-app' # Desktop app for terminals and coding agents
 cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
@@ -123,7 +122,6 @@ cask 'visual-studio-code'
 ## Frameworks
 cask 'dotnet-sdk'
 # cask 'java' # OpenJDK
-brew 'uv' # Python package/project manager (replaces pip, pipx, venv)
 
 brew 'gron' # Make JSON greppable
 brew 'jq' # JSON processor
@@ -208,7 +206,6 @@ cask 'raspberry-pi-imager'
 # VNC: use built-in macOS Screen Sharing, e.g. `open vnc://raspberrypi.local`
 
 ## Password Managers
-mas 'Bitwarden', id: 1352778147
 cask '1password'
 cask '1password-cli'
 mas '1Password for Safari', id: 1569813296 # enable in Safari > Settings > Extensions

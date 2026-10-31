@@ -12,12 +12,15 @@ HK_MISE = 1 # hk resolves tools via mise
 
 [tools]
 aube = "latest" # fast npm/yarn replacement; node stays mise-managed
+herdr = "latest" # terminal agent multiplexer
 hk = "latest" # git hooks
 node = "lts"
 pitchfork = "latest" # a CLI for managing daemons
 python = "latest"
 ruby = "latest"
+ruff = "latest" # Python linter and formatter
 terraform = "latest" # Projects can override the global default
+uv = "latest" # Python packages, projects, and isolated CLI tools
 
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
 "npm:@opencode/cli" = { version = "latest", allow_builds = ["@opencode/cli"] } # `opencode` v2 CLI
