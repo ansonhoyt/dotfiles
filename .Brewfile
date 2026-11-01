@@ -249,4 +249,5 @@ cask 'sonic-pi'
 cask 'sourcetree'
 cask 'superduper'
 # cask 'transmission-cli'
+cask 'anomalyco/tap/hex', trusted: true
 cask 'zoom'
