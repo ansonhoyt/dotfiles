@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "lines": [
     [
       {
@@ -31,14 +31,34 @@
         "rawValue": true
       },
       {
-        "id": "2",
+        "id": "7d8c1d02-e5d9-47d2-975a-de8312375294",
         "type": "separator",
         "character": " "
       },
       {
+        "id": "ce1d43d5-1ade-4448-8b92-51fcdfc8ca80",
+        "type": "thinking-effort",
+        "rawValue": true
+      },
+      {
+        "id": "2",
+        "type": "separator",
+        "character": "|"
+      },
+      {
         "id": "3",
-        "type": "context-percentage-usable",
+        "type": "context-percentage",
         "color": "brightBlack",
+        "rawValue": true
+      },
+      {
+        "id": "84f00811-979e-40d4-b836-72728463ecae",
+        "type": "custom-text",
+        "customText": "/"
+      },
+      {
+        "id": "bbfd7240-90bd-4de8-8aaf-ffdad14a6162",
+        "type": "context-window",
         "rawValue": true
       },
       {
@@ -67,8 +87,13 @@
   "flexMode": "full-minus-40",
   "compactThreshold": 60,
   "colorLevel": 2,
+  "defaultPaddingSide": "both",
   "inheritSeparatorColors": false,
   "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "terminalWidthCacheTtlSeconds": 5,
+  "customCommandCacheTtlSeconds": 0,
+  "minimalistMode": false,
   "powerline": {
     "enabled": false,
     "separators": [
@@ -79,6 +104,7 @@
     ],
     "startCaps": [],
     "endCaps": [],
-    "autoAlign": false
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
   }
 }
