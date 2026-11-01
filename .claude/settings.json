@@ -107,6 +107,17 @@
           }
         ]
       }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "tldraw-offline",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/skills/tldraw-offline/inject-server-context.mjs SubagentStart"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -185,5 +196,6 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "tui": "fullscreen",
-  "theme": "dark"
+  "theme": "dark",
+  "agentPushNotifEnabled": true
 }

@@ -86,6 +86,7 @@ cask 'lm-studio' # run local LLMs
 cask 'macwhisper'
 cask 'openclaw' # openclaw.ai (fmr. clawdbot, moltbot)
 cask 'opencode-desktop' # OpenCode GUI (CLI managed separately)
+cask 'tldraw' # tldraw offline: whiteboard agents drive via local API (Develop > Install Agent Skills)
 cask 'wispr-flow'
 
 ## Dictation (local Whisper-based, see GH issue #1)
