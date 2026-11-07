@@ -51,7 +51,6 @@ return {
 
       vim.lsp.config.eslint = {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        root_dir = vim.fs.root(0, { ".eslintrc", ".eslintrc.js", ".eslintrc.json", "package.json" })
       }
 
       vim.lsp.config.jsonls = {
