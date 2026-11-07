@@ -16,6 +16,11 @@ fi
 # https://mise.jdx.dev/ide-integration.html#adding-shims-to-path-default-shell
 eval "$(mise activate bash --shims)"
 
+# Environment and PATH, here so non-interactive login shells get them too.
+# After Homebrew and mise so ~/bin comes first.
+source ~/.bash/env.sh
+source ~/.bash/android.sh
+
 # Also apply the interactive shell config:
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc

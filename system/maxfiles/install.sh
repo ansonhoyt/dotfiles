@@ -2,7 +2,7 @@
 # Install limit.maxfiles: a root LaunchDaemon that raises the system-wide
 # open-files limit at boot.
 #
-# Why: bash sets `ulimit -n 65536` (.bash/env.sh), but that only reaches
+# Why: bash sets `ulimit -n 65536` (.bash/options.sh), but that only reaches
 # processes spawned from a shell. GUI apps launched by launchd — Ghostty and
 # anything from Spotlight/Dock — inherit launchd's `maxfiles` (default 256).
 # 256 FDs surfaces as silent hangs (kitty-graphics fan-out, watchers, esbuild)

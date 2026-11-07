@@ -4,10 +4,16 @@ on:
   push:
     paths:
       - '.claude/hooks/**'
+      - '.bash/**'
+      - '.bashrc'
+      - '.bash_profile'
       - '.github/workflows/test-hooks.yml'
   pull_request:
     paths:
       - '.claude/hooks/**'
+      - '.bash/**'
+      - '.bashrc'
+      - '.bash_profile'
       - '.github/workflows/test-hooks.yml'
   workflow_dispatch:
 
@@ -26,3 +32,5 @@ jobs:
           jaq --version
       - name: Run hook tests
         run: bats .claude/hooks/test/
+      - name: Run shell tests
+        run: bats .bash/test/

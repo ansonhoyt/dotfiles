@@ -30,34 +30,33 @@ Files listed in `.stow-local-ignore` are automatically excluded from symlinking 
 
 ### Bash Configuration Loading Order
 
-1. **`.bash_profile`** (login shells) - sources `.bashrc`
-2. **`.bashrc`** (interactive shells) - Sets up:
-   - SSH agent initialization
-   - Homebrew environment (with Apple Silicon vs Intel detection)
-   - Loads all files from `~/.bash/*.sh` (aliases, functions, completions, etc.)
-   - Adds `~/bin` to PATH
+1. **`.bash_profile`** (login shells, including non-interactive `bash -lc`) - Sets up:
+   - Homebrew environment (with Apple Silicon vs Intel detection) and mise shims
+   - Sources `.bash/env.sh` and `.bash/android.sh`, then `.bashrc`
+2. **`.bashrc`** (interactive shells; returns early otherwise) - Sources `env.sh` and `android.sh` for non-login shells, then loads the interactive `~/.bash/*.sh` files
 3. **`.bash/init.sh`** - Initializes modern CLI tools (fzf, mise, zoxide, starship)
 
 Key bash modules in `.bash/`:
 
+- `env.sh` - Environment variables and PATH (login and interactive non-login shells)
+- `options.sh` - Interactive shell options (history, file descriptor limit)
 - `aliases.sh` - Command shortcuts, modern replacements (eza for ls, zoxide for cd)
 - `functions.sh` - Utility functions (authorize, listening)
 - `completions.sh` - Shell completions
-- `env.sh` - Environment variables
 - `prompt.sh` - Prompt configuration (overridden by starship)
 
 ### Configuration Structure
 
 ```
 .
-├── .bash/              # Modular bash configuration loaded by .bashrc
+├── .bash/              # Modular bash configuration loaded by .bash_profile and .bashrc
 ├── .config/            # XDG-style configs
 │   ├── git/           # Git config, ignore, attributes
 │   ├── nvim/          # Neovim (lazy.nvim setup)
 │   ├── starship.toml  # Prompt configuration
 │   ├── mise/          # Runtime version manager
 │   └── bat/           # bat (cat replacement) config
-├── bin/                # User scripts (in PATH via .bashrc)
+├── bin/                # User scripts (in PATH via .bash/env.sh)
 ├── system/             # Root LaunchDaemons (sudo, not stowed; per-dir install.sh — see docs/adr/0001)
 ├── .inputrc           # Readline configuration
 ├── .osx               # macOS defaults script
@@ -157,8 +156,8 @@ brew leaves                   # List installed packages (no dependencies)
 
 ## Important Notes
 
-- **Architecture Detection**: `.bashrc` detects Apple Silicon vs Intel and sets up Homebrew accordingly (`/opt/homebrew` vs `/usr/local`)
-- **SSH Agent**: Automatically started and managed by `.bashrc`
+- **Architecture Detection**: `.bash_profile` detects Apple Silicon vs Intel and sets up Homebrew accordingly (`/opt/homebrew` vs `/usr/local`)
+- **SSH Agent**: `.bash/env.sh` points `SSH_AUTH_SOCK` at the 1Password SSH agent
 - **Readline**: `.inputrc` configures case-insensitive completion, history search with arrow keys
 - **Git**: Config in `.config/git/config` with aliases (co, br, ci, st) and pull.rebase=true
 - **User Scripts**: Place custom scripts in `bin/` - automatically added to PATH

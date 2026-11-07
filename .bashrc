@@ -1,4 +1,4 @@
-# Interactive, non-login shell configuration
+# Interactive shell configuration (also sourced by login shells)
 
 # If not running interactively, don't do anything (leave this at the top of this file)
 [[ $- != *i* ]] && return
@@ -10,9 +10,15 @@ if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
   echo "     '/opt/homebrew/bin/bash' | sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash"
 fi
 
-# Load Bash configuration (order matters: env sets PATH before tools init)
-source ~/.bash/env.sh
-source ~/.bash/android.sh
+# Login shells already loaded these in .bash_profile. Non-login shells may
+# start from a GUI app without inheriting a login shell's environment.
+if ! shopt -q login_shell; then
+  source ~/.bash/env.sh
+  source ~/.bash/android.sh
+fi
+
+# Load interactive Bash configuration
+source ~/.bash/options.sh
 source ~/.bash/aliases.sh
 source ~/.bash/completions.sh
 source ~/.bash/functions.sh
