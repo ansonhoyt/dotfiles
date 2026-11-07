@@ -74,8 +74,8 @@ echo "Generating shell completions..."
 
 # Install mise-managed runtimes and CLIs (node, ruby, npm tools).
 # Needs mise (from brew bundle above) and ~/.config/mise/config.toml
-# (stowed above). Postinstall hooks sync agent skills and install
-# git hooks — see .config/mise/config.toml.
+# (stowed above). Postinstall hooks sync agent skills and bash
+# completions and install git hooks — see .config/mise/config.toml.
 echo ""
 echo "Installing mise-managed tools..."
 mise install

@@ -19,7 +19,7 @@ Bootstrap handles:
 
 - Homebrew + packages (`brew bundle --global`)
 - GNU Stow installation and stowing (symlinking dotfiles to home)
-- mise runtimes and CLIs (`mise install` — postinstall hooks add git hooks and agent skills)
+- mise runtimes and CLIs (`mise install` — postinstall hooks add git hooks, agent skills, and bash completions)
 - Claude Code plugin sync
 
 When done it prints the remaining manual steps.

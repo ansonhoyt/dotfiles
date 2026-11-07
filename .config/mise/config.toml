@@ -51,8 +51,34 @@ if command -v skills >/dev/null; then
 fi
 '''
 
+[tasks.sync-shell-completions]
+description = "Generate bash completions for tools that ship them"
+run = '''
+dir="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
+mkdir -p "$dir"
+# bash-completion loads <cmd>.bash from here on first <cmd><TAB>.
+# Keep the previous file if a generator fails.
+generate() {
+  cmd="$1"; shift
+  if "$@" > "$dir/$cmd.bash.tmp"; then
+    mv "$dir/$cmd.bash.tmp" "$dir/$cmd.bash"
+  else
+    rm -f "$dir/$cmd.bash.tmp"
+  fi
+}
+# Not needed for packslip tools (activated mise completes them) or for
+# mise itself (the Homebrew package installs its completion).
+generate herdr herdr completion bash
+generate ruff ruff generate-shell-completion bash
+generate uv uv generate-shell-completion bash
+generate uvx uvx --generate-shell-completion bash
+generate hunk hunk completion bash
+generate opencode opencode --completions bash
+'''
+
 [hooks]
 postinstall = [
   { run = "mise run sync-agent-skills" },
+  { run = "mise run sync-shell-completions" },
   { run = "hk install --global --mise" }, # install/update git hooks on tool install
 ]
