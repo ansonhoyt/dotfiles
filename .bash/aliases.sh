@@ -2,8 +2,8 @@
 # 'auto' shows colors unless output is piped or redirected
 alias grep='grep --color=auto'
 
-# Launch VLC
-alias vlc="open /Applications/VLC.app"
+# Launch VLC, or open files in it
+alias vlc='open -a VLC'
 
 # Lock screen (macOS)
 test "$(uname)" == 'Darwin' && alias lock='pmset displaysleepnow'
@@ -35,9 +35,11 @@ alias ....='cd ../../..'
 # Tools
 alias c='printf "\033[2J\033[3J\033[H" && claude'
 alias cx='printf "\033[2J\033[3J\033[H" && claude --permission-mode bypassPermissions'
+alias co='codex'
 alias coy='codex --profile yolo'
 alias d='docker'
 alias lg='lazygit'
+alias lzd='lazydocker'
 alias o='opencode'
 alias r='rails'
 alias rnt='rails new --template https://bitbucket.org/tiu/rails-application-template/raw/master/template.rb'
