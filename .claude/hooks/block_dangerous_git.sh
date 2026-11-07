@@ -8,6 +8,12 @@
 
 set -euo pipefail
 
+# Fail closed: any exit code other than 2 lets the command run.
+command -v jaq &>/dev/null || {
+  echo >&2 "BLOCKED: block_dangerous_git.sh needs jaq to check commands; install it (brew install jaq)."
+  exit 2
+}
+
 COMMAND=$(jaq -r '.tool_input.command // empty')
 [ -z "$COMMAND" ] && exit 0
 

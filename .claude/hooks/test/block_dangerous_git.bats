@@ -337,3 +337,10 @@ assert_passed() {
   run_hook 'gh api graphql -f query={viewer{login}}'
   assert_passed
 }
+
+# --- fail closed ---
+
+@test "missing jaq blocks instead of passing" {
+  PATH=/usr/bin:/bin run "$HOOK" <<< '{"tool_input":{"command":"git status"}}'
+  assert_blocked
+}
