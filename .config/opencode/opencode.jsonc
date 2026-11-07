@@ -1,3 +1,24 @@
 {
-  "$schema": "https://opencode.ai/config.json"
+  "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
+  "update": "disable", // mise manages the CLI
+  "permissions": [
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    // Read-only commands
+    { "action": "shell", "resource": "git blame *", "effect": "allow" },
+    { "action": "shell", "resource": "git check-ignore *", "effect": "allow" },
+    { "action": "shell", "resource": "git config get *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git ls-files *", "effect": "allow" },
+    { "action": "shell", "resource": "git show *", "effect": "allow" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "ls *", "effect": "allow" },
+    { "action": "shell", "resource": "pwd", "effect": "allow" },
+    { "action": "shell", "resource": "jq *", "effect": "allow" },
+    // --output writes a file
+    { "action": "shell", "resource": "git diff *--output*", "effect": "ask" },
+    { "action": "shell", "resource": "git log *--output*", "effect": "ask" },
+    { "action": "shell", "resource": "git show *--output*", "effect": "ask" },
+  ],
 }
