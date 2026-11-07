@@ -3,6 +3,7 @@
 [settings]
 auto_install = true
 idiomatic_version_file_enable_tools = ["node", "ruby"]
+minimum_release_age_excludes = ["npm:@opencode/cli"] # take OpenCode releases same day
 
 [settings.ruby]
 compile = false
