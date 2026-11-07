@@ -50,6 +50,10 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 vim.opt.undofile = true       -- Persistent undo history
 vim.opt.backup = false        -- Don't create backup files
 
+-- :grep searches like Telescope's live_grep (Neovim's default rg -uu also
+-- searches .gitignored files and .git/)
+vim.opt.grepprg = "rg --vimgrep --smart-case --hidden --glob=!.git/ --glob=!tmp/"
+
 -- Mouse and clipboard integration
 vim.opt.mouse = "a"           -- Enable mouse support in all modes
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard for yank/paste
