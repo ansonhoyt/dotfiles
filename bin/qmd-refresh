@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Refresh the qmd index. Run hourly by pitchfork (~/.config/pitchfork/config.toml).
+set -euo pipefail
+
+index="${XDG_CONFIG_HOME:-$HOME/.config}/qmd/index.yml"
+[[ -f $index ]] || exit 0
+
+# `qmd update` drops notes it can't see from the index. Skip the run while a
+# collection folder is unreadable or holds files iCloud hasn't downloaded
+# (evicted files become hidden .<name>.icloud placeholders). Under set -e, a
+# failed yq or find exits here, before qmd runs.
+paths=$(yq '.collections[].path' "$index")
+while IFS= read -r dir; do
+  [[ -n $dir ]] || continue
+  dir=${dir/#\~/$HOME}
+  if ! ls "$dir" >/dev/null 2>&1; then
+    echo "Collection folder unavailable; skipping: $dir"
+    exit 0
+  fi
+  # Follow a symlinked collection root, but not symlinks inside the collection.
+  placeholder=$(find -H "$dir" -name '.*.icloud' -print -quit)
+  if [[ -n $placeholder ]]; then
+    echo "Collection has files not downloaded from iCloud; skipping: $dir"
+    exit 0
+  fi
+done <<< "$paths"
+
+# Run outside any project so its .qmd index isn't picked up.
+cd "$HOME"
+qmd update
+qmd embed

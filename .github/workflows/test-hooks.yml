@@ -7,6 +7,7 @@ on:
       - '.bash/**'
       - '.bashrc'
       - '.bash_profile'
+      - 'bin/**'
       - '.github/workflows/test-hooks.yml'
   pull_request:
     paths:
@@ -14,6 +15,7 @@ on:
       - '.bash/**'
       - '.bashrc'
       - '.bash_profile'
+      - 'bin/**'
       - '.github/workflows/test-hooks.yml'
   workflow_dispatch:
 
@@ -34,3 +36,5 @@ jobs:
         run: bats .claude/hooks/test/
       - name: Run shell tests
         run: bats .bash/test/ .bash/fns/test/
+      - name: Run bin script tests
+        run: bats bin/test/ # yq is preinstalled on GitHub's Ubuntu runners

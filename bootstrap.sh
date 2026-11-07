@@ -80,6 +80,13 @@ echo ""
 echo "Installing mise-managed tools..."
 mise install
 
+# Start pitchfork's supervisor now and at login so global cron daemons such as
+# qmd-refresh run (see .config/pitchfork/config.toml). Both are idempotent.
+echo ""
+echo "Starting pitchfork supervisor..."
+mise exec -- pitchfork boot enable
+mise exec -- pitchfork supervisor start
+
 # Install tmux plugins. tmux.conf auto-clones TPM on first tmux launch,
 # but plugin install normally needs an interactive `prefix + I`; TPM's CLI
 # installer covers it here (idempotent, needs tmux + stowed tmux.conf).

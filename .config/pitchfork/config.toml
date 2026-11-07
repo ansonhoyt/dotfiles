@@ -1,0 +1,9 @@
+#:schema https://pitchfork.jdx.dev/schema.json
+# Global daemons. Cron schedules fire while the supervisor runs; bootstrap.sh
+# runs `pitchfork boot enable` to start it at login.
+
+[daemons.qmd-refresh]
+# Login shell: launchd's PATH lacks Homebrew, mise and ~/bin
+run = "bash -lc qmd-refresh"
+dir = "~"
+cron = "0 0 * * * *" # hourly
