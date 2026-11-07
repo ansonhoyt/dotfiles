@@ -33,4 +33,4 @@ jobs:
       - name: Run hook tests
         run: bats .claude/hooks/test/
       - name: Run shell tests
-        run: bats .bash/test/
+        run: bats .bash/test/ .bash/fns/test/
