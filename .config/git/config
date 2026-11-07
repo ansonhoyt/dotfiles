@@ -9,6 +9,8 @@
 	defaultBranch = master
 [pull]
 	rebase = true           # Rebase (instead of merge) on pull
+[fetch]
+	prune = true            # Drop origin/* refs for branches deleted on the remote
 [push]
 	autoSetupRemote = true  # Automatically set upstream branch on push
 [rebase]
