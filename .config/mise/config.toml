@@ -36,10 +36,12 @@ run = '''
 # Version-matched skills declared by packslip releases; prune only mise-owned links.
 mise skills sync --dir ~/.claude/skills --prune
 mise skills sync --dir ~/.agents/skills --prune
-if command -v hunk >/dev/null; then
-  mkdir -p ~/.claude/skills ~/.agents/skills
-  ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk-review
-  ln -sfn "$(dirname "$(hunk skill path)")" ~/.agents/skills/hunk-review
+# `command -v` also passes for an inactive mise shim, so check the reported path.
+if hunk_skill="$(hunk skill path hunk-review 2>/dev/null)" && [ -f "$hunk_skill" ]; then
+  for skills_dir in ~/.claude/skills ~/.agents/skills; do
+    mkdir -p "$skills_dir"
+    ln -sfn "$(dirname "$hunk_skill")" "$skills_dir/hunk-review"
+  done
 fi
 if command -v qmd >/dev/null; then
   qmd skill install --global --yes -f
