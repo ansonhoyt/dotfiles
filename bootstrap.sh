@@ -37,6 +37,13 @@ fi
 
 echo ""
 
+# Store .claude/settings.json key-sorted; Claude Code rewrites it in unstable
+# order (see .gitattributes). Filter config is per-clone, so set it here.
+git config --local filter.jsonsort.clean 'jq -S .'
+git config --local filter.jsonsort.smudge cat
+git config --local filter.jsonsort.required true
+git config --local diff.jsonsort.textconv 'jq -S .'
+
 # Prevent stow from "tree folding" runtime dirs into dotfiles
 mkdir -p ~/.agents
 mkdir -p ~/.claude

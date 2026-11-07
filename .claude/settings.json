@@ -1,7 +1,111 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "agentPushNotifEnabled": true,
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "enabledPlugins": {
+    "chrome-devtools-mcp@chrome-devtools-plugins": true,
+    "codex@openai-codex": true,
+    "qmd@qmd": true
+  },
   "env": {
     "DISABLE_AUTOUPDATER": "1"
+  },
+  "extraKnownMarketplaces": {
+    "chrome-devtools-plugins": {
+      "source": {
+        "repo": "ChromeDevTools/chrome-devtools-mcp",
+        "source": "github"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "repo": "openai/codex-plugin-cc",
+        "source": "github"
+      }
+    },
+    "qmd": {
+      "source": {
+        "repo": "tobi/qmd",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/rubocop_file.sh",
+            "type": "command"
+          },
+          {
+            "command": "~/.claude/hooks/markdownlint_file.sh",
+            "type": "command"
+          },
+          {
+            "command": "~/.claude/hooks/shellcheck_file.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|Write"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/block_dangerous_git.sh",
+            "type": "command"
+          },
+          {
+            "command": "~/.claude/hooks/allow_commands.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/allow_gem_github.rb",
+            "type": "command"
+          }
+        ],
+        "matcher": "WebFetch"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/allow_chrome_devtools.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "mcp__plugin_chrome-devtools-mcp_chrome-devtools__.*"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "/bin/sh -c 'rex __internal session-start --agent claude 2>/dev/null || true'",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "node ~/skills/tldraw-offline/inject-server-context.mjs SubagentStart",
+            "type": "command"
+          }
+        ],
+        "matcher": "tldraw-offline"
+      }
+    ]
   },
   "permissions": {
     "allow": [
@@ -44,115 +148,37 @@
       "Bash(pmset -g *)"
     ]
   },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/block_dangerous_git.sh"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/allow_commands.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "WebFetch",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/allow_gem_github.rb"
-          }
-        ]
-      },
-      {
-        "matcher": "mcp__plugin_chrome-devtools-mcp_chrome-devtools__.*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/allow_chrome_devtools.sh"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/rubocop_file.sh"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/markdownlint_file.sh"
-          },
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/shellcheck_file.sh"
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/bin/sh -c 'rex __internal session-start --agent claude 2>/dev/null || true'",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "SubagentStart": [
-      {
-        "matcher": "tldraw-offline",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/skills/tldraw-offline/inject-server-context.mjs SubagentStart"
-          }
-        ]
-      }
-    ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "npx ccstatusline@latest"
-  },
-  "enabledPlugins": {
-    "codex@openai-codex": true,
-    "chrome-devtools-mcp@chrome-devtools-plugins": true,
-    "qmd@qmd": true
-  },
-  "extraKnownMarketplaces": {
-    "openai-codex": {
-      "source": {
-        "source": "github",
-        "repo": "openai/codex-plugin-cc"
-      }
-    },
-    "chrome-devtools-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "ChromeDevTools/chrome-devtools-mcp"
-      }
-    },
-    "qmd": {
-      "source": {
-        "source": "github",
-        "repo": "tobi/qmd"
-      }
-    }
-  },
   "sandbox": {
-    "enabled": true,
     "autoAllowBashIfSandboxed": true,
+    "credentials": {
+      "envVars": [
+        {
+          "mode": "deny",
+          "name": "GH_TOKEN"
+        },
+        {
+          "mode": "deny",
+          "name": "GITHUB_TOKEN"
+        }
+      ]
+    },
+    "enabled": true,
+    "excludedCommands": [
+      "docker*",
+      "docker-compose*"
+    ],
+    "filesystem": {
+      "allowWrite": [
+        "~/.claude/plugins/data/codex-openai-codex",
+        "~/.local/share/mise",
+        "~/.cache"
+      ]
+    },
     "network": {
+      "allowLocalBinding": true,
+      "allowUnixSockets": [
+        "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+      ],
       "allowedDomains": [
         "github.com",
         "*.github.com",
@@ -163,39 +189,13 @@
         "index.rubygems.org",
         "pypi.org",
         "files.pythonhosted.org"
-      ],
-      "allowUnixSockets": [
-        "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-      ],
-      "allowLocalBinding": true
-    },
-    "filesystem": {
-      "allowWrite": [
-        "~/.claude/plugins/data/codex-openai-codex",
-        "~/.local/share/mise",
-        "~/.cache"
       ]
-    },
-    "credentials": {
-      "envVars": [
-        {
-          "name": "GH_TOKEN",
-          "mode": "deny"
-        },
-        {
-          "name": "GITHUB_TOKEN",
-          "mode": "deny"
-        }
-      ]
-    },
-    "excludedCommands": [
-      "docker*",
-      "docker-compose*"
-    ]
+    }
   },
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
-  "tui": "fullscreen",
+  "statusLine": {
+    "command": "npx ccstatusline@latest",
+    "type": "command"
+  },
   "theme": "dark",
-  "agentPushNotifEnabled": true
+  "tui": "fullscreen"
 }

@@ -23,6 +23,7 @@ _darcs
 
 \.git
 \.gitignore
+\.gitattributes
 ^/\.github   # repo-level GitHub config (workflows, dependabot)
 \.bats$      # bats test files (dev/CI, not runtime config)
 ^/\.bash/test$          # Bash startup tests (dev/CI, not runtime config)
