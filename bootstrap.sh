@@ -38,6 +38,7 @@ fi
 echo ""
 
 # Prevent stow from "tree folding" runtime dirs into dotfiles
+mkdir -p ~/.agents
 mkdir -p ~/.claude
 mkdir -p ~/.codex
 mkdir -p ~/.config/homebrew
