@@ -80,11 +80,17 @@ echo ""
 echo "Installing mise-managed tools..."
 mise install
 
-# Add browse MCP to OpenCode/Claude and pair the Chrome extension (idempotent).
-# Non-fatal: pairing waits on the Web Store extension.
+# OpenCode's browse MCP is stowed. Register missing Claude/Codex entries without
+# overwriting custom servers. Do not use `browse install`: even with updates
+# disabled, it installs a second, global npm copy that shadows mise's version.
 echo ""
-echo "Setting up browse..."
-mise exec -- browse install -a opencode claude codex || echo "🔥 browse pairing incomplete; re-run bootstrap"
+echo "Configuring mise-managed browse..."
+if ! mise exec -- claude mcp get browse >/dev/null 2>&1; then
+  mise exec -- claude mcp add browse --scope user --env OPENCODE_BROWSER_AUTO_UPDATE=notify -- mise exec -- browse mcp
+fi
+if ! mise exec -- codex mcp get browse >/dev/null 2>&1; then
+  mise exec -- codex mcp add browse --env OPENCODE_BROWSER_AUTO_UPDATE=notify -- mise exec -- browse mcp
+fi
 
 # Start pitchfork's supervisor now and at login so global cron daemons such as
 # qmd-refresh run (see .config/pitchfork/config.toml). Both are idempotent.
@@ -135,3 +141,5 @@ echo "  3. Raise GUI FD limits (fixes silent app hangs):"
 echo "       ./system/maxfiles/install.sh"
 echo "  4. (Optional, multi-user Macs) Install Logi Options+ FUS switcher:"
 echo "       ./system/logi-switch/install.sh"
+echo "  5. Install the browse Chrome extension, then pair it:"
+echo "       mise exec -- browse pair"

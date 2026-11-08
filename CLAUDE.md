@@ -105,7 +105,7 @@ Key bash modules in `.bash/`:
 brew bundle --global       # Homebrew packages
 stow --verbose --restow .  # Re-apply symlinks
 mise install               # mise runtimes and CLIs
-browse install -a opencode claude codex  # browse MCP + pair Chrome extension
+mise exec -- browse pair    # pair Chrome extension after bootstrap configures MCP
 
 # Manual, not run by bootstrap:
 ./.osx                     # macOS defaults
@@ -163,6 +163,7 @@ brew leaves                   # List installed packages (no dependencies)
 - **Git**: Config in `.config/git/config` with aliases (co, br, ci, st) and pull.rebase=true
 - **User Scripts**: Place custom scripts in `bin/` - automatically added to PATH
 - **Agent Instructions**: `.agents/AGENTS.md` is the single source of user-level instructions for coding agents. `.claude/CLAUDE.md` imports it (`@~/.agents/AGENTS.md`); `.codex/AGENTS.md` and `.config/opencode/AGENTS.md` are relative symlinks to it.
+- **Browse**: mise owns the CLI. MCP commands use `mise exec -- browse mcp` with auto-update set to `notify`. Bootstrap registers missing Claude/Codex servers; OpenCode's server is stowed. Pair with `browse pair`, not `browse install` (the latter installs a global npm copy that shadows mise).
 - **Claude Code**: Settings in `.claude/settings.json` with auto-updates disabled (managed by Homebrew). Git stores it key-sorted via the `jsonsort` filter (`.gitattributes`; configured per clone by `bootstrap.sh`), since Claude Code rewrites it in unstable key order. Runtime data (projects, history, etc.) lives in `~/.claude/` but is not version controlled.
 - **Antigravity CLI** (`agy`): Replaces gemini-cli. Uses `~/.gemini/` as app-data (settings in `~/.gemini/antigravity-cli/settings.json`, machine-specific), not version controlled — like `~/.claude/`. The former gemini-cli `.gemini/settings.json` + `policies/*.toml` were removed. Portable customizations, when added, are stowed under `.gemini/config/` (see Antigravity's built-in `agy-customizations` skill for the hook/rule/MCP schema).
 
