@@ -37,10 +37,9 @@ vim.opt.cmdheight = 0         -- Hide command line when not in use
 vim.opt.messagesopt = "wait:1500,history:500"
 vim.opt.showmode = false      -- Mode already shown in lualine
 
--- Folding: treesitter by default; LspAttach upgrades to LSP folds when supported
+-- Folding: use Tree-sitter consistently across languages and windows
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldtext = "v:lua.vim.lsp.foldtext()"
 vim.o.foldlevelstart = 99     -- Start with all folds open
 
 -- Session restore (auto-session)

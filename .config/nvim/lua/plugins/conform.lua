@@ -8,7 +8,7 @@ return {
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
-      python = { "ruff_format", "ruff_organize_imports" },
+      python = { "ruff_organize_imports", "ruff_format" },
       javascript = { "prettier" },
       javascriptreact = { "prettier" },
       typescript = { "prettier" },
@@ -31,10 +31,13 @@ return {
       end
     end, { desc = "Disable autoformat (! for buffer)", bang = true })
 
-    vim.api.nvim_create_user_command("FormatEnable", function()
-      vim.b.disable_autoformat = false
-      vim.g.disable_autoformat = false
-    end, { desc = "Re-enable autoformat" })
+    vim.api.nvim_create_user_command("FormatEnable", function(args)
+      if args.bang then
+        vim.b.disable_autoformat = false
+      else
+        vim.g.disable_autoformat = false
+      end
+    end, { desc = "Enable autoformat (! for buffer)", bang = true })
 
     vim.keymap.set({ "n", "v" }, "<leader>gf", function()
       require("conform").format({ async = true, lsp_format = "fallback" })

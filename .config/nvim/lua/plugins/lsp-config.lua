@@ -7,6 +7,7 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
+      automatic_enable = false, -- Native vim.lsp.enable below owns activation
       ensure_installed = {
         "lua_ls", -- Lua
         "ts_ls", -- TypeScript/JavaScript
@@ -83,19 +84,6 @@ return {
       -- Advertise cmp capabilities to all LSP servers
       vim.lsp.config('*', {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
-      })
-
-      -- Upgrade folds from treesitter to LSP when the server supports it.
-      -- Register before vim.lsp.enable() so existing buffers (e.g., `nvim file.py`)
-      -- don't miss the initial LspAttach fired synchronously by enable().
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(ev)
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          if client and client:supports_method('textDocument/foldingRange') then
-            local win = vim.api.nvim_get_current_win()
-            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
-          end
-        end,
       })
 
       vim.lsp.enable({ 'lua_ls', 'ts_ls', 'ruby_lsp', 'eslint', 'jsonls', 'basedpyright', 'ruff', 'taplo', 'terraformls', 'tflint' })
