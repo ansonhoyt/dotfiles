@@ -80,6 +80,12 @@ echo ""
 echo "Installing mise-managed tools..."
 mise install
 
+# Add browse MCP to OpenCode/Claude and pair the Chrome extension (idempotent).
+# Non-fatal: pairing waits on the Web Store extension.
+echo ""
+echo "Setting up browse..."
+mise exec -- browse install -a opencode claude codex || echo "🔥 browse pairing incomplete; re-run bootstrap"
+
 # Start pitchfork's supervisor now and at login so global cron daemons such as
 # qmd-refresh run (see .config/pitchfork/config.toml). Both are idempotent.
 echo ""

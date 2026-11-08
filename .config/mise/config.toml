@@ -3,13 +3,14 @@
 [settings]
 auto_install = true
 idiomatic_version_file_enable_tools = ["node", "ruby"]
-minimum_release_age_excludes = ["npm:@opencode/cli"] # take OpenCode releases same day
+minimum_release_age_excludes = ["npm:@opencode/cli", "npm:@opencode/browse"] # take OpenCode releases same day
 
 [settings.ruby]
 compile = false
 
 [env]
 HK_MISE = 1 # hk resolves tools via mise
+OPENCODE_BROWSER_AUTO_UPDATE = "notify" # mise manages browse; default self-runs `npm install -g`
 
 [tools]
 aube = "latest" # fast npm/yarn replacement; node stays mise-managed
@@ -26,6 +27,7 @@ uv = "latest" # Python packages, projects, and isolated CLI tools
 
 "npm:hunkdiff" = "latest" # `hunk` diff viewer
 "npm:@opencode/cli" = { version = "latest", allow_builds = ["@opencode/cli"] } # `opencode` v2 CLI
+"npm:@opencode/browse" = { version = "latest", allow_low_downloads = true } # `browse` MCP for your real Chrome; name <30 days old
 "npm:firebase-tools" = "latest" # `firebase` CLI
 # Chromium BiDi moved publishing from GitHub Actions to Google's CfT pipeline (upstream README).
 "npm:@mermaid-js/mermaid-cli" = { version = "latest", allow_builds = ["puppeteer"], trust_policy_excludes = ["chromium-bidi@157.0.8090-0"] } # `mmdc` diagrams (snacks.image); Puppeteer downloads Chrome

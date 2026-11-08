@@ -105,6 +105,7 @@ Key bash modules in `.bash/`:
 brew bundle --global       # Homebrew packages
 stow --verbose --restow .  # Re-apply symlinks
 mise install               # mise runtimes and CLIs
+browse install -a opencode claude codex  # browse MCP + pair Chrome extension
 
 # Manual, not run by bootstrap:
 ./.osx                     # macOS defaults
