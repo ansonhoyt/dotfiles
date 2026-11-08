@@ -16,6 +16,7 @@ aube = "latest" # fast npm/yarn replacement; node stays mise-managed
 herdr = "latest" # terminal agent multiplexer
 hk = "latest" # git hooks
 node = "lts"
+packslip = "latest"
 pitchfork = "latest" # a CLI for managing daemons
 python = "latest"
 ruby = "latest"
